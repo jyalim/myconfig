@@ -1,0 +1,191 @@
+# Configuration file for dircolors, a utility to help you set the
+# LS_COLORS environment variable used by GNU ls with the --color option.
+
+# The keywords COLOR, OPTIONS, and EIGHTBIT (honored by the
+# slackware version of dircolors) are recognized but ignored.
+
+# Below, there should be one TERM entry for each termtype that is colorizable
+
+TERM linux
+TERM linux-c
+TERM mach-color
+TERM console
+TERM con132x25
+TERM con132x30
+TERM con132x43
+TERM con132x60
+TERM con80x25
+TERM con80x28
+TERM con80x30
+TERM con80x43
+TERM con80x50
+TERM con80x60
+TERM xterm
+TERM xterm-color
+TERM xterm-debian
+TERM xterm-256color
+TERM rxvt
+TERM screen
+TERM screen-w
+TERM screen-256color
+TERM vt100
+
+# Below are the color init strings for the basic file types. A color init
+# string consists of one or more of the following numeric codes:
+# Attribute codes:
+# 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
+# Text color codes:
+# 30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
+# Background color codes:
+# 40=black 41=red 42=green 43=yellow 44=blue 45=magenta 46=cyan 47=white
+RESET                 00;       # Resetting.
+NORMAL                00;       # Global Default
+FILE                  00;       # normal file
+DIR                   38;05;66  # directory
+LINK                  38;05;109 # symbolic link. Can be set to 'target'.
+FIFO                  00;33;01  # named pipe
+SOCK                  00;35;01  # socket
+DOOR                  00;35;04  # door
+BLOCK                 00;93;01  # block device driver
+CHAR                  00;33     # character device driver
+ORPHAN                38;05;203 # symlink to nonexistent file
+MISSING               38;05;210 # nonexistent file with symlink
+SETUID                37;41     # file that is setuid ( u+s )
+SETGID                30;43     # file that is setgid ( g+s )
+CAPABILITY            30;41     # Wut
+STICKY_OTHER_WRITABLE 30;42     # dir that is sticky and other-writable ( +t, o+w )
+STICKY                37;44     # Sticky bit set ( +t ) other not other-writable
+EXEC                  38;05;72  # for files with executible bit
+
+# List any file extensions like '.gz' or '.tar' that you would like ls
+# to colorize below. Put the extension, a space, and the color init string.
+# (and any comments you want to add after a '#')
+
+# This is for files with execute permission:
+*.cmd        38;05;72
+*.exe        38;05;72
+*.com        38;05;72
+*.btm        38;05;72
+*.bat        38;05;72
+
+# image formats
+*.eps        38;05;24
+*.jpg        38;05;24
+*.png        38;05;24
+*.gif        38;05;24
+*.bmp        38;05;24
+*.ppm        38;05;24
+*.tga        38;05;24
+*.xbm        38;05;24
+*.xpm        38;05;24
+*.tif        38;05;24
+*.png        38;05;24
+*.mkv        38;05;24
+*.mp4        38;05;24
+*.mpeg       38;05;24
+*.mpg        38;05;24
+*.avi        38;05;24
+*.fli        38;05;24
+*.gl         38;05;24
+*.dl         38;05;24
+
+# source code files special
+*.f90        38;05;029
+*.F90        38;05;029
+*.fpp        38;05;029
+*.FPP        38;05;029
+*.f95        38;05;029
+*.F95        38;05;029
+*.f03        38;05;029
+*.F03        38;05;029
+*.f08        38;05;029
+*.F08        38;05;029
+*.f          38;05;029
+*.F          38;05;029
+*.f77        38;05;029
+*.F77        38;05;029
+*.c          38;05;029
+*.cpp        38;05;029
+*.tex        38;05;029
+*.sty        38;05;029
+*.py         38;05;029
+*.pl         38;05;029
+*.sh         38;05;029
+*.bash       38;05;029
+*.zsh        38;05;029
+*.rkt        38;05;029
+*.scheme     38;05;029
+
+# source code files general 
+*.PL         38;05;187
+*.pm         38;05;187
+*.tt         38;05;187
+*.yml        38;05;187
+*.sql        38;05;187
+*.html       38;05;187
+*.css        38;05;187
+*.js         38;05;187
+*.awk        38;05;187
+
+# module/header/support files
+*.mod        38;05;195
+*.h          38;05;195
+*.hpp        38;05;195
+*.pyc        38;05;195
+
+# data files
+*.dat        38;05;110
+*.txt        38;05;110
+*.csv        38;05;110
+*.tsv        38;05;110
+
+# document files
+*README*     38;05;103
+*.pdf        38;05;103 
+*.djvu       38;05;103
+*.rtf        38;05;103 
+*.otf        38;05;103
+*.md         38;05;103 
+*.odt        38;05;103
+
+# prop. document files 
+*.doc        38;05;218 
+*.docx       38;05;218 
+
+# backup/storage files
+*.bak        38;05;146
+*.tar        38;05;146
+*.tgz        38;05;146
+*.arj        38;05;146
+*.taz        38;05;146
+*.lzh        38;05;146
+*.zip        38;05;146
+*.z          38;05;146
+*.Z          38;05;146
+*.gz         38;05;146
+*.bz2        38;05;146
+*.deb        38;05;146
+*.rpm        38;05;146
+*.jar        38;05;146
+*.dmg        38;05;146
+
+# Configuration Files
+*rc          38;05;065  
+*conf        38;05;065
+*config      38;05;065
+*profile     38;05;065
+*login       38;05;065
+*logout      38;05;065
+*info        38;05;065
+
+# Log/History Files
+*log         38;05;108
+*history     38;05;108
+
+# Formatted Data Files
+*.ods        38;05;215
+
+
+# Crap files 
+# .DS_Store  00;30
+# .localized 00;30

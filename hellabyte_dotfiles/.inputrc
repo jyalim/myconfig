@@ -1,0 +1,33 @@
+# ~/.inputrc
+# Note that lines starting with $ indicate conditions.
+
+# \C- \M- \e : Control Meta Escape ## Full words work too.
+# ---------------------------------------------------------------
+# \e = Option
+#"\et": "&& echo 'true' || echo 'false'"
+#"\eo": "> /dev/null"
+#"\el": "| less"
+#"\em": "man "
+"\es": "\C-e &> /dev/null &"
+# Changes default history maneuvering with arrow keys.
+#   [A  up 
+#   [B  down 
+#   [5~ page up
+#   [6~ page down 
+"\e[A": history-search-backward   
+"\e[B": history-search-forward
+"\C-p": history-search-backward   
+"\C-n": history-search-forward
+"\e[5~": previous-history
+"\e[6~": next-history
+# "\es": forward-search-history
+#
+
+"\ec": "cd 		"
+	
+
+# Set to audible to announce to the World how much you suck.
+set bell-style visible
+
+# No case for li3f
+set completion-ignore-case on
