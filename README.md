@@ -3,11 +3,11 @@ myconfig
 
 Configuration files for terminals.
 
-This repository was created to simplify the process of configuring various 
-machines.
+This repository was created to simplify the process of configuring 
+various machines.
 
-Lightly tested with kernels Darwin and Linux ( flavors Arch, CentOS, and 
-Ubuntu ).
+Lightly tested with kernels Darwin and Linux 
+( flavors Arch, CentOS, and Ubuntu ).
 
 Installing 
 ==========
@@ -16,13 +16,20 @@ Simply run
 
     $ bash install.bash
 
-from the cloned directory. This will unpack the tarball, 
-configuration\_files.tar.gz into the user's home directory.
+from the cloned directory. This will copy over the subtree in
+hellabyte_dotfiles into the installer's home directory.
+Running
+
+    $ bash install.bash 1
+
+will force the copy and overwrite existing files. 
+Note that anything other than 1 in that first
+position (excluding a blank) will result in an error.
+
 
 Current Conf Files/Directories
 ==============================
 
-* .aspell.en.prepl
 * .bash\_profile  
 * .bashrc  
 * .dircolors  
@@ -33,14 +40,30 @@ Current Conf Files/Directories
 * .login  
 * .toprc
 * .tmux.conf  
-* .vim -- Is a directory, containing colors and swap  
-* .vim-tmp -- Is another directory for temp vim files  
+* .vim -- Is a directory, containing colors, syntax, and plugins.
+* .vim-tmp -- Is another directory for temp vim files.
 * .vimrc  
 
-Current Dependencies
-====================
+Vim Plugins
+===========
 
-* GNU-aspell
+* SnipMate ( A lot of LaTeX goodies )
+* Multiple Cursors
+
+Vim Colors
+==========
+
+The default colorscheme, mymoss.vim, is configured to handle 256 color
+terminals. 
+It has most of the relevant keywords for configuring any new/old 
+colorscheme.
+So even if you don't like it, it can serve as a template for a new
+terminal colorscheme.
+
+
+Configures the Following
+========================
+
 * Bash 3.0 or greater  
 * Readline  
 * tmux  
@@ -50,18 +73,7 @@ Current Dependencies
 * dircolors  
 * quick-cd  
 * gnuplot
-* curl  
-* ipconfig  
 * htop
 * top
 
-Future Versions
-===============
-
-Besides including more updated versions of the various files, the following 
-services should be added.
-
-* A way to install basic tools and dependencies of the configuration files 
-  if need be.
-
-2013 - November - 21
+2014 - September - 26
