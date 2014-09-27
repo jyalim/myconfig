@@ -1,17 +1,20 @@
 #!/usr/bin/env bash
 # .bash_profile
-# ==============================================================================
+# ======================================================================
 # Run on login.
 # Called by /private/etc/{profile,bashrc}
-# ------------------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # NOTE 
 # aliases   => $HOME/.login
 # functions => $HOME/.bashrc
-# ------------------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # PURPOSE
 #   Set local environment for user.
 #   Set history options, set dirs, and source necessary supplements.
-# ==============================================================================
+# ----------------------------------------------------------------------
+# AUTHOR: Nathaniel Hellabyte
+# https://github.com/hellabyte/myconfig
+# ======================================================================
 
 SOURCED_PROFILE=1
 if [[ -f "${HOME}/.bashrc" ]] && [[ $SOURCED_RC -eq 0 ]]; then
@@ -34,8 +37,8 @@ else
     shopt -s autocd
 fi
 
-# For forward search with readline -- Stops terminal from stopping when C-s
-# is pressed.
+# For forward search with readline -- Stops terminal from stopping 
+# when C-s is pressed.
 stty -ixon
 
 # For using vim as manpager: (be sure to put let $PAGER='' in .vimrc)
@@ -47,7 +50,7 @@ export LESS_TERMCAP_mb=$'\e[01;38;05;072m' # begin blinking
 export LESS_TERMCAP_md=$'\e[01;38;05;066m' # begin bold
 export LESS_TERMCAP_me=$'\e[0m'            # end mode
 export LESS_TERMCAP_se=$'\e[0m'            # end standout-mode
-export LESS_TERMCAP_so=$'\e[00;38;05;246m' # begin standout-mode - info box
+export LESS_TERMCAP_so=$'\e[00;38;05;246m' # begin standout-mode-infobox
 export LESS_TERMCAP_ue=$'\e[0m'            # end underline
 export LESS_TERMCAP_us=$'\e[04;38;05;073m' # begin underline
 

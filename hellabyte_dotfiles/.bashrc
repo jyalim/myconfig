@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
-# ---------------------------------------------------------------------------
+# ----------------------------------------------------------------------
 # ${HOME}/.bashrc
-#   Contains the bash functions that will be sourced.
-# ===========================================================================
+#   Contains all of the bash functions that will need to be sourced.
+#   Environment Function Runtime Configuration
+# ----------------------------------------------------------------------
+# AUTHOR: Nathaniel Hellabyte
+# https://github.com/hellabyte/myconfig
+# ======================================================================
 
 SOURCED_RC=1
 function op_set() {
@@ -26,7 +30,9 @@ function op_set() {
     "/usr/local/maple/bin" "/usr/local/sage"
     "/usr/local/mathematica/Executables" "/usr/games"
   )
-  local mps="local/share/man";local lps="local/lib";local ips="local/include"
+  local mps="local/share/man"
+  local lps="local/lib"
+  local ips="local/include"
   local man_paths=( "${H}/.${mps}" "${H}/${mps}" "${H}/share/man" 
     "${H}/.local/usr/share/man" "${H}/local/usr/share/man" 
     "${H}/.local/usr/local/share/man" "${H}/local/usr/local/share/man" )
@@ -45,38 +51,38 @@ function op_set() {
   OLDCPATH=$CPATH
 
   case "$(uname -s)" in
-      "Darwin")
-          :
-          ;;
-      "Linux")
-          LINUX_DISTRIBUTIONS=("ubuntu" "centos" "arch linux")
-          for d in ${LINUX_DISTRIBUTIONS[@]}; do
-              # [[ -f "${HOME}/bin" ]] && PATH="${HOME}/bin:${PATH}" || :
-              local rel='/etc/*-release'
-              if [[ "$(cat $rel | grep -i $f &> /dev/null)" -eq "0" ]]; then 
-                  case "${d}" in
-                      "centos")
-                          :
-                          ;;
-                      "rocks")
-                          :
-                          ;;
-                      "ubuntu")
-                          :
-                          ;;
-                      "arch linux")
-                          :
-                          ;;
-                      : | * | ? )
-                          :
-                          ;;
-                  esac
-              fi
-           done; unset d; unset LINUX_DISTRIBUTIONS
-           ;;
-      : | * | ? )
-          :
-          ;;
+    "Darwin")
+      :
+      ;;
+    "Linux")
+      LINUX_DISTRIBUTIONS=("ubuntu" "centos" "arch linux")
+      for d in ${LINUX_DISTRIBUTIONS[@]}; do
+        # [[ -f "${HOME}/bin" ]] && PATH="${HOME}/bin:${PATH}" || :
+        local rel='/etc/*-release'
+        if [[ "$(cat $rel | grep -i $f &> /dev/null)" -eq "0" ]]; then 
+          case "${d}" in
+            "centos")
+              :
+              ;;
+            "rocks")
+              :
+              ;;
+            "ubuntu")
+              :
+              ;;
+            "arch linux")
+              :
+              ;;
+            : | * | ? )
+              :
+              ;;
+          esac
+        fi
+      done; unset d; unset LINUX_DISTRIBUTIONS
+      ;;
+    : | * | ? )
+      :
+      ;;
   esac
   PATH=''
   for xp in ${x_paths[@]}; do
@@ -85,7 +91,8 @@ function op_set() {
 
   local mpath=''
   for mp in ${man_paths[@]}; do
-      [[ -d $mp ]] && ! [[ $mpath =~ $mp ]] && mpath="${mpath}:${mp}" || :
+      [[ -d $mp ]] && ! [[ $mpath =~ $mp ]] \
+        && mpath="${mpath}:${mp}" || :
   done; unset mp; #mpath="${mpath}:${OLDMPATH}"
 
   lpath=$OLDLPATH
@@ -112,9 +119,10 @@ function op_set() {
   ! [[ -z $inccpath ]] &&  CPATH=$inccpath         || :
   unset mpath; unset lpath; unset ldpath; unset incpath; unset inccpath
 }
+
 [[ $SOURCED_PATHS -ne 1 ]] && op_set || :
 
-# Functions
+# Main Functions
 function alert() {
   local BELL=""
   echo -e $BELL
@@ -199,6 +207,10 @@ function geo_ip_info() {
 
 function duh() {
     du --si $1 | tail -1
+}
+
+now() {
+    echo $(date +"%Y.%m.%d-%H.%M.%S")
 }
 
 function scd() {
@@ -348,6 +360,8 @@ function common_dir_maker() {
 
 common_dir_maker
 
+# ======================================================================
+# Vital to multi file sourcing
 function sourcing() {
   local LOGIN_PATH="${HOME}/.login"
   local GITCOMP_PATH="${HOME}/.git-completion"
@@ -382,31 +396,32 @@ sourcing
 
 SOURCED_PATHS=1
 
-now() {
-    echo $(date +"%Y.%m.%d-%H.%M.%S")
-}
+# ======================================================================
+
 
 
 # Taken from: http://alias.sh/filesystem-markers-jump
 # Explanation/author's blog: http://jeroenjanssens.com
 #export MARKPATH=$HOME/.marks
 #function jump { 
-#    local jd=${1:-''}
-#    if [[ -z $jd ]]; then echo "No jump mark given."; return; fi
-#    local jl="${MARKPATH}/${jd}"
-#    cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: ${jd}"
+#  local jd=${1:-''}
+#  if [[ -z $jd ]]; then echo "No jump mark given."; return; fi
+#  local jl="${MARKPATH}/${jd}"
+#  cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: ${jd}"
 #}; alias jp='jump'
 #function mark { 
-#    [[ -d $MARKPATH ]] && : || mkdir -p $MARKPATH; local jl="${MARKPATH}/${1}"
-#    ln -s $(pwd) $jl
+#  [[ -d $MARKPATH ]] && : || (mkdir -p $MARKPATH; \
+#    local jl="${MARKPATH}/${1}")
+#  ln -s $(pwd) $jl
 #}
 #function unmark { 
-#    local jd=${1:-''}; local jl="${MARKPATH}/${jd}"
-#    if [[ -z $jd ]]; then echo "No unmark given."; return; fi
-#    rm -i $jl
+#  local jd=${1:-''}; local jl="${MARKPATH}/${jd}"
+#  if [[ -z $jd ]]; then echo "No unmark given."; return; fi
+#  rm -i $jl
 #}
 #function marks {
-#    ls -l $MARKPATH | perl -lane 'print "$F[-3] -> $F[-1]" if /\-\>/' && echo
+#  ls -l $MARKPATH | perl -lane 'print "$F[-3] -> $F[-1]" if /\-\>/' \ 
+#   && echo
 #}
 
 # BEGIN QUICK-CD FUNCTIONS
