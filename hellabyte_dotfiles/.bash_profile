@@ -37,8 +37,9 @@ else
   shopt -s autocd
 fi
 
-export PYTHONSTARTUP=$HOME/.pythonrc
-
+# This runs ~/.pythonrc everytime python is run interactively
+#   (unless -i is passed with a script).
+export PYTHONSTARTUP="${HOME}/.pythonrc"
 
 # For forward search with readline -- Stops terminal from stopping 
 # when C-s is pressed.
