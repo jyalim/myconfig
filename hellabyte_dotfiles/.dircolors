@@ -1,10 +1,17 @@
+#!/usr/bin/env dircolors
+# ======================================================================
 # Configuration file for dircolors, a utility to help you set the
 # LS_COLORS environment variable used by GNU ls with the --color option.
-
+#
 # The keywords COLOR, OPTIONS, and EIGHTBIT (honored by the
 # slackware version of dircolors) are recognized but ignored.
-
+#
 # Below, there should be one TERM entry for each termtype that is colorizable
+#
+# ----------------------------------------------------------------------
+# AUTHOR: Nathaniel Hellabyte
+# https://github.com/hellabyte/myconfig
+# ======================================================================
 
 TERM linux
 TERM linux-c

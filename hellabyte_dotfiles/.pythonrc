@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # ~/.pythonrc
 # Runs on python startup ( shells )
+# ----------------------------------------------------------------------
+# AUTHOR: Nathaniel Hellabyte
+# https://github.com/hellabyte/myconfig
+# ======================================================================
 
 # enable syntax completion in python shells
 try:

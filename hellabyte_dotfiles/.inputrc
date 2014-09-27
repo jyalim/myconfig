@@ -1,9 +1,13 @@
 # ~/.inputrc
-# Note that lines starting with $ indicate conditions.
-
-# \C- \M- \e : Control Meta Escape ## Full words work too.
+# ----------------------------------------------------------------------
+# AUTHOR: Nathaniel Hellabyte
+# https://github.com/hellabyte/myconfig
 # ---------------------------------------------------------------
-# \e = Option
+# NOTE: Lines starting with $ indicate conditions.
+#
+# \C- \M- \e : Control Meta Escape ## Full words work too.
+# \e = Option/Escape/Alternate
+# ======================================================================
 #"\et": "&& echo 'true' || echo 'false'"
 #"\eo": "> /dev/null"
 #"\el": "| less"

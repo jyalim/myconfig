@@ -1,14 +1,19 @@
 " .vimrc
-" 2013 - 08 - 04 
+" 2014 - 09 - 26 
 " ---------------------------------------------------------------------
 " Note that all options can be defined and researched by using builtin 
 "   docs.
 "       :help <setting>
 " will bring up the settings help text.
 " ---------------------------------------------------------------------
-" Many of the commands and settings on this page were adapted from this 
+" Some of the commands and settings on this page were adapted from this 
 "   site
 "       http://items.sjbach.com/319/configuring-vim-right
+" Others were found on stackoverflow and various blogs.
+" EMACS keybinding section was all me though.
+" ----------------------------------------------------------------------
+" AUTHOR: Nathaniel Hellabyte
+" https://github.com/hellabyte/myconfig
 " =====================================================================
 
 " Turns off vi-compatability

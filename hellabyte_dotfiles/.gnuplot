@@ -1,4 +1,9 @@
 #!/usr/bin/env gnuplot
+# ----------------------------------------------------------------------
+# AUTHOR: Nathaniel Hellabyte
+# https://github.com/hellabyte/myconfig
+# ======================================================================
+
 
 # Enable Macros
 set macros
