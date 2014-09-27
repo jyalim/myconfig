@@ -171,12 +171,15 @@ EXEC                  38;05;72  # for files with executible bit
 *.Z          38;05;146
 *.gz         38;05;146
 *.bz2        38;05;146
-*.deb        38;05;146
-*.rpm        38;05;146
 *.jar        38;05;146
-*.dmg        38;05;146
+#
+# storage/disk files
+*.deb        38;05;188
+*.rpm        38;05;188
+*.dmg        38;05;188
+*.img        38;05;188
 
-# Configuration Files
+# configuration files
 *rc          38;05;065  
 *conf        38;05;065
 *config      38;05;065
@@ -191,7 +194,6 @@ EXEC                  38;05;72  # for files with executible bit
 
 # Formatted Data Files
 *.ods        38;05;215
-
 
 # Crap files 
 # .DS_Store  00;30

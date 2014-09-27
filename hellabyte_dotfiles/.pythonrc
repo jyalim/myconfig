@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # ~/.pythonrc
-# Runs on python startup ( shells )
+# Runs on python startup ( interactive shells )
+# Should not run when python is run with a script or with -c or with -i
 # ----------------------------------------------------------------------
 # AUTHOR: Nathaniel Hellabyte
 # https://github.com/hellabyte/myconfig
@@ -8,9 +9,7 @@
 
 # enable syntax completion in python shells
 try:
-    import readline
+  import readline, rlcompleter
+  readline.parse_and_bind("tab: complete")
 except ImportError:
-    print "Module readline not available."
-else:
-    import rlcompleter
-    readline.parse_and_bind("tab: complete")
+  print "Module readline not available."

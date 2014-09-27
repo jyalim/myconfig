@@ -32,10 +32,13 @@ export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='01;20'
 shopt -s extglob histappend 
 if [[ ${BASH_VERSION} =~ ^[0-3] ]]; then
-    :
+  :
 else
-    shopt -s autocd
+  shopt -s autocd
 fi
+
+export PYTHONSTARTUP=$HOME/.pythonrc
+
 
 # For forward search with readline -- Stops terminal from stopping 
 # when C-s is pressed.
@@ -56,12 +59,12 @@ export LESS_TERMCAP_us=$'\e[04;38;05;073m' # begin underline
 
 # Setting colors for file types with gnu-dircolors
 if [ $TERM != "dumb" ]; then
-    if [[ "$(uname -s)" == "Darwin" ]]; then
-        export LS_OPTIONS='--color=auto'
-        command -v gdircolors &> /dev/null && 
-            eval $(gdircolors -b ~/.dircolors) || :
-    else
-        eval $(dircolors -b ~/.dircolors)
-    fi
+  if [[ "$(uname -s)" == "Darwin" ]]; then
+    export LS_OPTIONS='--color=auto'
+    command -v gdircolors &> /dev/null && 
+      eval $(gdircolors -b ~/.dircolors) || :
+  else
+    eval $(dircolors -b ~/.dircolors)
+  fi
 fi
 
