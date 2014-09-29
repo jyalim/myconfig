@@ -32,13 +32,17 @@ if [[ $force_opt == '' ]]; then
   echo "Unforced copy complete."
 elif [[ $force_opt -eq 1337 ]]; then
   ! [[ -d $spcdir ]] && mkdir -pv $spcdir || :
-  for f in $(find -path $srcdir/* -prune); do
-    oldname=$(basename $f)             # Could also do $(echo ${f##*/})
-    oldpath="${tardir}/${oldname}"
-    if [[ -e $oldpath ]]; then
-      mv -v $oldpath $spcdir
+  for newfile in $(find -path $srcdir/* -prune); do
+    oldname=$(basename $newfile)  # Could also do $(echo ${newfile##*/})
+    oldfile="${tardir}/${oldname}"
+    if [[ -e $oldfile ]]; then
+      if [[ -d $oldfile ]] || ! [[ $(diff $oldfile $newfile) == '' ]]; 
+        then
+        # Only back up if changes exist or it's a directory.
+        mv -v $oldfile $spcdir
+      fi
     fi
-    cp -rv $f $tardir
+    cp -rv $newfile $tardir
   done
   echo "Forced copy complete."
 else
