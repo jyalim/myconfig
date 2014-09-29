@@ -1,32 +1,58 @@
 #!/usr/bin/env bash
-
+#
 # Installs configuration files to User's home directory
-# TODO - Backup files that are being replaced
+# First argument specifies whether or not to backup files that will
+# be overwritten when exactly equal to 1337.
+# Second argument specifies prefix (where to install, $HOME by default).
+# ----------------------------------------------------------------------
+
 
 force_opt=${1:-''}
+prefix=${2:-"$HOME"}
 srcdir="./hellabyte_dotfiles"
-tardir="$HOME"
+tardir="${prefix}"
+bakdir="${tardir}/.local/etc/profile-bak"
+now=$(date +"%Y.%m.%d-%H.%M")
+spcdir="${bakdir}/${now}"
 
-echo "Default is to not force the install."
-echo "Rerun the bash install with 1 for the \$1 argument to force the
-      install"
+cat << __EOF
+------------------------------------------------------------------------
+Default is to not force the install.
+Rerun the bash install with 1337 for the \$1 argument to force install.
+
+Forcing an install will move old files to 
+  
+  $spcdir
+
+------------------------------------------------------------------------
+__EOF
 
 if [[ $force_opt == '' ]]; then
-  cp -r $srcdir/* $tardir
-  echo "Unforced copy complete"
-else if [[ $force_opt == '1' ]]; then
-  cp -rf $srcdir/* $tardir
-  echo "Forced copy complete"
+  cp -rv $srcdir/* $tardir
+  echo "Unforced copy complete."
+elif [[ $force_opt -eq 1337 ]]; then
+  ! [[ -d $spcdir ]] && mkdir -pv $spcdir || :
+  for f in $(find -path $srcdir/* -prune); do
+    oldname=$(basename $f)             # Could also do $(echo ${f##*/})
+    oldpath="${tardir}/${old}"
+    if [[ -e $oldpath ]]; then
+      mv -v $oldpath $spcdir
+    fi
+    cp -rv $f $tardir
+  done
+  echo "Forced copy complete."
 else
-  echo "The first argument that was passed was: $1"
-  echo "This is not equivalent to 1 or blank."
-  echo "If \$1 (the first argument passed to the script) is set to 1,"
-  echo "then the copy will be forced and the files from here will "
-  echo "replace defaults."
-  echo ""
-  echo "If a parameter was passed to this install script by mistake,"
-  echo "Please try again without the parameter. "
+  cat << __EOF
+========================================================================
+The first argument that was passed was: $force_opt
+This is not equivalent to 1337 or blank.
+If \$1 (the first argument passed to the script) is set to 1337,
+then the copy will be forced and the files from here will 
+replace defaults.
+
+If a parameter was passed to this install script by mistake,
+please try again without the parameter. 
+========================================================================
+__EOF
   exit 3
 fi
-
-
