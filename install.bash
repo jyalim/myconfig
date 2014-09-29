@@ -28,7 +28,9 @@ Forcing an install will move old files to
 __EOF
 
 if [[ $force_opt == '' ]]; then
-  cp -rv $srcdir/* $tardir
+  for newfile in $(find -path $srcdir/* -prune); do
+    cp -rv $newfile $tardir
+  done
   echo "Unforced copy complete."
 elif [[ $force_opt -eq 1337 ]]; then
   ! [[ -d $spcdir ]] && mkdir -pv $spcdir || :
