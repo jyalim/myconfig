@@ -170,7 +170,7 @@ inoremap <C-d> <delete>
 inoremap <C-w> <C-d>
 inoremap <C-s> <C-o>f
 inoremap <Return> <C-j>
-" EMACS keybindings for command line mode
+" EMACS keybindings for command line mode 
 cnoremap <C-x> <C-f>
 cnoremap <C-f> <right>
 cnoremap <C-b> <left>
