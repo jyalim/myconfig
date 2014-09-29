@@ -45,7 +45,7 @@ if [[ $force_opt == '' ]]; then
   done
   echo "Unforced/noclobber copy complete."
 elif [[ $force_opt -eq 1337 ]]; then
-  ! [[ -d $spcdir ]] && mkdir -pv $spcdir || :
+  ! [[ -d $spcdir ]] && mkdir -p $spcdir || :
   for newfile in $(find -path $srcdir/* -prune); do
     oldname=$(basename $newfile)  # Could also do $(echo ${newfile##*/})
     oldfile="${tardir}/${oldname}"
