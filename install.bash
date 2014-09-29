@@ -16,13 +16,17 @@ now=$(date +"%Y.%m.%d-%H.%M")
 spcdir="${bakdir}/${now}"
 
 cat << __EOF
+
 ------------------------------------------------------------------------
+
 Default is to not force the install.
 Rerun the bash install with 1337 for the \$1 argument to force install.
 
 Forcing an install will move old files to 
   
   $spcdir
+
+If forced, this directory will not be kept if no backups are made.
 
 ------------------------------------------------------------------------
 __EOF
@@ -53,7 +57,15 @@ elif [[ $force_opt -eq 1337 ]]; then
     fi
     cp -nrv $newfile $tardir
   done
-  echo "Forced/Backed up copy complete."
+  readarray backup_check < <(ls -A1 $spcdir)
+  nBack=${#backup_check[@]}
+  echo "Forced install complete."
+  if [[ $nBack -eq 0 ]]; then
+    rm -r $spcdir
+    echo "No backups were made."
+  else
+    echo "${nBack} backups were put in the following directory: $spcdir"
+  fi
 else
   cat << __EOF
 ========================================================================
