@@ -57,8 +57,8 @@ Vim Plugins and Fun
 * Color columns and color scheme optimized for terminals with a dark 
   background.
 
-![ViM Colors Example][/myconfig/tree/assets/assets/syntax_ex.png]
-![Comment Color Example][/../myconfig/assets/assets/comment_ex.png]
+![ViM Colors Example][/assets/syntax_ex.png]
+![Comment Color Example][/assets/comment_ex.png]
 
 More on Vim Colors
 ==================
