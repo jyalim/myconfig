@@ -58,7 +58,7 @@ Vim Plugins and Fun
   background.
 
 ![ViM Colors Example](http://i.imgur.com/OcdU5F0.png)
-![Comment Color Example](/assets/comment_ex.png)
+![Comment Color Example](http://i.imgur.com/IoSFMeb.png)
 
 More on Vim Colors
 ==================
