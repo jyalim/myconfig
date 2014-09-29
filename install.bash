@@ -34,7 +34,7 @@ elif [[ $force_opt -eq 1337 ]]; then
   ! [[ -d $spcdir ]] && mkdir -pv $spcdir || :
   for f in $(find -path $srcdir/* -prune); do
     oldname=$(basename $f)             # Could also do $(echo ${f##*/})
-    oldpath="${tardir}/${old}"
+    oldpath="${tardir}/${oldname}"
     if [[ -e $oldpath ]]; then
       mv -v $oldpath $spcdir
     fi
