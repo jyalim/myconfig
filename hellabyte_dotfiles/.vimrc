@@ -32,12 +32,11 @@ set formatoptions=c,q,r,t    " c    auto-wrap comments w/ text-width
 "      <enter>
 " t    Auto wrapping of non-comment text
 
-" Color 80th and 120th+ columns a different color to 
-"   indicate no-no width.
+" Color 72nd and 80+ columns a different color to indicate width limit.
+" Comment out these lines if the columns are unsettling.
 if exists('+colorcolumn')
   execute "set colorcolumn=72," . join(range(80,200),",")
 endif
-"
 " Allows ViM to manage multiple buffers 
 "   ( independent buffers and marks )
 set hidden 
@@ -73,9 +72,28 @@ set title
 " Sets context minimum around the cursor.
 set scrolloff=0
 
-" Sets central temp file location, to prevent local default " behavior.
-set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+" Sets central temp file location, to prevent local default behavior.
+if isdirectory($HOME . '/.vim/.tmp') == 0
+  :silent !mkdir  -p ~/.vim/.tmp > /dev/null 2>&1
+  :silent !chmod 700 ~/.vim/.tmp > /dev/null 2>&1
+endif
+
+set backupdir=~/.vim/.tmp ",~/.local/tmp/vim,/var/tmp,/tmp,
+set directory=~/.vim/.tmp ",~/.local/tmp/vim,/var/tmp,/tmp,
+
+if exists("+viminfo")
+  " viminfo -- Saves Vim state information such as marks, command line
+  "            history, search string history, buffers, global vars, 
+  "            registers, search/sub patterns, and input-line history.
+  "            :help viminfo
+  "            Allegedly default permissions are sufficient for privacy.
+  "
+  if isdirectory( $HOME . '/.vim/.state') == 0
+    :silent !mkdir  -p ~/.vim/.state > /dev/null 2>&1
+    :silent !chmod 700 ~/.vim/.state > /dev/null 2>&1
+  endif
+  set viminfo+=n~/.vim/.state/viminfo
+endif
 
 if exists("+undofile")
   " undofile -- This allows you to use undos after exiting and 
@@ -83,16 +101,16 @@ if exists("+undofile")
   "             .vim-undo first, then ~/.vim/undo.
   "             :help undo-persistence
   "             NOTE: only present in 7.3+
-  if isdirectory( $HOME . '/.vim/undo' ) == 0
-    :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+  if isdirectory( $HOME . '/.vim/.undo' ) == 0
+    :silent !mkdir  -p ~/.vim/.undo > /dev/null 2>&1
+    :silent !chmod 700 ~/.vim/.undo > /dev/null 2>&1
   endif
-  "set undodir=./.vim-undo//
-  set undodir=~/.vim/undo//
+  set undodir=~/.vim/.undo
   set undofile
 endif
 
-" Line Numbers
-set nu " nu = number
+" Line Numbers, nu = number
+set nu 
 
 set backspace=indent,eol,start
 
@@ -231,7 +249,7 @@ endif
 
 " Adds custom general highlighting to comment keywords
 function! HighlightKeywords()
-  syn keyword myTodo TODO XXX BUG NOTE FIXME DONE ADD containedin=ALL
+  syn keyword myTodo TODO XXX BUG NOTE FIXME DONE ADD ISSUE EQ containedin=ALL
   syn cluster CommentGroup contains=myTodo
     hi def link myTodo Todo
 endfunction

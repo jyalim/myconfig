@@ -180,13 +180,13 @@ EXEC                  38;05;72  # for files with executible bit
 *.img        38;05;188
 
 # configuration files
-*rc          38;05;065  
-*conf        38;05;065
-*config      38;05;065
-*profile     38;05;065
-*login       38;05;065
-*logout      38;05;065
-*info        38;05;065
+*rc          38;05;064  
+*conf        38;05;064
+*config      38;05;064
+*profile     38;05;064
+*login       38;05;064
+*logout      38;05;064
+*info        38;05;064
 
 # Log/History Files
 *log         38;05;108

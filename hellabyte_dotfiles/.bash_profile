@@ -16,10 +16,10 @@
 # https://github.com/hellabyte/myconfig
 # ======================================================================
 
-SOURCED_PROFILE=1
+export SOURCED_PROFILE=1
 if [[ -f "${HOME}/.bashrc" ]] && [[ $SOURCED_RC -eq 0 ]]; then
     builtin source "${HOME}/.bashrc" 
-    SOURCED_RC=1
+    export SOURCED_RC=1
 fi
 
 export EDITOR=vim

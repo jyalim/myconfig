@@ -8,7 +8,7 @@
 # https://github.com/hellabyte/myconfig
 # ======================================================================
 
-SOURCED_RC=1
+export SOURCED_RC=1
 function op_set() {
   # Option setting
   # Setting Path and bash options
@@ -136,7 +136,7 @@ function alias_checker() {
     ALIASCHECK=0 || ALIASCHECK=1
   if [[ $ALIASCHECK -eq 0 ]]; then
     read -a acheck_arr -d '\n' < <(alias)
-    [[ ${#acheck_arr[@]} -eq 0 ]] && builtin source "${HOME}/.bash_profile"
+    [[ ${#acheck_arr[@]} -eq 0 ]] && builtin source "${HOME}/.bash_profile" || :
   fi
 }
 
@@ -363,9 +363,9 @@ common_dir_maker
 # ======================================================================
 # Vital to multi file sourcing
 function sourcing() {
+  local BASHP_PATH="${HOME}/.bash_profile"
   local LOGIN_PATH="${HOME}/.login"
   local GITCOMP_PATH="${HOME}/.git-completion"
-  local BASHP_PATH="${HOME}/.bash_profile"
   local LOCAL_PATH="${HOME}/.login_private"
   local SOURCE_PATHS=( $LOGIN_PATH $GITCOMP_PATH $LOCAL_PATH )
   case "$(uname -s)" in
@@ -377,7 +377,7 @@ function sourcing() {
     * | : | ? ) : ;;
   esac
   if [[ $SOURCED_PROFILE -eq 0 ]]; then 
-    SOURCED_PROFILE=1 
+    export SOURCED_PROFILE=1 
     [[ -f $BASHP_PATH ]] && builtin source $BASHP_PATH || :
   fi
   for SOURCE_FILE in ${SOURCE_PATHS[@]}; do
@@ -394,7 +394,7 @@ function sourcing() {
 
 sourcing
 
-SOURCED_PATHS=1
+export SOURCED_PATHS=1
 
 # ======================================================================
 
