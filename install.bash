@@ -27,26 +27,33 @@ Forcing an install will move old files to
 ------------------------------------------------------------------------
 __EOF
 
+# ----------------------------------------------------------------------
+# NOTE
+# Because OS X is older than time, this code will have to suffice.
+# On linux, could do
+#   $ cp -rv --suffix=$spcdir $newfile $tardir
+# after a diff check, which would backup existing files and do the copy.
+# ----------------------------------------------------------------------
+
 if [[ $force_opt == '' ]]; then
   for newfile in $(find -path $srcdir/* -prune); do
-    cp -rv $newfile $tardir
+    cp -nrv $newfile $tardir
   done
-  echo "Unforced copy complete."
+  echo "Unforced/noclobber copy complete."
 elif [[ $force_opt -eq 1337 ]]; then
   ! [[ -d $spcdir ]] && mkdir -pv $spcdir || :
   for newfile in $(find -path $srcdir/* -prune); do
     oldname=$(basename $newfile)  # Could also do $(echo ${newfile##*/})
     oldfile="${tardir}/${oldname}"
     if [[ -e $oldfile ]]; then
-      if [[ -d $oldfile ]] || ! [[ $(diff $oldfile $newfile) == '' ]]; 
-        then
-        # Only back up if changes exist or it's a directory.
+      if ! [[ $(diff -rq $oldfile $newfile) == '' ]]; then
+        # Only back up if changes exist 
         mv -v $oldfile $spcdir
       fi
     fi
-    cp -rv $newfile $tardir
+    cp -nrv $newfile $tardir
   done
-  echo "Forced copy complete."
+  echo "Forced/Backed up copy complete."
 else
   cat << __EOF
 ========================================================================
