@@ -14,7 +14,7 @@ echo "Rerun the bash install with 1 for the \$1 argument to force the
 if [[ $force_opt == '' ]]; then
   cp -r $srcdir/* $tardir
   echo "Unforced copy complete"
-else if [[ $force_opt == '1' ]] then
+else if [[ $force_opt == '1' ]]; then
   cp -rf $srcdir/* $tardir
   echo "Forced copy complete"
 else
