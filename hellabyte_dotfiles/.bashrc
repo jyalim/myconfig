@@ -8,7 +8,7 @@
 # https://github.com/hellabyte/myconfig
 # ======================================================================
 
-SOURCED_RC=1
+export SOURCED_RC=1
 function op_set() {
   # Option setting
   # Setting Path and bash options
