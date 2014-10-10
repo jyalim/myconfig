@@ -1,0 +1,8 @@
+MANDATORY_MANPATH           $HOME/.local/opt/anaconda/share/man
+MANDATORY_MANPATH           $HOME/.local/share/man
+
+MANPATH_MAP $HOME/.local/opt/anaconda/bin $HOME/.local/opt/anaconda/share/man
+MANPATH_MAP $HOME/.local/bin              $HOME/.local/share/man
+
+MANDB_MAP $HOME/.local/opt/anaconda/share/man $HOME/.local/var/cache/man
+MANDB_MAP $HOME/.local/share/man              $HOME/.local/var/cache/man

@@ -1,0 +1,16 @@
+" Pentadactyl rc 
+" ---
+" Works in Firefox only.
+"=====
+
+" macro to set zoom on page load
+" au PageLoadPre http|https zoom 120
+
+" Command mode map
+cmap <C-f> <right>
+cmap <C-b> <left>
+
+" FollowHints -- default is 0
+"   1 -- prevents links from being followed without confirmation from
+"        carriage return.
+set fh=1
