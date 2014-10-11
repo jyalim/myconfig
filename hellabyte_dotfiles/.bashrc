@@ -33,6 +33,7 @@ op_set() {
   local lps="local/lib"
   local ips="local/include"
   local man_paths=( "${H}/.${mps}" "${H}/${mps}" "${H}/share/man" 
+    "${L}/.local/man" "${H}/local/man"
     "${H}/.local/usr/share/man" "${H}/local/usr/share/man" 
     "${H}/.local/usr/local/share/man" "${H}/local/usr/local/share/man" 
     "${LO}/anaconda/share/man" "${H}/local/anaconda/share/man" )
