@@ -416,11 +416,11 @@ sourcing() {
   local INTEL_PROF='/opt/intel/bin/compilervars.sh'
   local INTEL_ARCH='intel64'
   [[ -f $INTEL_PROF ]] && builtin source $INTEL_PROF $INTEL_ARCH || :
+  export SOURCED_PATHS=1
 }
 
-sourcing
+[[ $SOURCED_PATHS -ne 1 ]] && sourcing || :
 
-export SOURCED_PATHS=1
 
 # ======================================================================
 
