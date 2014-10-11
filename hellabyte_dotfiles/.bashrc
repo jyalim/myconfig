@@ -123,6 +123,18 @@ op_set() {
   ! [[ -z $incpath  ]] &&  INCLUDE=$incpath        || :
   ! [[ -z $inccpath ]] &&  CPATH=$inccpath         || :
   unset mpath; unset lpath; unset ldpath; unset incpath; unset inccpath
+
+  local SYS_PROF='/etc/profile.d'
+  if [[ -d SYS_PROF ]]; then
+    for f in "${SYS_PROF}/*.sh"; do
+      builtin source $f
+    done
+  fi
+
+  local INTEL_PROF='/opt/intel/bin/compilervars.sh'
+  local INTEL_ARCH='intel64'
+  [[ -f $INTEL_PROF ]] && builtin source $INTEL_PROF $INTEL_ARCH || :
+
 }
 
 [[ $SOURCED_PATHS -ne 1 ]] && op_set || :
@@ -405,21 +417,11 @@ sourcing() {
     [[ -f "${SOURCE_FILE}" ]] && builtin source "${SOURCE_FILE}" || :
       # echo "SOURCE ERROR -- ${SOURCE_FILE} -- DOES NOT EXIST"
   done
-
-  local SYS_PROF='/etc/profile.d'
-  if [[ -d SYS_PROF ]]; then
-    for f in "${SYS_PROF}/*.sh"; do
-      builtin source $f
-    done
-  fi
-
-  local INTEL_PROF='/opt/intel/bin/compilervars.sh'
-  local INTEL_ARCH='intel64'
-  [[ -f $INTEL_PROF ]] && builtin source $INTEL_PROF $INTEL_ARCH || :
-  export SOURCED_PATHS=1
 }
 
-[[ $SOURCED_PATHS -ne 1 ]] && sourcing || :
+sourcing
+
+export SOURCED_PATHS=1
 
 
 # ======================================================================
