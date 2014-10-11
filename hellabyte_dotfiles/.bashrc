@@ -214,14 +214,6 @@ geo_ip_info() {
   fi
 }
 
-#speedtest() {
-#    local INDEX=${1:-0}
-#    local SERVERS=('dal01' 'dal05' 'dal07' 'sea01' 'wdc01' 'sjc01' 'hou02')
-#    local WEBADDR="https://speedtest.${SERVERS[$INDEX]}.softlayer.com/speedtest/"
-#    curl --progress-bar -w %{speed_download}  $WEBADDR -o /dev/null
-#    echo ''
-#}
-
 duh() {
     du --si $1 | tail -1
 }
@@ -426,29 +418,7 @@ export SOURCED_PATHS=1
 
 # ======================================================================
 
-# Taken from: http://alias.sh/filesystem-markers-jump
-# Explanation/author's blog: http://jeroenjanssens.com
-#export MARKPATH=$HOME/.marks
-#jump() { 
-#  local jd=${1:-''}
-#  if [[ -z $jd ]]; then echo "No jump mark given."; return; fi
-#  local jl="${MARKPATH}/${jd}"
-#  cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: ${jd}"
-#}; alias jp='jump'
-#mark() { 
-#  [[ -d $MARKPATH ]] && : || (mkdir -p $MARKPATH; \
-#    local jl="${MARKPATH}/${1}")
-#  ln -s $(pwd) $jl
-#}
-#unmark() { 
-#  local jd=${1:-''}; local jl="${MARKPATH}/${jd}"
-#  if [[ -z $jd ]]; then echo "No unmark given."; return; fi
-#  rm -i $jl
-#}
-#marks() {
-#  ls -l $MARKPATH | perl -lane 'print "$F[-3] -> $F[-1]" if /\-\>/' \ 
-#   && echo
-#}
+# Possibly: http://alias.sh/filesystem-markers-jump
 
 # BEGIN QUICK-CD FUNCTIONS
 # DO NOT DELETE ABOVE COMMENT
