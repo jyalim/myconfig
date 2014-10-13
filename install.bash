@@ -21,14 +21,15 @@ if ! [[ -d $spcdir ]]; then
   mkdir -p $spcdir
 fi
 
-for d in $(find hellabyte_dotfiles -type d -print); do
+for d in $(find $srcdir -type d -print); do
   relative_dname="${d#/*}"
   target_dname="${tardir}/${relative_dname}"
+  echo $d ${d#/*}
   if ! [[ -d $target_dname ]]; then
     mkdir -pv $target_dname
   fi
 done | xargs -P $procs
-for f in $(find hellabyte_dotfiles -type f -print); do 
+for f in $(find $srcdir -type f -print); do 
   relative_fname="${f#/*}"
   target_fname="${tardir}/${relative_fname}"
   if ! [[ -e $target_fname ]]; then
