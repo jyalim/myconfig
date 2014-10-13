@@ -8,7 +8,7 @@
 
 force_opt=${1:-''}
 prefix=${2:-"$HOME"}
-srcdir="./hellabyte_dotfiles"
+srcdir="hellabyte_dotfiles"
 tardir="${prefix}"
 bakdir="${tardir}/.local/var/configuration-backups"
 now=$(date +"%Y.%m.%d-%H.%M")
