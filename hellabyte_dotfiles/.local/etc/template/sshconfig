@@ -1,0 +1,22 @@
+# Configuration Template for ssh configuration
+# ======================================================================
+# Be sure to put this in $HOME/.ssh after configuration and rename 
+# from sshconfig to config.
+#
+# Guideline on ssh setup:
+#
+# $ ssh-keygen
+# $ mv public_key $HOME/.ssh/pubs/
+# $ ssh user@host "cat - >> .ssh/authorized_keys" < pubs/public_key
+#
+# Ex. with Bitbucket:
+# Host bitbucket.org
+#   IdentityFile ~/.ssh/bbucks_rsa
+# ======================================================================
+Host {{hostname}} {{althostnames}}
+    User {{username}}
+    IdentityFile ~/.ssh/{{private_key}}
+    IdentitiesOnly yes
+    RequestTTY yes
+    ForwardX11 no
+    Port 22

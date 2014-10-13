@@ -148,7 +148,7 @@ alert() {
 alias_checker() {
   local ALIASCHECK
   local acheck_arr
-  local ALIASFILE="${HOME}/.login"
+  local ALIASFILE="${HOME}/.local/etc/profile.d/aliases.sh"
   [[ -f "${ALIASFILE}" ]] && grep 'alias ll=' "${ALIASFILE}" && \
     ALIASCHECK=0 || ALIASCHECK=1
   if [[ $ALIASCHECK -eq 0 ]]; then
@@ -389,10 +389,10 @@ manual() {
 # Vital to multi file sourcing
 sourcing() {
   local BASHP_PATH="${HOME}/.bash_profile"
-  local LOGIN_PATH="${HOME}/.login"
+  local ALIAS_PATH="${HOME}/.local/etc/profile.d/aliases.sh"
   local GITCOMP_PATH="${HOME}/.git-completion"
-  local LOCAL_PATH="${HOME}/.login_private"
-  local SOURCE_PATHS=( $LOGIN_PATH $GITCOMP_PATH $LOCAL_PATH )
+  local LOCAL_PATH="${HOME}/.local/etc/profile.d/login.sh"
+  local SOURCE_PATHS=( $ALIAS_PATH $GITCOMP_PATH $LOCAL_PATH )
   case "$(uname -s)" in
     "Darwin" ) command -v brew &> /dev/null && \
       local BREW_PREFIX=$( brew --prefix ); \
