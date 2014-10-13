@@ -28,7 +28,7 @@ for d in $(find $srcdir -type d -print); do
   if ! [[ -d $target_dname ]]; then
     mkdir -pv $target_dname
   fi
-done | xargs -P $procs
+done | xargs -P $procs -I {} echo {}
 for f in $(find $srcdir -type f -print); do 
   relative_fname="${f#/*}"
   target_fname="${tardir}/${relative_fname}"
@@ -42,7 +42,7 @@ for f in $(find $srcdir -type f -print); do
     fi
   fi
   cp -v $f $target_fname
-done | xargs -P $procs
+done | xargs -P $procs -I {} echo {}
 
 # Check to see if backup was actually done
 readarray backup_check < <(ls -A1 $spcdir)
