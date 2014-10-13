@@ -153,10 +153,10 @@ nnoremap <C-y> 5<C-y>
 
 " EMACS keybindings for insert mode
 inoremap §     <C-[>
-inoremap <C-f> <C-o>l
-inoremap <C-b> <C-o>h
-inoremap <C-n> <C-o>j
-inoremap <C-p> <C-o>k
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+inoremap <C-n> <C-o>gj
+inoremap <C-p> <C-o>gk
 inoremap <C-l> <C-p>
 inoremap <C-z> <C-n>
 inoremap <C-e> <C-o>$
