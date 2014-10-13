@@ -22,15 +22,14 @@ if ! [[ -d $spcdir ]]; then
 fi
 
 for d in $(find $srcdir -type d -print); do
-  relative_dname="${d#/*}"
+  relative_dname="${d#*/}"
   target_dname="${tardir}/${relative_dname}"
-  echo $d ${d#/*}
   if ! [[ -d $target_dname ]]; then
     mkdir -pv $target_dname
   fi
 done | xargs -P $procs -I {} echo {}
 for f in $(find $srcdir -type f -print); do 
-  relative_fname="${f#/*}"
+  relative_fname="${f#*/}"
   target_fname="${tardir}/${relative_fname}"
   if ! [[ -e $target_fname ]]; then
     echo "$target_fname not found, freshly installing"
