@@ -28,19 +28,25 @@ for d in $(find $srcdir -type d -print); do
     mkdir -pv $target_dname
   fi
 done | xargs -P $procs -I {} echo {}
+
 for f in $(find $srcdir -type f -print); do 
   relative_fname="${f#*/}"
   target_fname="${tardir}/${relative_fname}"
   if ! [[ -e $target_fname ]]; then
     echo "$target_fname not found, freshly installing"
+    cp -v $f $target_fname
   else
     diff_res=$(diff -q $f $target_fname)
     if ! [[ -z $diff_res ]]; then
       echo "$target_fname found, backing up then installing"
-      mv -v $target_fname $spcdir
+      relative_dname="${relative_fname%/*}"
+      bakspcdir="${spcdir}/${relative_dname}"
+      bakspcfile="${spcdir}/${relative_fname}"
+      mkdir -pv $bakspcdir
+      mv -v $target_fname $bakspcfile
+      cp -v $f $target_fname
     fi
   fi
-  cp -v $f $target_fname
 done | xargs -P $procs -I {} echo {}
 
 # Check to see if backup was actually done
