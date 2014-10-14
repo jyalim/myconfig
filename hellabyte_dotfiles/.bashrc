@@ -46,7 +46,7 @@ sourcing() {
 sourcing
 # ======================================================================
 # Prevent redundant paths
-[[ $SOURCED_PATHS -ne 1 ]] && op_set || :
+[[ $SOURCED_PATHS -ne 1 ]] && path_set || :
 export SOURCED_PATHS=1
 
 # ======================================================================

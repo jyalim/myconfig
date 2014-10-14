@@ -9,10 +9,7 @@
 # ======================================================================
 
 # Sets the path for the environment. Should only be run once.
-op_set() {
-  # Option setting
-  # Setting Path and bash options
-  # General settings
+path_set() {
   local H=$HOME
   local A="anaconda/bin"
   local L="${H}/.local"
@@ -22,13 +19,12 @@ op_set() {
     "${LO}/${O}" "${LO}/${A}" "${L}/bin" "${L}/sbin" "${H}/bin" 
     "${H}/sbin" "${H}/local/bin" "${H}/local/sbin" "${L}/usr/bin" 
     "${L}/usr/sbin" "${L}/usr/local/bin" "${L}/usr/local/sbin"
-    "/usr/local/bin" "/usr/local/sbin" "/usr/bin"
-    "/usr/sbin" "/bin" "/sbin" "/usr/texbin" "/opt/X11/bin" 
-    "/usr/bin/X11" "/Developer/NVIDIA/CUDA-6.0/bin" 
+    "/usr/local/bin" "/usr/local/sbin" "/usr/bin" "/usr/sbin" "/bin" 
+    "/sbin" "/usr/texbin" "/opt/X11/bin" "/usr/bin/X11" "/usr/games" 
+    "/Developer/NVIDIA/CUDA-6.0/bin" "/opt/ganglia/bin"
     "/Applications/MATLAB_R2013b.app/bin" "/usr/local/matlab/bin" 
-    "/usr/local/maple/bin" "/usr/local/sage"
-    "/usr/local/mathematica/Executables" "/usr/games"
-    "/opt/ganglia/bin"
+    "/usr/local/maple/bin" "/usr/local/sage" 
+    "/usr/local/mathematica/Executables" 
   )
   local mps="local/share/man"
   local lps="local/lib"
@@ -94,13 +90,27 @@ op_set() {
   for xp in ${x_paths[@]}; do
       [[ -d $xp ]] && PATH="${PATH}:${xp}" || :
   done; unset xp
-  PATH="${PATH}:${OLDXPATH}"
+  # Use awk magic (associative arrays) to remove duplicate paths while
+  # preserving order
+  awk_magic() {
+    input=${1:-''}
+    temp=$(awk 'BEGIN{ORS=RS=":"}{ if ( a[$0] == 0) { 
+      print $0; a[$0]++ 
+      } 
+    }' <<< "$input:" )
+    echo ${temp%:*}
+  }
+
+  local tempPATH="${PATH}:${OLDXPATH}"
+  PATH=$(awk_magic $tempPATH)
+  unset tempPATH
 
   local mpath=''
   for mp in ${man_paths[@]}; do
       [[ -d $mp ]] && ! [[ $mpath =~ $mp ]] \
         && mpath="${mpath}:${mp}" || :
-  done; unset mp; #mpath="${mpath}:${OLDMPATH}"
+  done; unset mp; 
+  mpath=$(awk_magic "${mpath}:${OLDMPATH}")
 
   lpath=$OLDLPATH
   ldpath=$OLDLDPATH
@@ -110,6 +120,8 @@ op_set() {
           ! [[ $ldpath =~ $lp ]] && ldpath="${ldpath}:$lp" || :
       fi
   done; unset lp
+  lpath=$(awk_magic "${lpath}")
+  ldpath=$(awk_magic "${ldpath}")
 
   incpath=$OLDIPATH
   inccpath=$OLDCPATH
@@ -119,6 +131,8 @@ op_set() {
           ! [[ $inccpath =~ $ip ]] && inccpath="${inccpath}:$ip" || :
       fi
   done; unset ip
+  incpath=$(awk_magic $incpath)
+  inccpath=$(awk_magic $inccpath)
   ! [[ -z $mpath    ]] &&  MANPATH=$mpath          || :
   ! [[ -z $lpath    ]] &&  LIBRARY_PATH=$lpath     || :
   ! [[ -z $ldpath   ]] &&  LD_LIBRARY_PATH=$ldpath || :
