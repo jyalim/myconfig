@@ -388,26 +388,30 @@ manual() {
 # ======================================================================
 # Vital to multi file sourcing
 sourcing() {
-  local BASHP_PATH="${HOME}/.bash_profile"
-  local ALIAS_PATH="${HOME}/.local/etc/profile.d/aliases.sh"
-  local GITCOMP_PATH="${HOME}/.git-completion"
-  local LOCAL_PATH="${HOME}/.local/etc/profile.d/login.sh"
-  local SOURCE_PATHS=( $ALIAS_PATH $GITCOMP_PATH $LOCAL_PATH )
+  local bashp_path="${HOME}/.bash_profile"
+  local gitcomp_path="${HOME}/.git-completion"
+  local alias_path="${HOME}/.local/etc/profile.d"
+  local source_paths=( $alias_path $gitcomp_path )
   case "$(uname -s)" in
     "Darwin" ) command -v brew &> /dev/null && \
       local BREW_PREFIX=$( brew --prefix ); \
       local BREW_BASHCOMP_PATH="${BREW_PREFIX}/etc/bash_completion"; \
-      SOURCE_PATHS+=( $BREW_BASHCOMP_PATH ) || :
+      source_paths+=( $BREW_BASHCOMP_PATH ) || :
     ;;
     * | : | ? ) : ;;
   esac
   if [[ $SOURCED_PROFILE -eq 0 ]]; then 
     export SOURCED_PROFILE=1 
-    [[ -f $BASHP_PATH ]] && builtin source $BASHP_PATH || :
+    [[ -f $bashp_path ]] && builtin source $bashp_path || :
   fi
-  for SOURCE_FILE in ${SOURCE_PATHS[@]}; do
-    [[ -f "${SOURCE_FILE}" ]] && builtin source "${SOURCE_FILE}" || :
-      # echo "SOURCE ERROR -- ${SOURCE_FILE} -- DOES NOT EXIST"
+  for source_path in ${source_paths[@]}; do
+    if [[ -f $source_path ]]; then # If the path is a regular file
+      builtin source $source_path
+    elif [[ -d $source_path ]]; then # If the path is a directory
+      for source_files in $(find $source_path -type f -print); do
+        builtin source $source_files
+      done
+    fi
   done
 }
 
