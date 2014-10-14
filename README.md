@@ -9,6 +9,18 @@ various machines.
 Lightly tested with kernels Darwin and Linux 
 ( flavors Arch, CentOS, and Ubuntu ).
 
+Note that your old configuration files will be backed up to 
+  $HOME/.local/var under the relevant date.
+Further, the .bashrc should be used to source custom functions and 
+  files that you may have, and will always source all the .sh files
+  in $HOME/.local/etc/profile.d/.
+Thus, if you had functions in your old configuration that you liked,
+  place them in $HOME/.local/etc/profile.d/ as a .sh file, and 
+  your new .bashrc will properly source them.
+Further, to allow for updates, have thse profile.d .sh files run 
+  custom attributes that you may have wanted rather than modifying
+  directly the .bashrc.
+
 Installing 
 ==========
 
@@ -33,7 +45,7 @@ Current Conf Files/Directories
 * .tmux.conf  
 * .vim -- Is a directory, containing colors, syntax, and plugins.
 * .vimrc  
-* .local/etc/profile.d -- Is a directory containing aliases.sh
+* .local/etc/profile.d -- Is a directory containing aliases.sh and functions.sh
 * .local/etc/template  -- Is a directory containing templates
 
 Vim Plugins and Fun
@@ -68,28 +80,28 @@ Configuration of tmux
 =====================
 
 The major change that the tmux.conf files introduces is changing the 
-  default prefix from C-b to C-a, where C implies use of the control 
+  default prefix from C-b to C-Space, where C implies use of the control 
   key.
 The reason for this is that with the EMACS readline, C-b is a useful
   and common shortcut that is used relatively repetitively to move the
   cursor to the left,
-  whereas C-a in readline moves the cursor to the start of the line,
-  which only needs to ideally be pressed once.
+  whereas C-Space has no definition in readline.
 There are other custom optimizations that are in the conf file, 
   the most obvious of which are the styling of statusbar and prompt.
 These have been made to fit a dark terminal, but they have been fine 
   in light terminals as well.
 
 The other things to note are that v and y begin-selection and copy
-  after hitting the prefix, as they would in ViM,
+  after hitting the prefix, as they would in ViM (still need to enter
+  copy mode with C-Space [),
   and h, l, k, j will move the cursor to the relative 
   left, right, upper, or lower pane after hitting the prefix.
-Also, hitting C-a / will display pane numbers briefly over the panes 
+Also, hitting C-Space / will display pane numbers briefly over the panes 
   and allow for integer input which will cause the cursor to jump to 
   that pane.
-If the numbers are already known, C-a ; will also accept an integer
+If the numbers are already known, C-Space ; will also accept an integer
   for cursor pane tunneling.
-I find that these shortcuts make for a highly productive, window manager
+These shortcuts make for a highly productive, window manager
   like terminal experience, allowing one to be mouse independent if need
   be, albeit the conf file has it so that the mouse is actually able to
   select panes and scroll.
@@ -108,4 +120,4 @@ Configures the Following
 * dircolors  
 * quick-cd  
 
-2014 - September - 26
+2014 - October - 13
