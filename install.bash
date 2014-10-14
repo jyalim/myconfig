@@ -17,9 +17,11 @@ spcdir="${bakdir}/${now}"
 procs=4 # Assume 4 threads for xargs
 
 if ! [[ -d $spcdir ]]; then
+  echo "------"
   echo "Making Backup directory -- $spcdir" 
-  echo "Will be automatically deleted if no backups are made"
-  mkdir -p $spcdir
+  echo "This will be automatically deleted if no backups are made"
+  mkdir -pv $spcdir
+  echo "------"
 fi
 
 for d in $(find $upkdir -type d -print); do
@@ -28,6 +30,7 @@ for d in $(find $upkdir -type d -print); do
   if ! [[ -d $target_dname ]]; then
     mkdir -pv $target_dname
   fi
+  echo ""
 done | xargs -P $procs -I {} echo {}
 
 for f in $(find $upkdir -type f -print); do 
@@ -48,15 +51,19 @@ for f in $(find $upkdir -type f -print); do
       cp -v $f $target_fname
     fi
   fi
+  echo ""
 done | xargs -P $procs -I {} echo {}
 
 # Check to see if backup was actually done
 readarray backup_check < <(ls -A1 $spcdir)
 nBack=${#backup_check[@]}
-echo "Install complete."
+echo ""
 if [[ $nBack -eq 0 ]]; then
   rm -r $spcdir
   echo "No backups were made."
 else
   echo "${nBack} backups were put in the following directory: $spcdir"
 fi
+echo ""
+echo '-----'
+echo "Install complete."
