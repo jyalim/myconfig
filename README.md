@@ -16,15 +16,8 @@ Simply run
 
     $ bash install.bash
 
-from the cloned directory. This will copy over the subtree in
-hellabyte_dotfiles into the installer's home directory.
-Running
-
-    $ bash install.bash 1
-
-will force the copy and overwrite existing files. 
-Note that anything other than 1 in that first
-position (excluding a blank) will result in an error.
+from the cloned directory. This will backup any files that would be
+replaced and install the configuration files.
 
 
 Current Conf Files/Directories
@@ -36,11 +29,12 @@ Current Conf Files/Directories
 * .gvimrc  
 * .htoprc  
 * .inputrc  
-* .login  
 * .toprc
 * .tmux.conf  
 * .vim -- Is a directory, containing colors, syntax, and plugins.
 * .vimrc  
+* .local/etc/profile.d -- Is a directory containing aliases.sh
+* .local/etc/template  -- Is a directory containing templates
 
 Vim Plugins and Fun
 ===================

@@ -2,11 +2,12 @@
 # .bash_profile
 # ======================================================================
 # Run on login.
-# Called by /private/etc/{profile,bashrc}
+# Called by [/private]/etc/{profile,bashrc}
 # ----------------------------------------------------------------------
 # NOTE 
-# aliases   => $HOME/.login
-# functions => $HOME/.bashrc
+# aliases   => $HOME/.local/etc/profile.d/aliases.sh
+# functions => $HOME/.local/etc/profile.d/functions.sh
+# run conf  => $HOME/.bashrc
 # ----------------------------------------------------------------------
 # PURPOSE
 #   Set local environment for user.
