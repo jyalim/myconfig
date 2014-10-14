@@ -210,7 +210,7 @@ set incsearch
 nmap <silent> <leader>h :silent :nohlsearch<CR>
 
 " Shows tabs and trailing spaces
-set listchars=tab:>-,trail:·,eol:$
+set listchars=tab:>-,trail:_,eol:$
 nmap <silent> <leader>s :set nolist!<CR>
 
 set showmatch
