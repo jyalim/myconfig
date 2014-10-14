@@ -30,8 +30,7 @@ for d in $(find $upkdir -type d -print); do
   if ! [[ -d $target_dname ]]; then
     mkdir -pv $target_dname
   fi
-  echo ""
-done | xargs -P $procs -I {} echo {}
+done #| xargs -P $procs -I {} echo {}
 
 for f in $(find $upkdir -type f -print); do 
   relative_fname="${f#*/}"
@@ -51,8 +50,7 @@ for f in $(find $upkdir -type f -print); do
       cp -v $f $target_fname
     fi
   fi
-  echo ""
-done | xargs -P $procs -I {} echo {}
+done #| xargs -P $procs -I {} echo {}
 
 # Check to see if backup was actually done
 readarray backup_check < <(ls -A1 $spcdir)
