@@ -28,6 +28,7 @@ op_set() {
     "/Applications/MATLAB_R2013b.app/bin" "/usr/local/matlab/bin" 
     "/usr/local/maple/bin" "/usr/local/sage"
     "/usr/local/mathematica/Executables" "/usr/games"
+    "/opt/ganglia/bin"
   )
   local mps="local/share/man"
   local lps="local/lib"
@@ -93,6 +94,7 @@ op_set() {
   for xp in ${x_paths[@]}; do
       [[ -d $xp ]] && PATH="${PATH}:${xp}" || :
   done; unset xp
+  PATH="${PATH}:${OLDXPATH}"
 
   local mpath=''
   for mp in ${man_paths[@]}; do
