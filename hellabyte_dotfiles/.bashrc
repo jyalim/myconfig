@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # ----------------------------------------------------------------------
 # ${HOME}/.bashrc
-#   Contains all of the bash functions that will need to be sourced.
-#   Environment Function Runtime Configuration
+#   Environment Function Runtime Configuration File
+# Sources the proper directories, sets the prompt, and sets the path.
 # ----------------------------------------------------------------------
 # AUTHOR: Nathaniel Hellabyte
 # https://github.com/hellabyte/myconfig
@@ -36,7 +36,7 @@ sourcing() {
       builtin source $source_path
     elif [[ -d $source_path ]]; then # If the path is a directory
       for source_files in $(find $source_path -type f -print); do
-        builtin source $source_files
+        builtin source $source_files # TODO only source .sh
       done
     fi
   done
