@@ -45,7 +45,8 @@ Current Conf Files/Directories
 * .tmux.conf  
 * .vim -- Is a directory, containing colors, syntax, and plugins.
 * .vimrc  
-* .local/etc/profile.d -- Is a directory containing aliases.sh and functions.sh
+* .local/etc/profile.d -- Is a directory containing custom aliases 
+  and functions.
 * .local/etc/template  -- Is a directory containing templates
 
 Vim Plugins and Fun
