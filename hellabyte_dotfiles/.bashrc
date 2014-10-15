@@ -46,8 +46,11 @@ sourcing() {
 sourcing
 # ======================================================================
 # Prevent redundant paths
-[[ $SOURCED_PATHS -ne 1 ]] && path_set || :
-export SOURCED_PATHS=1
+# [[ $SOURCED_PATHS -ne 1 ]] && path_set || :
+# export SOURCED_PATHS=1
+# 
+# New path setting function trims redundant paths
+path_set
 
 # ======================================================================
 # Create Prompt

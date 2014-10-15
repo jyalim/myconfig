@@ -77,6 +77,7 @@ case "$(uname -s)" in
       alias "netflix"='open https://www.netflix.com -a /Applications/FirefoxAurora.app'; \
       alias "amazon"='open https://www.amazon.com -a /Applications/FirefoxAurora.app' || :
     alias "vlc"='/Applications/VLC.app/Contents/MacOS/VLC' || :
+    alias "ptop"='top -stats pid,command,cpu,th,mem,pstate,time,power'
           ;;
   "Linux")
     alias "ls"='ls --color'
