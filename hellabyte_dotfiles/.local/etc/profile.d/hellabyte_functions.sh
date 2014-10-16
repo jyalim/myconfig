@@ -374,7 +374,7 @@ manual() {
   [[ -z $manpage ]] && return || :
   local twidth=$(( $(tput cols) - 5 ))
   local mpath=$( man -w $manpage ) 
-  local ext=$( echo ${mapth##*.} )
+  local ext=$( echo ${mpath##*.} )
   local cmd="nroff -man -rLL=${twidth}n"
   local printer="cat"
   [[ $ext =~ 'gz' ]] && local printer="gzip -cd" || :
