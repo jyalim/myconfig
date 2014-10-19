@@ -3,19 +3,51 @@ snippet #!
 
 snippet imp
 	import ${1:module}
+
+snippet import
+	from ${1:module} import ${2:*}
+
+snippet cimp
+	from numpy import *
+	from matplotlib import *
+	${1}
+
 # Module Docstring
 snippet docs
 	'''
-	File: ${1:`Filename('$1.py', 'foo.py')`}
+	File:   ${1:`Filename('$1.py', 'foo.py')`}
 	Author: ${2:`g:snips_author`}
-	Description: ${3}
+	Usage:  ${3}
 	'''
+# Loops 
+
 snippet wh
 	while ${1:condition}:
 		${2:# code...}
-snippet for
+
+snippet fo
 	for ${1:needle} in ${2:haystack}:
 		${3:# code...}
+
+snippet for 
+	for ${1:iter} in range(${2:start,}${3:end}):
+		${4:# code...}
+
+# Lambda
+snippet ld
+	${1:var} = lambda ${2:vars} : ${3:action}
+
+# List Comp
+snippet lcr
+	${1:var} = [ ${2:listcomp} for k in range(${3:start,}${4:end}) ]
+snippet lca
+	${1:var} = [ ${2:listcomp} for ${3:needle} in ${4:haystack} ]
+snippet nlcr
+	${1:var} = array([ ${2:listcomp} for k in range(${3:start,}${4:end})])
+snippet nlca
+	${1:var} = array([ ${2:listcomp} for ${3:needle} in ${4:haystack} ])
+	
+
 # New Class
 snippet cl
 	class ${1:ClassName}(${2:object}):
@@ -44,9 +76,6 @@ snippet property
 			${3:return self._$1}
 		def fset(self, value):
 			${4:self._$1 = value}
-# Lambda
-snippet ld
-	${1:var} = lambda ${2:vars} : ${3:action}
 snippet .
 	self.
 snippet try Try/Except
