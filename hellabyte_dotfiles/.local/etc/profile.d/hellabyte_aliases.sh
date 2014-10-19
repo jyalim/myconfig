@@ -78,7 +78,7 @@ case "$(uname -s)" in
       alias "amazon"='open https://www.amazon.com -a /Applications/FirefoxAurora.app' || :
     alias "vlc"='/Applications/VLC.app/Contents/MacOS/VLC' || :
     alias "ptop"='top -stats pid,command,cpu,th,mem,pstate,time,power'
-          ;;
+    ;;
   "Linux")
     alias "ls"='ls --color'
     LINUX_DISTRIBUTIONS=("ubuntu" "centos" "arch")
@@ -109,22 +109,27 @@ case "$(uname -s)" in
       ;;
 esac
 
-
-# General Aliases
+## listing directory contents
+# Make sure ls on darwin will accept the aliases
+# without breaking ls_style for all systems.
+ls_style="--si --sort version --time-style=+'%m-%d %H:%M'"
+command -v gls &> /dev/null && : || ls_style=''
 
 ## Allow sudo to accept aliases
 alias sudo='sudo '
 
-ls_style="--sort version --time-style=+'%m-%d %H:%M'"
-alias "lf"="ls -F ${ls_style}"
-alias "ll"="ls --si -alFi ${ls_style}"
-alias "llh"="ls -alhFi ${ls_style}"
-alias "llt"="ll -t ${ls_style}"
+# General Aliases
+
+alias "lsa"="ls -aF"
+alias "lsl"="ls -lF"
+alias "lsf"="ls -F"
+alias "lltr"="ll -tr"
 alias "la"="ls -aF ${ls_style}"
-alias "lsa"="ls -aF ${ls_style}"
-alias "lsl"="ls --si -lhF ${ls_style}"
-alias "lg"="ls -ghF ${ls_style}"
-alias "lS"="ls -lShF ${ls_style}"
+alias "ll"="ls -alFi ${ls_style}"
+alias "lf"="ls -F ${ls_style}"
+alias "lg"="ls -gF ${ls_style}"
+alias "lS"="ls -lSF ${ls_style}"
+alias "llt"="ll -tr ${ls_style}"
 alias "grep"="grep -i"
 alias "fgrep"="fgrep -i"
 alias '.....'='cd ../../../..'
