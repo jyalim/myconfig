@@ -30,11 +30,29 @@ snippet program
 		stop
 	end program $1
 
+snippet module
+	module ${1:module_name}
+		!implicit none
+		!stop
+		contains
+		${3}
+	end module $1
+
 ## Declarations
 snippet real
-	real(${1:08})${2:options} :: ${3:vars} 
+	real(${1:08})${3} :: ${2:vars} 
+snippet double
+	real(${1:08})${3} :: ${2:vars} 
+snippet float
+	real(${1:04})${3} :: ${2:vars} 
+snippet single
+	real(${1:04})${3} :: ${2:vars} 
 snippet int
-	integer(${1:04})${2:options} :: ${3:vars}
+	integer(${1:04})${3} :: ${2:vars}
+snippet short
+	integer(${1:04})${3} :: ${2:vars}
+snippet long
+	integer(${1:08})${3} :: ${2:vars}
 snippet logic
 	logical(1) :: ${1:vars}
 snippet char
@@ -43,16 +61,20 @@ snippet type
 	type ${1:name}
 		${2}
 	end type $1
-## Declaration Options
-snippet intent
-	,intent(${1:inout})
-snippet dim
-	,dimension(${1:start}:${2:end})
 
+## Declaration Options
+snippet intent in    #1
+	,intent(in)${1}
+snippet intent out   #2
+	,intent(out)${1}
+snippet intent inout #3
+	,intent(inout)${1}
+
+snippet dim
+	,dimension(${1:0:}${2:end})
 ## Indexes
 snippet ind
-	${1:start}${2::}${3:end}
-
+	${1:0:}${2:end}
 ## Conditionals
 # If then 
 snippet ift
@@ -87,14 +109,37 @@ snippet func
 	${1:type} function ${2:name}(${3:inputs}) 
 		implicit none
 		$3
+		! integer :: i,j,k
 		${4:code}
 		return
 	end function $2
 
 snippet sub
-	subroutine ${1:name}(${2:inputs})
+	subroutine ${1:name}(${2:variables})
 		implicit none
-		$2
+		! $2
+		! integer(04),intent(in),parameter :: 
+		! real(08),intent(in)              ::
+		! real(08),intent(inout)           ::
+		! integer(04),intent(out)          ::
+		! real(08),intent(out)             ::
+		! integer :: i,j,k
+		! real
+		${3:code}
+		return
+	end subroutine $1
+
+snippet subroutine
+	subroutine ${1:name}(${2:rout},${3:iout},${4:riout},${5:rin},${6:iin})
+		implicit none
+		! Note assumption of shorts and doubles
+		integer(04),intent(in),parameter :: $6
+		real(08),intent(in)              :: $5
+		real(08),intent(inout)           :: $4
+		integer(04),intent(out)          :: $3
+		real(08),intent(out)             :: $2
+		! integer :: i,j,k
+		! real
 		${3:code}
 		return
 	end subroutine $1
@@ -118,11 +163,82 @@ snippet open
 	open(${1:fid},file=${2:fstr},status=${3:rw},form=${4:fmt})
 	close(${1})
 
-## Common Constants
+## Common Constants/Vars
 snippet PI
 	#define PI 3.1415926535897932${1:3846264338327950}
 	${2}
 snippet EULER
 	#define EULER 2.7182818284590452${1:35360287471352662}
 	${2}
+snippet t
+	.true.${1}
+snippet true
+	.true.${1}
+snippet f
+	.false. ${1}
+snippet false
+	.false. ${1}
+snippet p
+	(${1})
+snippet (
+	(${1})
+snippet call
+	call ${1:sub}(${2:variables})
+snippet c
+	call ${1:sub}(${2:variables})
+snippet lc
+	(/(${1:listcomp},${2:var}=${3:start},${4:end})/)
+snippet dgemm
+	! C := a*op(A)*op(B)+b*C
+	! op(A) \in R^{m,k} :: lda = size(op(A),1)
+	! op(B) \in R^{k,n} :: ldb = size(op(B),1)
+	! C     \in R^{m,n} :: lda = size(   C ,1)
+	call dgemm(${1:'n'},${2:'n'},${3:M},${4:N},${5:K},${6:a},${7:A},${8:lda},${9:B},${10:ldb},${11:b},${12:C},${13:ldc})
+
+snippet !-
+	! ---------------------------------------------------------------------
+snippet !=
+	! =====================================================================
+snippet DOC
+	! =====================================================================
+	! ${1:DESCRIPTION}                -------------------------------------
+	! ---------------------------------------------------------------------
+	! Authors:      ${2:contributors.txt}
+	! Institution:  ${3:institue}
+	! Department:   ${4:dept}
+	! Date:					${5:date}
+	!	Contact:			${6:emails}
+	! ---------------------------------------------------------------------
+	! MODEL:
+	! ---------------------------------------------------------------------
+	! PARAMETER DESCRIPTION:
+	! ---------------------------------------------------------------------
+	! COMPILATION: 
+	! ---------------------------------------------------------------------
+	! NOTES:
+	!
+	! ---------------------------------------------------------------------
+snippet powersoftwo
+	! Powers of Two Useful for Bitwise And
+	! ------------------------------------
+	! 2**N        Val
+	! ------------------------------------
+	! 48   281474976710656
+	! 46    70368744177664
+	! 44    17592186044416
+	! 42     4398046511104
+	! 40     1099511627776
+	! 38      274877906944
+	! 36       68719476736
+	! 34       17179869184
+	! 32        4294967296
+	! 32        4294967296
+	! 30        1073741824
+	! 28         268435456
+	! 24          16777216
+	! 22           4194304
+	! 18            262144
+	! 16             65536
+	!	14             16384
+	! ------------------------------------
 
