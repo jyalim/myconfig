@@ -8,6 +8,19 @@
 # https://github.com/hellabyte/myconfig
 # ======================================================================
 
+
+# Use awk magic (associative arrays) to remove duplicate paths while
+# preserving order
+awk_magic() {
+  input=${1:-''}
+  temp=$(awk 'BEGIN{ORS=RS=":"}{ 
+    if ( a[$0] == 0) { 
+      print $0; a[$0]++ 
+    } 
+  }' <<< "$input:" )
+  echo ${temp%:*}
+}
+
 # Sets the path for the environment. Should only be run once.
 path_set() {
   local H=$HOME
@@ -48,58 +61,10 @@ path_set() {
   OLDIPATH=$INCLUDE
   OLDCPATH=$CPATH
 
-  case "$(uname -s)" in
-    "Darwin")
-      :
-      ;;
-    "Linux")
-      LINUX_DISTRIBUTIONS=("ubuntu" "centos" "arch linux" "rocks" 
-        "red hat" )
-      for d in ${LINUX_DISTRIBUTIONS[@]}; do
-        # [[ -f "${HOME}/bin" ]] && PATH="${HOME}/bin:${PATH}" || :
-        local rel='/etc/*-release'
-        if [[ "$(cat $rel | grep -i $f &> /dev/null)" -eq "0" ]]; then 
-          case "${d}" in
-            "centos")
-              :
-              ;;
-            "rocks")
-              :
-              ;;
-            "ubuntu")
-              :
-              ;;
-            "arch linux")
-              :
-              ;;
-            "red hat")
-              :
-              ;;
-            : | * | ? )
-              :
-              ;;
-          esac
-        fi
-      done; unset d; unset LINUX_DISTRIBUTIONS
-      ;;
-    : | * | ? )
-      :
-      ;;
-  esac
   PATH=''
   for xp in ${x_paths[@]}; do
       [[ -d $xp ]] && PATH="${PATH}:${xp}" || :
   done; unset xp
-  # Use awk magic (associative arrays) to remove duplicate paths while
-  # preserving order
-  awk_magic() {
-    input=${1:-''}
-    temp=$(awk 'BEGIN{ORS=RS=":"}{ if ( a[$0] == 0) { 
-      print $0; a[$0]++ 
-      } 
-    }' <<< "$input:" )
-    echo ${temp%:*}
-  }
 
   local tempPATH="${PATH}:${OLDXPATH}"
   PATH=$(awk_magic $tempPATH)
