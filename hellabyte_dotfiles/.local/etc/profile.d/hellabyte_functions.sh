@@ -61,49 +61,21 @@ path_set() {
   OLDIPATH=$INCLUDE
   OLDCPATH=$CPATH
 
-  PATH=''
-  for xp in ${x_paths[@]}; do
-      [[ -d $xp ]] && PATH="${PATH}:${xp}" || :
-  done; unset xp
+  function path_check() {
+    dir_list=(${@})
+    local collect=''
+    for dir in ${dir_list[@]}; do
+      [[ -d $dir ]] && collect="${collect}:${dir}" || :
+    done
+    echo $collect
+  }
 
-  local tempPATH="${PATH}:${OLDXPATH}"
-  PATH=$(awk_magic $tempPATH)
-  unset tempPATH
-
-  local mpath=''
-  for mp in ${man_paths[@]}; do
-      [[ -d $mp ]] && ! [[ $mpath =~ $mp ]] \
-        && mpath="${mpath}:${mp}" || :
-  done; unset mp; 
-  mpath=$(awk_magic "${mpath}:${OLDMPATH}")
-
-  lpath=$OLDLPATH
-  ldpath=$OLDLDPATH
-  for lp in ${lib_paths[@]}; do
-      if [[ -d $lp ]]; then 
-          ! [[  $lpath =~ $lp ]] &&  lpath="${lpath}:$lp"  || :
-          ! [[ $ldpath =~ $lp ]] && ldpath="${ldpath}:$lp" || :
-      fi
-  done; unset lp
-  lpath=$(awk_magic "${lpath}")
-  ldpath=$(awk_magic "${ldpath}")
-
-  incpath=$OLDIPATH
-  inccpath=$OLDCPATH
-  for ip in ${inc_paths[@]}; do
-      if [[ -d $ip ]]; then 
-          ! [[  $incpath =~ $ip ]] &&  incpath="${incpath}:$ip"  || :
-          ! [[ $inccpath =~ $ip ]] && inccpath="${inccpath}:$ip" || :
-      fi
-  done; unset ip
-  incpath=$(awk_magic $incpath)
-  inccpath=$(awk_magic $inccpath)
-  ! [[ -z $mpath    ]] &&  MANPATH=$mpath          || :
-  ! [[ -z $lpath    ]] &&  LIBRARY_PATH=$lpath     || :
-  ! [[ -z $ldpath   ]] &&  LD_LIBRARY_PATH=$ldpath || :
-  ! [[ -z $incpath  ]] &&  INCLUDE=$incpath        || :
-  ! [[ -z $inccpath ]] &&  CPATH=$inccpath         || :
-  unset mpath; unset lpath; unset ldpath; unset incpath; unset inccpath
+  local xpath="$(path_check ${x_paths[@]})"
+  local mpath="$(path_check ${man_paths[@]})"
+  local ldpth="$(path_check ${lib_paths[@]})"
+  local lbpth=$ldpth
+  local ipath="$(path_check ${inc_paths[@]})"
+  local cpath=$ipath
 
   local SYS_PROF='/etc/profile.d'
   if [[ -d SYS_PROF ]]; then
@@ -114,8 +86,21 @@ path_set() {
 
   local INTEL_PROF='/opt/intel/bin/compilervars.sh'
   local INTEL_ARCH='intel64'
-  [[ -f $INTEL_PROF ]] && builtin source $INTEL_PROF $INTEL_ARCH || :
+  if [[ -f $INTEL_PROF ]]; then 
+    builtin source $INTEL_PROF $INTEL_ARCH 
+    local INTEL_MIKE='/opt/intel/mkl/bin/mklvars.sh'
+    local INTEL_MARC='mic'
+    command -v micnativeloadex &>/dev/null && \
+      builtin source $INTEL_MIKE $INTEL_MARC || :
+  fi
 
+  export PATH=$(awk_magic "$xpath:$PATH")
+  export CPATH=$(awk_magic "$cpath:$CPATH")
+  export INCLUDE=$(awk_magic "$ipath:$INCLUDE")
+  export MANPATH=$(awk_magic "$mpath:$MANPATH")
+  export LIBRARY_PATH=$(awk_magic "$lbpth:$LIBRARY_PATH")
+  export LD_LIBRARY_PATH=$(awk_magic "$ldpth:$LD_LIBRARY_PATH")
+  unset xpath mpath ldpth lbpth ipath cpath
 }
 
 # Variables for Directory Names
