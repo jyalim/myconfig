@@ -97,31 +97,33 @@ EXEC                  38;05;72  # for files with executible bit
 *.dl         38;05;24
 
 # source code files special
-*.f90        38;05;029
-*.F90        38;05;029
-*.fpp        38;05;029
-*.FPP        38;05;029
-*.f95        38;05;029
-*.F95        38;05;029
-*.f03        38;05;029
-*.F03        38;05;029
-*.f08        38;05;029
-*.F08        38;05;029
-*.f          38;05;029
-*.F          38;05;029
-*.f77        38;05;029
-*.F77        38;05;029
-*.c          38;05;029
-*.cpp        38;05;029
-*.tex        38;05;029
-*.sty        38;05;029
-*.py         38;05;029
-*.pl         38;05;029
-*.sh         38;05;029
-*.bash       38;05;029
-*.zsh        38;05;029
-*.rkt        38;05;029
-*.scheme     38;05;029
+*.f90        38;05;144
+*.F90        38;05;144
+*.fpp        38;05;144
+*.FPP        38;05;144
+*.f95        38;05;144
+*.F95        38;05;144
+*.f03        38;05;144
+*.F03        38;05;144
+*.f08        38;05;144
+*.F08        38;05;144
+*.f          38;05;144
+*.F          38;05;144
+*.f77        38;05;144
+*.F77        38;05;144
+*.c          38;05;144
+*.cpp        38;05;144
+*.tex        38;05;144
+*.sty        38;05;144
+*.py         38;05;144
+*.pl         38;05;144
+*.prl        38;05;144
+*.sh         38;05;144
+*.bash       38;05;144
+*.zsh        38;05;144
+*.rkt        38;05;144
+*.scheme     38;05;144
+*.vim        38;05;144
 
 # source code files general 
 *.PL         38;05;187
@@ -145,6 +147,10 @@ EXEC                  38;05;72  # for files with executible bit
 *.txt        38;05;110
 *.csv        38;05;110
 *.tsv        38;05;110
+
+# parameter files
+*.prm        38;05;193
+*.parameter  38;05;193
 
 # document files
 *README*     38;05;103
@@ -172,7 +178,10 @@ EXEC                  38;05;72  # for files with executible bit
 *.gz         38;05;146
 *.bz2        38;05;146
 *.jar        38;05;146
-#
+
+# encrypted/private files
+*.gpg        38;05;223
+
 # storage/disk files
 *.deb        38;05;188
 *.rpm        38;05;188
@@ -187,10 +196,12 @@ EXEC                  38;05;72  # for files with executible bit
 *login       38;05;108
 *logout      38;05;108
 *info        38;05;108
+*options     38;05;108
 
 # Log/History Files
-*log         38;05;108
-*history     38;05;108
+*log         38;05;072
+*history     38;05;072
+*hst         38;05;072
 
 # Formatted Data Files
 *.ods        38;05;215
