@@ -188,8 +188,8 @@ elseif &t_Co == 88 || &t_Co == 256
   hi Keyword     ctermfg=067
   hi Exception   ctermfg=209
 
-  hi PreProc     ctermfg=026
-  hi Include     ctermfg=032
+  hi PreProc     ctermfg=038
+  hi Include     ctermfg=033
   hi Define      ctermfg=032
   hi Macro       ctermfg=031
   hi PreCondit   ctermfg=066

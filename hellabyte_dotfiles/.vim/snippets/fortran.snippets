@@ -1,3 +1,26 @@
+## Preprocessor Stuff
+# #include "..."
+snippet inc
+	#include <${1:header_file}.h>${2}
+snippet include
+	#include <${1:header_file}.h>${2}
+
+# definition constructs
+snippet ifndef
+	#ifndef $1
+	#define ${1:SYMBOL} ${2:value}
+	#endif${3}
+
+snippet def
+	#define ${1:SYMBOL} ${2:value}
+snippet define
+	#define ${1:SYMBOL} ${2:value}
+
+snippet ifdef
+	#ifdef ${1:FOO}
+		${2:#define }
+	#endif
+
 ## Classic Fortran Structures
 # program
 snippet program
