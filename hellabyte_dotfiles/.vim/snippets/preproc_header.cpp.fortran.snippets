@@ -1,0 +1,31 @@
+## Preprocessor Stuff
+# #include "..."
+snippet #inc
+	#include <${1:header_file}.h>${2}
+snippet #inclue
+	#include <${1:header_file}.h>${2}
+
+# definition constructs
+snippet #ifn
+	#ifndef $1
+	#define ${1:SYMBOL} ${2:value}
+	#endif${3}
+snippet #ifndef
+	#ifndef $1
+	#define ${1:SYMBOL} ${2:value}
+	#endif${3}
+
+snippet #def
+	#define ${1:SYMBOL} ${2:value}
+snippet #define
+	#define ${1:SYMBOL} ${2:value}
+
+snippet #ifdef
+	#ifdef ${1:FOO}
+		${2:#define }
+	#endif
+
+snippet #if
+	#if ${1:FOO}
+		${2}
+	#endif
