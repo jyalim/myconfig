@@ -1,4 +1,26 @@
 # Read File Into Vector
+# #include "..."
+snippet inc
+	#include "${1:header_file}.h"${2}
+
+# definition constructs
+snippet Def
+	#ifndef $1
+	#define ${1:SYMBOL} ${2:value}
+	#endif${3}
+snippet def
+	#define ${1:SYMBOL} ${2:value}
+
+snippet ifdef
+	#ifdef ${1:FOO}
+		${2:#define }
+	#endif
+
+snippet #if
+	#if ${1:FOO}
+		${2}
+	#endif
+
 snippet readfile
 	std::vector<char> v;
 	if (FILE *${2:fp} = fopen(${1:"filename"}, "r")) {
