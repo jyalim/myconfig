@@ -24,7 +24,7 @@ awk_magic() {
 # Sets the path for the environment. Should only be run once.
 # Allows for smooth and consistent executing, paging, and linking
 # across heterogeneous systems.
-path_set() {
+set_path() {
   # Define general array of exe paths ${exe_paths[@]}
   #                         man paths ${man_paths[@]}
   #                         lib paths ${lib_paths[@]}
@@ -48,17 +48,23 @@ path_set() {
   local mps="local/share/man"
   local lps="local/lib"
   local ips="local/include"
-  local man_paths=( "${H}/.${mps}" "${H}/${mps}" "${H}/share/man" 
-    "${L}/.local/man" "${H}/local/man"
-    "${H}/.local/usr/share/man" "${H}/local/usr/share/man" 
-    "${H}/.local/usr/local/share/man" "${H}/local/usr/local/share/man" 
-    "${LO}/anaconda/share/man" "${H}/local/anaconda/share/man" )
-  local lib_paths=( "${H}/.${lps}" "${H}/${lps}" "${H}/lib" 
-    "${H}/.local/usr/lib" "${H}/.local/usr/local/lib" 
-    "${H}/local/usr/lib" "${H}/local/usr/local/lib" )
-  local inc_paths=( "${H}/.${ips}" "${H}/${ips}" "${H}/include" 
+  local man_paths=( 
+    "${H}/.${mps}" "${H}/${mps}" "${H}/share/man" "${L}/.local/man" 
+    "${H}/local/man" "${H}/.local/usr/share/man" 
+    "${H}/local/usr/share/man" "${H}/.local/usr/local/share/man" 
+    "${H}/local/usr/local/share/man" "${LO}/anaconda/share/man" 
+    "${H}/local/anaconda/share/man" 
+  )
+  local lib_paths=( 
+    "${H}/.${lps}" "${H}/${lps}" "${H}/lib" "${H}/.local/usr/lib" 
+    "${H}/.local/usr/local/lib" "${H}/local/usr/lib" 
+    "${H}/local/usr/local/lib" 
+  )
+  local inc_paths=( 
+    "${H}/.${ips}" "${H}/${ips}" "${H}/include" 
     "${H}/.local/usr/include" "${H}/.local/usr/local/include" 
-    "${H}/local/usr/include" "${H}/local/usr/local/include" )
+    "${H}/local/usr/include" "${H}/local/usr/local/include" 
+  )
 
   OLDXPATH=$PATH             # Archive Old Paths
   OLDMPATH=$MANPATH          #
@@ -68,7 +74,7 @@ path_set() {
   OLDCPATH=$CPATH            #
 
   # General helper function for generating path strings
-  function path_check() {
+  path_check() {
     dir_list=(${@})
     local collect=''
     for dir in ${dir_list[@]}; do
@@ -147,33 +153,54 @@ common_dir_init
 # \[\e[38;05;${color}m\]
 #                           38;05;${color} -- 88/256 Foreground Color
 #                               
-function my_prompt() {
-  function colorme_prompt() {
+set_prompt() {
+  # Main Function sets Prompt Color, Style, Tokens for tmux and default
+  # environment
+  sc_prompt() {
+    # Helper function -- Sets Color for Prompt
     local color=${1:-60} esc=${2:-'\a'} pad=${3:-0} S=' '
-    printf "%s%.3d%s%s%${pad}.s" '\[\033[38;05;' $color 'm\]' $esc $S
+    printf "%s%${pad}.s" "\[\033[38;05;${color}m\]${esc}" $S
   }
-  local CAPSTR='\[\e[m\]'
+  local capstr='\[\e[m\]'
+  # If in tmux environment, $TMUX is not empty and we set simpler 
+  # prompt due to status bar at bottom of window.
+  # \t -- 24 hour format HH:MM:SS
+  # \h -- ${HOSTNAME%.*}
+  # \u -- ${USER}
+  # \$ -- $ if nonroot # else
+  # \W -- $(basename $PWD) = ${PWD##*/}
+  # See more here: 
+  # https://wiki.archlinux.org/index.php/Color_Bash_Prompt#Prompt_escapes
+  # 88/256 Colors see more here:
+  # http://misc.flogisoft.com/bash/tip_colors_and_formatting
+  ## 
+  # lb_colors -- Light Background Terminal Colors
+  # db_colors -- Dark  Background Terminal Colors
+  # pe_tokens -- Prompt Escape Tokens
   if [[ -n $TMUX ]]; then
-    local LT_COLORS=( 238 249 37 36 )
-    local DT_COLORS=( 236 239 66 243 )
-    local OT_TYPES=('\t' '\$' '\W' '>' )
-    local SPACE=( 0 0 0 0 )
+    local lb_colors=( 238 249 37 36 )
+    local db_colors=( 236 239 66 243 )
+    local pe_tokens=('\t' '\$' '\W' '>' )
+    local space=( 0 0 0 0 ) # No padding between prompt objects
   else
-    local LT_COLORS=( 238 243 43 249 37 36 )
-    local DT_COLORS=( 236 242 245 243 66 243 )
-    local OT_TYPES=('\t' '\h' '\u' '\$' '\W' '>' )
-    local SPACE=( 1 0 0 0 0 0 )
+    local lb_colors=( 238 243 43 249 37 36 )
+    local db_colors=( 236 242 245 243 66 243 )
+    local pe_tokens=('\t' '\h' '\u' '\$' '\W' '>' ) 
+    local space=( 1 0 0 0 0 0 ) # Padding between time and other objects
   fi
   LIGHTTERM_PS1=''; DARKTERM_PS1=''
-  for M in $(eval "echo {0..$((${#DT_COLORS[@]} - 1))}"); do
-    local LTP1[$M]=$( colorme_prompt ${LT_COLORS[$M]} ${OT_TYPES[$M]} ${SPACE[$M]} )
-    local DTP1[$M]=$( colorme_prompt ${DT_COLORS[$M]} ${OT_TYPES[$M]} ${SPACE[$M]} )
-    LIGHTTERM_PS1=$LIGHTTERM_PS1"${LTP1[$M]}"
-    DARKTERM_PS1=$DARKTERM_PS1"${DTP1[$M]}"
-  done; unset M
-  LIGHTTERM_PS1="${LIGHTTERM_PS1}${CAPSTR}"
-  DARKTERM_PS1="${DARKTERM_PS1}${CAPSTR}"
+  for k in ${!db_colors[@]}; do
+    local LTP1[$k]=$( sc_prompt ${lb_colors[$k]} ${pe_tokens[$k]} ${space[$k]} )
+    local DTP1[$k]=$( sc_prompt ${db_colors[$k]} ${pe_tokens[$k]} ${space[$k]} )
+    LIGHTTERM_PS1=$LIGHTTERM_PS1"${LTP1[$k]}"
+    DARKTERM_PS1=$DARKTERM_PS1"${DTP1[$k]}"
+  done; unset k
+  LIGHTTERM_PS1="${LIGHTTERM_PS1}${capstr}"
+  DARKTERM_PS1="${DARKTERM_PS1}${capstr}"
   export LIGHTTERM_PS1; export DARKTERM_PS1
+  # TODO  Set either light or dark prompt based on color of terminal 
+  #       background.
+  # ISSUE Currently assumes dark background
   case ${1-:"dark"} in
     "light")
       export PS1=$LIGHTERM_PS1
@@ -184,11 +211,14 @@ function my_prompt() {
       export ITERM_PROFILE="dark"
       ;;
   esac
-  export PROMPT_COMMAND='ER=$?; [[ $ER == 0 ]] || ( \
-    BSTR="NONZERO EXIT CODE -- WHAT WENT WRONG ->"; ESTR="ERROR CODE -- $ER :("; \
-    echo -ne "\033[38;05;167m${BSTR}"; 
-    printf "%.0s " $(eval "echo {1..$(($(tput cols) - ${#BSTR} - ${#ESTR}))}"); \
+  # PROMPT_COMMAND -- Executes after end of shell evaluation
+  #                -- Prints only if previous command had nonzero exit
+  export PROMPT_COMMAND='ER=$?; [[ $ER == 0 ]] || ( 
+    BSTR="NONZERO EXIT CODE -- WHAT WENT WRONG ->"; 
+    ESTR="ERROR CODE -- $ER :("; echo -ne "\033[38;05;167m${BSTR}"; 
+    printf "%.0s " $(eval "echo {1..$(($(tput cols)-${#BSTR}-${#ESTR}))}"); 
     echo -e "\033[38;05;203m${ESTR}"; unset ER BSTR ESTR )'
+  # TODO Make Less Arbitrary
   export ITERM_PROFILE="dark"
 }
 
@@ -255,22 +285,24 @@ geo_ip_info() {
 }
 
 duh() {
-    du --si $1 | tail -1
+  du --si $1 | tail -1
 }
 
 now() {
-    echo $(date +"%Y.%m.%d-%H.%M.%S")
+  echo $(date +"%Y.%m.%d-%H.%M.%S")
 }
 
 scd() {
+  # Nearly as good as quick-cd
+  # Also for changing directory to deeper directories
   if [ $# != 1 ]; then
     echo "No input passed."
   else
     [[ -z ${DSTACK[@]} ]] && ( echo "Empty directory stack."; return ) || :
-    local NULL="/dev/null"; ITEM="*${1}*"
-    local PRC=$(find ${DSTACK[@]} \
-      -maxdepth 3 -type d -iname $ITEM 2> $NULL | sed 1q)
-    cd ${PRC[0]}
+    local null="/dev/null" item="*${1}*" 
+    local prc=$(find ${DSTACK[@]} \
+      -maxdepth 3 -type d -iname $item 2> $null | sed 1q)
+    cd ${prc[0]}
   fi
 }
 

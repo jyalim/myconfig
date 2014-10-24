@@ -50,18 +50,11 @@ sourcing
 # export SOURCED_PATHS=1
 # 
 # New path setting function trims redundant paths
-path_set
+set_path
 
 # ======================================================================
 # Create Prompt
-my_prompt
+set_prompt
 
 # ======================================================================
 # Possibly: http://alias.sh/filesystem-markers-jump
-
-# BEGIN QUICK-CD FUNCTIONS
-# DO NOT DELETE ABOVE COMMENT
-[[ -f "${HOME}/.quick-cd/.backups/.supporting_rc.bash" ]] && \
-    builtin source "${HOME}/.quick-cd/.backups/.supporting_rc.bash" || :
-# DO NOT DELETE BELOW COMMENT
-# END QUICK-CD FUNCTIONS
