@@ -177,7 +177,8 @@ elseif &t_Co == 88 || &t_Co == 256
   hi Boolean   ctermfg=229
   hi Float     ctermfg=109
 
-  hi Identifier  ctermfg=029 cterm=NONE
+ " Bash Variables being set Are Identifiers
+  hi Identifier  ctermfg=81 cterm=NONE    
   hi Function    ctermfg=101
 
   hi Statement   ctermfg=066

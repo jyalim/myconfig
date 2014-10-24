@@ -22,13 +22,19 @@ awk_magic() {
 }
 
 # Sets the path for the environment. Should only be run once.
+# Allows for smooth and consistent executing, paging, and linking
+# across heterogeneous systems.
 path_set() {
+  # Define general array of exe paths ${exe_paths[@]}
+  #                         man paths ${man_paths[@]}
+  #                         lib paths ${lib_paths[@]}
+  #                         inc paths ${inc_paths[@]}
   local H=$HOME
   local A="anaconda/bin"
   local L="${H}/.local"
   local O="openmpi/bin"
   local LO="${L}/opt"
-  local x_paths=(
+  local exe_paths=(
     "${LO}/${O}" "${LO}/${A}" "${L}/bin" "${L}/sbin" "${H}/bin" 
     "${H}/sbin" "${H}/local/bin" "${H}/local/sbin" "${L}/usr/bin" 
     "${L}/usr/sbin" "${L}/usr/local/bin" "${L}/usr/local/sbin"
@@ -54,13 +60,14 @@ path_set() {
     "${H}/.local/usr/include" "${H}/.local/usr/local/include" 
     "${H}/local/usr/include" "${H}/local/usr/local/include" )
 
-  OLDXPATH=$PATH
-  OLDMPATH=$MANPATH
-  OLDLDPATH=$LD_LIBRARY_PATH
-  OLDLPATH=$LIBRARY_PATH
-  OLDIPATH=$INCLUDE
-  OLDCPATH=$CPATH
+  OLDXPATH=$PATH             # Archive Old Paths
+  OLDMPATH=$MANPATH          #
+  OLDLDPATH=$LD_LIBRARY_PATH #
+  OLDLPATH=$LIBRARY_PATH     #
+  OLDIPATH=$INCLUDE          #
+  OLDCPATH=$CPATH            #
 
+  # General helper function for generating path strings
   function path_check() {
     dir_list=(${@})
     local collect=''
@@ -70,13 +77,14 @@ path_set() {
     echo $collect
   }
 
-  local xpath="$(path_check ${x_paths[@]})"
+  local xpath="$(path_check ${exe_paths[@]})"
   local mpath="$(path_check ${man_paths[@]})"
   local ldpth="$(path_check ${lib_paths[@]})"
   local lbpth=$ldpth
   local ipath="$(path_check ${inc_paths[@]})"
   local cpath=$ipath
 
+  # Source system profiles and then intel profiles
   local SYS_PROF='/etc/profile.d'
   if [[ -d SYS_PROF ]]; then
     for f in "${SYS_PROF}/*.sh"; do
@@ -84,6 +92,7 @@ path_set() {
     done
   fi
 
+  # TODO Determine how intel64 linking affects MIC linking
   local INTEL_PROF='/opt/intel/bin/compilervars.sh'
   local INTEL_ARCH='intel64'
   if [[ -f $INTEL_PROF ]]; then 
@@ -94,6 +103,7 @@ path_set() {
       builtin source $INTEL_MIKE $INTEL_MARC || :
   fi
 
+  # Append old path to new path, remove redundancies, preserve order
   export PATH=$(awk_magic "$xpath:$PATH")
   export CPATH=$(awk_magic "$cpath:$CPATH")
   export INCLUDE=$(awk_magic "$ipath:$INCLUDE")
@@ -119,19 +129,28 @@ common_dir_init() {
   NOTEFILE="${DOCDIR}/various/notes.txt"
   TASKFILE="${DOCDIR}/various/tasks.txt"
   INETGEOFILE="${INETDIR}/geo.xml"
-  ! [[ -d $DOCDIR ]] && mkdir 700 $DOCDIR || :
-  ! [[ -d $INETDIR ]] && mkdir -p $INETDIR || :
-  ! [[ -f $NOTEFILE ]] && touch $NOTEFILE || :
-  ! [[ -f $TASKFILE ]] && touch $TASKFILE || :
-  ! [[ -f $INETGEOFILE ]] && touch $INETGEOFILE || :
+  ! [[ -d $DOCDIR      ]] && mkdir -m 700 $DOCDIR || :
+  ! [[ -d $INETDIR     ]] && mkdir -p $INETDIR    || :
+  ! [[ -f $NOTEFILE    ]] && touch $NOTEFILE      || :
+  ! [[ -f $TASKFILE    ]] && touch $TASKFILE      || :
+  ! [[ -f $INETGEOFILE ]] && touch $INETGEOFILE   || :
 }
 
 common_dir_init
+
 # Setting PS1 style 
-my_prompt() {
-  colorme_prompt() {
-    local COLOR=${1:-60}; local ESCAPE=${2:-'\a'}; local SPACE=${3:-0}; local S=' '
-    printf "%s%.3d%s%s%${SPACE}.s" '\[\033[38;05;' $COLOR 'm\]' $ESCAPE $S
+# \033 = \e := Escape -- Escapes next Character; Needed to set color 
+#                           Modes
+# \e[ ... m\]         -- Escape Nest 
+# 38;05;${color}      -- 88/256 Foreground Color No Attribute ${color} 
+# 48;05;${color}      -- 88/256 Background Color No Attribute ${color} 
+# \[\e[38;05;${color}m\]
+#                           38;05;${color} -- 88/256 Foreground Color
+#                               
+function my_prompt() {
+  function colorme_prompt() {
+    local color=${1:-60} esc=${2:-'\a'} pad=${3:-0} S=' '
+    printf "%s%.3d%s%s%${pad}.s" '\[\033[38;05;' $color 'm\]' $esc $S
   }
   local CAPSTR='\[\e[m\]'
   if [[ -n $TMUX ]]; then
