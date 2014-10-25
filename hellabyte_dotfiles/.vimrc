@@ -13,7 +13,7 @@
 " EMACS keybinding section was all me though.
 " ----------------------------------------------------------------------
 " AUTHOR: Nathaniel Hellabyte
-" https://github.com/hellabyte/myconfig
+" SOURCE: https://github.com/hellabyte/myconfig
 " =====================================================================
 
 " Turns off vi-compatability
@@ -109,6 +109,11 @@ if exists("+undofile")
   set undofile
 endif
 
+if isdirectory( $HOME . '/.vim/doc' ) == 1
+  set runtimepath+=$HOME/.vim/doc
+  helptags $HOME/.vim/doc
+endif
+
 " Line Numbers, nu = number
 set nu 
 
@@ -138,6 +143,8 @@ if has("autocmd")
   au Filetype gplot,gp set syntax=gnuplot
 endif
 
+" TODO: Add cpreproc filetype to c, cpp, f, f90 filetypes with .
+"       to improve snippet handling of preprocessing syntax
 let s:extfname = expand("%:e")
 if s:extfname ==? "f90"
   let fortran_free_source=1
