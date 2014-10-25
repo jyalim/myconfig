@@ -174,7 +174,7 @@ inoremap <C-u> <C-o>d0
 inoremap <C-y> <C-r>
 inoremap <C-r> <C-o>F
 inoremap <C-d> <delete>
-inoremap <C-w> <C-d>
+inoremap <C-t> <C-o>x<C-o>p
 inoremap <C-s> <C-o>f
 inoremap <Return> <C-j>
 " EMACS keybindings for command line mode 
