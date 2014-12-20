@@ -1,5 +1,5 @@
 " .vimrc
-" 2014 - 09 - 26 
+" 2014 - 09 - 26  
 " ---------------------------------------------------------------------
 " Note that all options can be defined and researched by using builtin 
 "   docs.
@@ -140,19 +140,30 @@ if has("autocmd")
   au BufEnter * let &titlestring=expand("%:p")
   au BufRead,BufNewFile *.rkt setfiletype scheme
   au BufRead,BufNewFile *.CR2 setfiletype txt
+  au BufRead,BufNewFile *.inc setfiletype fortran
+  au BufRead,BufNewFile *.fh  setfiletype fortran
+  au Filetype pov set syntax=fortran
   au Filetype gplot,gp set syntax=gnuplot
 endif
 
 " TODO: Add cpreproc filetype to c, cpp, f, f90 filetypes with .
 "       to improve snippet handling of preprocessing syntax
 let s:extfname = expand("%:e")
-if s:extfname ==? "f90"
-  let fortran_free_source=1
-  unlet! fortran_fixed_source
-else
+if s:extfname ==? "f" 
   let fortran_fixed_source=1
   unlet! fortran_free_source
+else
+  let fortran_free_source=1
+  let fortran_have_tabs=1
+  let fortran_more_precise=1
+  unlet! fortran_fixed_source
 endif
+
+" Window Nav
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Speed up paging
 nnoremap <C-e> 5<C-e>
@@ -206,6 +217,12 @@ nmap <leader>k :<C-p>
 
 " Remap old sourcing
 nmap <silent> <leader>z :source ~/.vimrc<C-j>
+
+" Group Closing
+inoremap ( ()<Esc>i
+inoremap { {}<Esc>i
+inoremap [ []<Esc>i
+inoremap < <><Esc>i
 " Copy path to clipboard
 " nmap <silent> <leader>p :!pwd | pbcopy
 " nmap <silent> <leader>p :!pwd | xclip
@@ -236,7 +253,7 @@ set autoindent
 set expandtab
 " Inserts shiftwidth spaces for <tab>. If off, <tab> inserts 
 "   tabstop spaces.
-set smartindent           " Indents instead of tabs
+"set smartindent           " Indents instead of tabs
 set tabstop=2             " Size of hard tabstop
 set shiftwidth=2          " Size of indent
 set expandtab             " Spaces instead of tabs
@@ -256,9 +273,13 @@ endif
 
 " Adds custom general highlighting to comment keywords
 function! HighlightKeywords()
-  syn keyword myTodo TODO XXX BUG NOTE FIXME DONE ADD ISSUE EQ containedin=ALL
+  syn keyword myTodo TODO XXX BUG NOTE FIXME ADD ISSUE EQUATION
+                   \ QUEST QUESTION ASK FIX GARBAGE TRASH BAD OKAY 
+                   \ CITE REF DISCUSS DISC TALK MORE LESS CLEAN 
+                   \ MARK HERE CHECK 
+                   \ containedin=ALL
   syn cluster CommentGroup contains=myTodo
-    hi def link myTodo Todo
+  hi def link myTodo Todo
 endfunction
 
 autocmd Syntax * call HighlightKeywords()

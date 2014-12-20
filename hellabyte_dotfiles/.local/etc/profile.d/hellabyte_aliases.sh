@@ -149,6 +149,8 @@ alias "pt"='ping -c 3'
 alias "ptg"='pt google.com'
 alias "py"='python'
 alias "pyc"="python -c"
+#command -v julia &>/dev/null && \
+#  alias ijulia="ipython notebook inline --profile=julia" || :
 command -v ipython &> /dev/null && alias "ipy"="ipython" || :
 
 p=$(whereis ifort | awk '{print $2}')
