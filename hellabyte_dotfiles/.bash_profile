@@ -29,7 +29,7 @@ export HISTFILESIZE=$(( $HISTSIZE * 25 ))
 export HISTCONTROL=ignoreboth
 export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
 export CLICOLOR=1
-export GREP_OPTIONS='--color=auto'
+#export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='01;20'
 shopt -s extglob histappend 
 if [[ ${BASH_VERSION} =~ ^[0-3] ]]; then

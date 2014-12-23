@@ -132,8 +132,8 @@ alias "lf"="ls -F ${ls_style}"
 alias "lg"="ls -gF ${ls_style}"
 alias "lS"="ls -lSF ${ls_style}"
 alias "llt"="ll -tr ${ls_style}"
-alias "grep"="grep -i"
-alias "fgrep"="fgrep -i"
+alias "grep"="grep --color=auto -i"
+alias "fgrep"="fgrep --color=auto -i"
 alias '.....'='cd ../../../..'
 alias '....'='cd ../../..'
 alias '...'='cd ../..'
@@ -146,7 +146,7 @@ command -v vim &> /dev/null && alias "vi"='vim'; \
   alias "svim"='svi' || :
 alias "jobs"='jobs -l'
 alias "pt"='ping -c 3'
-alias "ptg"='pt google.com'
+alias "ptg"='pt 8.8.8.8'
 alias "py"='python'
 alias "pyc"="python -c"
 #command -v julia &>/dev/null && \
