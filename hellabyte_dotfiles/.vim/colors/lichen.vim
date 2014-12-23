@@ -1,10 +1,10 @@
 " ------------------------------------------------------------------
 " Vim color file
-" Name: moss (苔)
-" Maintainer: Li Chunlin <yeiicn!gmail.com> 
-" Modifier:   Jason Yalim <jbyalim@gmail.com>
+" Name: moss (苔) | lichen
+" Original Author: Li Chunlin <yeiicn!gmail.com> 
+" Modifier:   Jason Yalim <jyalim@asu.edu>
 " Last Change: 2010-08-06 | 2013 - 07 - 20
-" Version: 2.1 | 0.1
+" Version: 2.1 | 1.0
 " URL: http://vim.sourceforge.net/script.php?script_id=2779
 " ------------------------------------------------------------------
 

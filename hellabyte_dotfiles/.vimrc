@@ -268,7 +268,7 @@ if $TERM == "dumb"
   colorscheme default
 else
   set t_Co=256
-  colo mymoss
+  colo lichen
 endif
 
 " Adds custom general highlighting to comment keywords
@@ -339,12 +339,12 @@ set pastetoggle=<F2>
     "    colorscheme trivial256
     "else 
     "    if $ITERM_PROFILE == "dark"
-    "        colorscheme mymoss
+    "        colorscheme lichen 
     "    else
     "        if $ITERM_PROFILE == "glass"
     "            colorscheme transparent
     "        else
-    "            colorscheme mymoss
+    "            colorscheme lichen
     "        endif
     "    endif
     "endif
