@@ -278,8 +278,10 @@ function! HighlightKeywords()
                    \ CITE REF DISCUSS DISC TALK MORE LESS CLEAN 
                    \ MARK HERE CHECK 
                    \ containedin=ALL
-  syn cluster CommentGroup contains=myTodo
   hi def link myTodo Todo
+  " The following line leads to myTodo keywords being highlighed
+  "   in all syntax groups
+  "syn cluster CommentGroup contains=myTodo 
 endfunction
 
 autocmd Syntax * call HighlightKeywords()
