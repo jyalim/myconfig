@@ -277,7 +277,8 @@ function! HighlightKeywords()
                    \ QUEST QUESTION ASK FIX GARBAGE TRASH BAD OKAY 
                    \ CITE REF DISCUSS DISC TALK MORE LESS CLEAN 
                    \ MARK HERE CHECK 
-                   \ containedin=ALL
+                   \ contained
+  "in=ALL 
   hi def link myTodo Todo
   " The following line leads to myTodo keywords being highlighed
   "   in all syntax groups
