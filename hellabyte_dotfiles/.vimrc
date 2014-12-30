@@ -18,7 +18,7 @@
 
 " Turns off vi-compatability
 set nocompatible
-
+" 
 " Changes mapleader from default of / 
 " mapleader is useful for setting custom modified commands.
 let mapleader=" "
