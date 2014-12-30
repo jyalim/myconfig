@@ -114,6 +114,18 @@ if isdirectory( $HOME . '/.vim/doc' ) == 1
   helptags $HOME/.vim/doc
 endif
 
+" For code folding: saves code folding for next session
+"   Also saves the view, and thus the place of the cursor.
+"   ISSUE : doesn't necessarily update with the .vimrc, requires 
+"           cleaning.
+if isdirectory( $HOME . '/.vim/.state/view') == 0
+  :silent !mkdir  -p ~/.vim/.state/view > /dev/null 2>&1
+  :silent !chmod 700 ~/.vim/.state/view > /dev/null 2>&1
+endif
+set viewdir=~/.vim/.state/view
+autocmd BufWrite * mkview
+autocmd BufRead  * silent loadview
+
 " Line Numbers, nu = number
 set nu 
 
@@ -157,6 +169,11 @@ else
   let fortran_have_tabs=1
   let fortran_more_precise=1
   unlet! fortran_fixed_source
+endif
+
+" TeX indentexpr function, GetTexIndent() drives me crazy
+if s:extfname ==? "tex" 
+  filetype plugin indent off
 endif
 
 " Window Nav
@@ -204,7 +221,8 @@ nmap <silent> <leader>q :r!python -c 'print <C-r><C-w>
 nmap <leader>; :
 nmap <leader>t :!
 nmap <leader>a :!aspell -c %<C-j>
-nmap <leader>l :!xelatex %<C-j>
+nmap <leader>l :!pdflatex %<C-j>
+nmap <leader>z :!xelatex %<C-j>
 nmap <leader>p :!python %<C-j>
 nmap <leader>o :!open
 nmap <leader>f :!open .<C-j>
@@ -216,13 +234,26 @@ nmap <leader>k :<C-p>
 "nmap <leader>c :
 
 " Remap old sourcing
-nmap <silent> <leader>z :source ~/.vimrc<C-j>
+nmap <silent> <leader>r :source ~/.vimrc<C-j>
 
 " Group Closing
-inoremap ( ()<Esc>i
-inoremap { {}<Esc>i
-inoremap [ []<Esc>i
-inoremap < <><Esc>i
+inoremap ( ()<Left>
+inoremap { {}<Left>
+inoremap [ []<Left>
+inoremap < <><Left>
+inoremap ' ''<Left>
+inoremap " ""<Left>
+inoremap ` `'<Left>
+inoremap `` ``"<Left>
+
+"inoremap (<space> ( 
+"inoremap {<space> { 
+"inoremap [<space> [ 
+"inoremap <<space> < 
+"inoremap '<space> ' 
+"inoremap "<space> " 
+"inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+
 " Copy path to clipboard
 " nmap <silent> <leader>p :!pwd | pbcopy
 " nmap <silent> <leader>p :!pwd | xclip
@@ -253,14 +284,13 @@ set autoindent
 set expandtab
 " Inserts shiftwidth spaces for <tab>. If off, <tab> inserts 
 "   tabstop spaces.
-"set smartindent           " Indents instead of tabs
+set smartindent           " Indents instead of tabs
 set tabstop=2             " Size of hard tabstop
 set shiftwidth=2          " Size of indent
 set expandtab             " Spaces instead of tabs
 set softtabstop=2         " combination of previous two
 
 autocmd BufEnter *.py set ai sw=2 ts=2 sta et fo=croql
-set softtabstop=2
 
 "setlocal spell spelllang=en_us
 
@@ -281,7 +311,7 @@ function! HighlightKeywords()
   "in=ALL 
   hi def link myTodo Todo
   " The following line leads to myTodo keywords being highlighed
-  "   in all syntax groups
+  "   in all syntax groups 
   "syn cluster CommentGroup contains=myTodo 
 endfunction
 
@@ -291,81 +321,13 @@ autocmd Syntax * call HighlightKeywords()
 " builtin autoindent.
 set pastetoggle=<F2>
 
-" For code folding: saves code folding for next session
-"   Also saves the view, and thus the place of the cursor.
-"   ISSUE : doesn't necessarily update with the .vimrc, requires 
-"           cleaning.
-" autocmd BufWrite * mkview
-" autocmd BufRead  * silent loadview
-
+" DEPRECATED
 " For using vim as a manpager:
 "$PAGER=''
 
-" DEPRECATED
-" Set keyboard arrow keys ( h,j,k,l ) to sit under right hand ( j,k,l,; )
-"" Basically, shifting keys to the right, and swapping ; with h.
-"noremap ; l
-"noremap l j
-"" Note that k will still be up
-"noremap j h
-"noremap h ;
-"" The following commands allow for :[wW][qQ] to still mean :wq
-" command! -bang -range=% -complete=file -nargs=* W <line1>,<line2>w<bang> <args>
-" command! -bang -range=% -complete=file -nargs=* Wq <line1>,<line2>wq<bang> <args>
-" command! -bang -range=% -complete=file -nargs=* WQ <line1>,<line2>wq<bang> <args>
-
-" command! -nargs=* WQA wqa <args>
-" command! -nargs=* WQa wqa <args>
-" command! -nargs=* Wqa wqa <args>
-
-" command! -bang -nargs=0 Qa qa<bang>
-" command! -bang -nargs=0 QA qa<bang>
-
-" command! -bang -nargs=0 Q quit<bang>
-"
-" If I get tired of using shift+; for : and
-" decide that default ; is lame 
-" btw
-" default ; -> repeat last t,f
-"
-" noremap ;; ;
-" map ; :
-"
 " More natural for traversing lines that span more than one vertical space.
 " map j gj
 " map k gk
 
-" Add in emacs style beginning of line, end of line for insert mode.
-"inoremap <C-e> <End>inoremap <C-a> <Home>
-"inoremap <C-e> <End>
-    "if $ITERM_PROFILE == "light"
-    "    colorscheme trivial256
-    "else 
-    "    if $ITERM_PROFILE == "dark"
-    "        colorscheme lichen 
-    "    else
-    "        if $ITERM_PROFILE == "glass"
-    "            colorscheme transparent
-    "        else
-    "            colorscheme lichen
-    "        endif
-    "    endif
-    "endif
-"
-" remaps 
-" noremap <leader><space> <C-b>
-" noremap <space> <C-f>
-" set laststatus=0
-" set statusline =
-" set statusline +=%1*\ %n\ %*            "buffer number
-" set statusline +=%5*%{&ff}%*            "file format
-" set statusline +=%3*%y%*                "file type
-" set statusline +=%4*\ %<%f%*            "full path
-" set statusline +=%2*%m%*                "modified flag
-" set statusline +=%1*%=%{v:register}\%*  "current register
-" set statusline +=%1*%5l%*               "current line
-" set statusline +=%2*/%L%*               "total lines
-" set statusline +=%1*%4v\ %*             "virtual column number
-"
 " Shows info about line, column and positional info in bottom right corner.
 " set ruler
