@@ -237,16 +237,15 @@ nmap <leader>k :<C-p>
 nmap <silent> <leader>r :source ~/.vimrc<C-j>
 
 " Group Closing
-inoremap ( ()<Left>
-inoremap { {}<Left>
-inoremap [ []<Left>
-inoremap < <><Left>
-inoremap ' ''<Left>
-inoremap " ""<Left>
-inoremap ` `'<Left>
+inoremap (  ()<Left>
+inoremap {  {}<Left>
+inoremap [  []<Left>
+inoremap <  <><Left>
+inoremap '  ''<Left>
+inoremap "  ""<Left>
+inoremap `  `'<Left>
 inoremap `` ``"<Left>
-
-"inoremap (<space> ( 
+"
 "inoremap {<space> { 
 "inoremap [<space> [ 
 "inoremap <<space> < 
@@ -328,6 +327,6 @@ set pastetoggle=<F2>
 " More natural for traversing lines that span more than one vertical space.
 " map j gj
 " map k gk
-
+"
 " Shows info about line, column and positional info in bottom right corner.
 " set ruler
