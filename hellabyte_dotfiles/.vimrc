@@ -275,7 +275,7 @@ set printoptions=paper:letter
 
 set tags=tags;~/
 
-set timeoutlen=500
+set timeoutlen=200
 
 " Preserves whitespace indentations on newline. On by default
 set autoindent
