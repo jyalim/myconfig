@@ -8,8 +8,8 @@
 # ======================================================================
 
 # enable syntax completion in python shells
-try:
-  import readline, rlcompleter
-  readline.parse_and_bind("tab: complete")
-except ImportError:
-  print "Module readline not available."
+# try:
+#   import readline, rlcompleter
+#   readline.parse_and_bind("tab: complete")
+# except ImportError:
+#   print "Module readline not available."
