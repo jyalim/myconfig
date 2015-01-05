@@ -245,7 +245,7 @@ inoremap '  ''<Left>
 inoremap "  ""<Left>
 inoremap `  `'<Left>
 inoremap `` ``"<Left>
-"
+
 "inoremap {<space> { 
 "inoremap [<space> [ 
 "inoremap <<space> < 
@@ -292,7 +292,6 @@ set softtabstop=2         " combination of previous two
 autocmd BufEnter *.py set ai sw=2 ts=2 sta et fo=croql
 
 "setlocal spell spelllang=en_us
-
 if $TERM == "dumb"
   colorscheme default
 else
@@ -302,16 +301,12 @@ endif
 
 " Adds custom general highlighting to comment keywords
 function! HighlightKeywords()
-  syn keyword myTodo TODO XXX BUG NOTE FIXME ADD ISSUE EQUATION
-                   \ QUEST QUESTION ASK FIX GARBAGE TRASH BAD OKAY 
-                   \ CITE REF DISCUSS DISC TALK MORE LESS CLEAN 
-                   \ MARK HERE CHECK 
-                   \ contained
-  "in=ALL 
+  let v=&ft."Comment"
+  exe 'syn keyword myTodo containedin='. v '
+     \ TODO XXX BUG NOTE FIXME ADD ISSUE QUEST QUESTION ASK FIX 
+     \ GARBAGE TRASH BAD OKAY CITE REF DISCUSS DISC TALK MORE 
+     \ LESS CLEAN MARK HERE CHECK CITE EQUATION'
   hi def link myTodo Todo
-  " The following line leads to myTodo keywords being highlighed
-  "   in all syntax groups 
-  "syn cluster CommentGroup contains=myTodo 
 endfunction
 
 autocmd Syntax * call HighlightKeywords()
