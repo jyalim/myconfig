@@ -291,6 +291,9 @@ set softtabstop=2         " combination of previous two
 
 autocmd BufEnter *.py set ai sw=2 ts=2 sta et fo=croql
 
+" Allows .tex files to be recognized as tex and not awful plaintex
+let g:tex_flavor="latex"
+
 "setlocal spell spelllang=en_us
 if $TERM == "dumb"
   colorscheme default
