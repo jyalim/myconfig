@@ -11,7 +11,7 @@
 "       http://items.sjbach.com/319/configuring-vim-right
 " Others were found on stackoverflow and various blogs.
 " EMACS keybinding section was all me though.
-" ----------------------------------------------------------------------
+" ---------------------------------------------------------------------
 " AUTHOR: Nathaniel Hellabyte
 " SOURCE: https://github.com/hellabyte/myconfig
 " =====================================================================
@@ -25,7 +25,7 @@ let mapleader=" "
 
 " Sets automatic carriage return at column number <textwidth>. 
 "   0/78 off/defl. 
-set textwidth=120
+set textwidth=72
 set formatoptions=c,q,r,t    " c    auto-wrap comments w/ text-width
 " q    Allow formatting of comments with <gq>
 " r    Auto insert current comment leader after
@@ -35,7 +35,7 @@ set formatoptions=c,q,r,t    " c    auto-wrap comments w/ text-width
 " Color 72nd and 80+ columns a different color to indicate width limit.
 " Comment out these lines if the columns are unsettling.
 if exists('+colorcolumn')
-  execute "set colorcolumn=72," . join(range(80,200),",")
+  execute "set colorcolumn=72," . join(range(80,300),",")
 endif
 " Allows ViM to manage multiple buffers 
 "   ( independent buffers and marks )
