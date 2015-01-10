@@ -4,6 +4,8 @@
 # https://github.com/hellabyte/myconfig
 # ======================================================================
 
+# QT is pretty, but slow
+set term x11
 
 # Enable Macros
 set macros
@@ -50,3 +52,5 @@ if ( system("hostname") eq "mathpost" ) {
     qpsr = "p for [k=0:1000] ts(rev,k) u 2:3 w l t sprintf('%03d',k)" 
     qpsf = "p for [k=0:1000] ts(fwd,k) u 2:3 w l t sprintf('%03d',k)" 
 }
+
+

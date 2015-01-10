@@ -20,10 +20,12 @@ sourcing() {
   local prof_path="${HOME}/.local/etc/profile.d"
   local source_paths=( $prof_path $gitcomp_path )
   case "$(uname -s)" in
-    "Darwin" ) command -v brew &> /dev/null && \
-      local BREW_PREFIX=$( brew --prefix ); \
-      local BREW_BASHCOMP_PATH="${BREW_PREFIX}/etc/bash_completion"; \
-      source_paths+=( $BREW_BASHCOMP_PATH ) || :
+    "Darwin" ) 
+      if [[ -n $(type -t brew) ]]; then
+        local BREW_PREFIX=$( brew --prefix ); 
+        local BREW_BASHCOMP_PATH="${BREW_PREFIX}/etc/bash_completion"; 
+        source_paths+=( $BREW_BASHCOMP_PATH ) 
+     fi
     ;;
     * | : | ? ) : ;;
   esac
