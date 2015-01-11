@@ -177,7 +177,18 @@ endif
 " TeX indentexpr function, GetTexIndent() drives me crazy
 if s:extfname ==? "tex" 
   filetype plugin indent off
+  inoremap $ $$<left>
 endif
+
+" Group Closing
+inoremap (  ()<Left>
+inoremap {  {}<Left>
+inoremap [  []<Left>
+inoremap <  <><Left>
+inoremap '  ''<Left>
+inoremap "  ""<Left>
+inoremap `  `'<Left>
+inoremap `` ``"<Left>
 
 " Window Nav
 nnoremap <C-h> <C-w>h
@@ -239,15 +250,6 @@ nmap <leader>k :<C-p>
 " Remap old sourcing
 nmap <silent> <leader>r :source ~/.vimrc<C-j>
 
-" Group Closing
-inoremap (  ()<Left>
-inoremap {  {}<Left>
-inoremap [  []<Left>
-inoremap <  <><Left>
-inoremap '  ''<Left>
-inoremap "  ""<Left>
-inoremap `  `'<Left>
-inoremap `` ``"<Left>
 
 "inoremap {<space> { 
 "inoremap [<space> [ 
