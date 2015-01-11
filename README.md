@@ -6,8 +6,8 @@ Configuration files for terminals.
 This repository was created to simplify the process of configuring 
 various machines.
 
-Lightly tested with kernels Darwin and Linux 
-( flavors Arch, CentOS, and Ubuntu ).
+Heavily tested with kernels Darwin and Linux 
+  ( flavors Ubuntu, Arch, and CentOS).
 
 Note that your old configuration files will be backed up to 
   $HOME/.local/var under the relevant date.
