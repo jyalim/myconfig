@@ -154,8 +154,11 @@ if has("autocmd")
   au BufRead,BufNewFile *.CR2 setfiletype txt
   au BufRead,BufNewFile *.inc setfiletype fortran
   au BufRead,BufNewFile *.fh  setfiletype fortran
+  au BufRead,BufNewFile *.osa setfiletype applescript
+  au BufRead,BufNewFile *.applescript setfiletype applescript
   au Filetype pov set syntax=fortran
   au Filetype gplot,gp set syntax=gnuplot
+  au Filetype applescript,osa set syntax=applescript
 endif
 
 " TODO: Add cpreproc filetype to c, cpp, f, f90 filetypes with .
