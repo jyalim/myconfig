@@ -178,7 +178,13 @@ endif
 if s:extfname ==? "tex" 
   filetype plugin indent off
   inoremap $ $$<left>
+  " Test this out
+  set iskeyword+=:
 endif
+
+au FileType * exec( "setlocal dictionary+=" . 
+      \ $HOME . "/.vim/dictionaries/".expand('<amatch>'))
+set complete+=k
 
 let asyncfile = &backupdir . '/scratch'
 
@@ -233,8 +239,6 @@ inoremap <C-f> <Right>
 inoremap <C-b> <Left>
 inoremap <C-n> <C-o>gj
 inoremap <C-p> <C-o>gk
-inoremap <C-l> <C-o><C-r>
-inoremap <C-z> <C-o>u
 inoremap <C-e> <C-o>$
 inoremap <C-a> <C-o>^
 inoremap <C-k> <C-o>D
@@ -243,6 +247,8 @@ inoremap <C-u> <C-o>d0
 inoremap <C-y> <C-r>
 inoremap <C-r> <C-o>F
 inoremap <C-d> <delete>
+"inoremap <C-l> <C-o><C-r> 
+"inoremap <C-z> <C-o>u
 
 inoremap <C-t> <C-o>x<C-o>p
 inoremap <C-s> <C-o>f

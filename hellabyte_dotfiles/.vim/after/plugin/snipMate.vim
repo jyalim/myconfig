@@ -5,11 +5,17 @@ if !exists('loaded_snips') || exists('s:did_snips_mappings')
 endif
 let s:did_snips_mappings = 1
 
-ino <silent> <tab> <c-r>=TriggerSnippet()<cr>
-snor <silent> <tab> <esc>i<right><c-r>=TriggerSnippet()<cr>
-ino <silent> <s-tab> <c-r>=BackwardsSnippet()<cr>
-snor <silent> <s-tab> <esc>i<right><c-r>=BackwardsSnippet()<cr>
-ino <silent> <c-r><tab> <c-r>=ShowAvailableSnips()<cr>
+"ino <silent> <tab> <c-r>=TriggerSnippet()<cr>
+"snor <silent> <tab> <esc>i<right><c-r>=TriggerSnippet()<cr>
+"ino <silent> <s-tab> <c-r>=BackwardsSnippet()<cr>
+"snor <silent> <s-tab> <esc>i<right><c-r>=BackwardsSnippet()<cr>
+"ino <silent> <c-r><tab> <c-r>=ShowAvailableSnips()<cr>
+
+ino  <C-l> <C-r>=TriggerSnippet()<cr>
+snor <C-l> <esc>i<right><C-r>=TriggerSnippet()<cr>
+ino  <C-z> <C-r>=BackwardsSnippet()<cr>
+snor <C-z> <esc>i<right><C-r>=BackwardsSnippet()<cr>
+"ino  <C-x><c-x> <c-r>=ShowAvailableSnips()<cr>
 "ino <silent> <c-t> <c-r>=TriggerSnippet()<cr>
 "snor <silent> <c-t> <esc>i<right><c-r>=TriggerSnippet()<cr>
 "ino <silent> <c-s-t> <c-r>=BackwardsSnippet()<cr>
