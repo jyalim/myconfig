@@ -118,6 +118,7 @@ g:multi_cursor_prev_key	multiple_cursors.txt	/*g:multi_cursor_prev_key*
 g:multi_cursor_quit_key	multiple_cursors.txt	/*g:multi_cursor_quit_key*
 g:multi_cursor_skip_key	multiple_cursors.txt	/*g:multi_cursor_skip_key*
 g:multi_cursor_start_key	multiple_cursors.txt	/*g:multi_cursor_start_key*
+g:multi_cursor_start_word_key	multiple_cursors.txt	/*g:multi_cursor_start_word_key*
 g:multi_cursor_use_default_mapping	multiple_cursors.txt	/*g:multi_cursor_use_default_mapping*
 g:snippets_dir	snipMate.txt	/*g:snippets_dir*
 g:snips_author	snipMate.txt	/*g:snips_author*

@@ -180,17 +180,44 @@ if s:extfname ==? "tex"
   inoremap $ $$<left>
 endif
 
-" Group Closing
-inoremap (  ()<Left>
-inoremap {  {}<Left>
-inoremap [  []<Left>
-inoremap <  <><Left>
-inoremap '  ''<Left>
-inoremap "  ""<Left>
-inoremap `  `'<Left>
-inoremap `` ``"<Left>
+let asyncfile = &backupdir . '/scratch'
 
-" Window Nav
+command! -nargs=1 -complete=command TabMessage tabnew 
+      \ | setlocal buftype=nowrite bufhidden=unload noswapfile 
+      \ | execute ':read !'.<q-args>
+
+command! -nargs=1 -complete=command Async
+      \ | execute ':!' . <q-args> . ' > ' . asyncfile . ' & '
+
+command! -complete=command AsyncTab tabnew
+      \ | setlocal buftype=nowrite bufhidden=unload noswapfile 
+      \ | execute ':read ' . asyncfile
+
+command! -nargs=1 -complete=shellcmd S 
+      \ | execute ':silent !'.<q-args>
+      \ | execute ':redraw!'
+
+"" Group Closing
+inoremap ()  ()<Left>
+inoremap {}  {}<Left><CR><CR><C-D><Up><tab>
+inoremap []  []<Left>
+inoremap <>  <><Left>
+inoremap ''  ''<Left>
+inoremap ""  ""<Left>
+inoremap `'  `'<Left>
+inoremap ``" ``"<Left>
+" Lazy (plus back up for {}) 
+inoremap (<space> ()<Left>
+inoremap {<space> {}<Left>
+inoremap [<space> []<Left>
+inoremap <<space> <><Left>
+"inoremap <expr> )  
+"    \ strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
+" inoremap '<space> '  '<Left><Left>
+" inoremap "<space> "  "<Left><Left>
+" Common in programming 
+inoremap (<space><space> (  )<Left><Left>
+
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
@@ -206,19 +233,23 @@ inoremap <C-f> <Right>
 inoremap <C-b> <Left>
 inoremap <C-n> <C-o>gj
 inoremap <C-p> <C-o>gk
-inoremap <C-l> <C-p>
-inoremap <C-z> <C-n>
+inoremap <C-l> <C-o><C-r>
+inoremap <C-z> <C-o>u
 inoremap <C-e> <C-o>$
-inoremap <C-a> <C-o>0
+inoremap <C-a> <C-o>^
 inoremap <C-k> <C-o>D
 inoremap <C-q> <C-k>
 inoremap <C-u> <C-o>d0
 inoremap <C-y> <C-r>
 inoremap <C-r> <C-o>F
 inoremap <C-d> <delete>
+
 inoremap <C-t> <C-o>x<C-o>p
 inoremap <C-s> <C-o>f
-inoremap <Return> <C-j>
+"inoremap <Return> <C-j>
+inoremap <C-x><C-a> <C-a> 
+inoremap <C-x><C-b> <C-d> 
+inoremap <C-x><C-t> <C-t> 
 " EMACS keybindings for command line mode 
 cnoremap <C-x> <C-f>
 cnoremap <C-f> <right>
@@ -229,11 +260,16 @@ cnoremap <C-p> <up>
 cnoremap <C-n> <down>
 cnoremap <C-q> <C-k>
 cnoremap <C-k> <C-e><C-u>
+cnoremap <C-x><C-a> <C-a>
 
 " Perform macro for common python calculation
 nmap <silent> <leader>q :r!python -c 'print <C-r><C-w> 
 nmap <leader>; :
 nmap <leader>t :!
+nmap <leader>m :TabMessage 
+nmap <leader>M :!AsyncTab
+nmap <leader>A :!Async
+nmap <leader>S :!S
 nmap <leader>a :!aspell -c %<C-j>
 nmap <leader>l :!pdflatex %<C-j>
 nmap <leader>z :!xelatex %<C-j>
@@ -245,18 +281,9 @@ nmap <leader>q :q
 nmap <leader>x :x
 nmap <leader>c :!pwd |
 nmap <leader>k :<C-p>
-"nmap <leader>c :
 
 " Remap old sourcing
 nmap <silent> <leader>r :source ~/.vimrc<C-j>
-
-
-"inoremap {<space> { 
-"inoremap [<space> [ 
-"inoremap <<space> < 
-"inoremap '<space> ' 
-"inoremap "<space> " 
-"inoremap <expr> )  strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 
 " Copy path to clipboard
 " nmap <silent> <leader>p :!pwd | pbcopy
@@ -279,7 +306,7 @@ set printoptions=paper:letter
 
 set tags=tags;~/
 
-set timeoutlen=200
+set timeoutlen=500
 
 " Preserves whitespace indentations on newline. On by default
 set autoindent
@@ -322,6 +349,17 @@ autocmd Syntax * call HighlightKeywords()
 " Allows for system clipboard pasted text to not be butchered by
 " builtin autoindent.
 set pastetoggle=<F2>
+
+" From http://vim.wikia.com/wiki/Capture_ex_command_output
+"function! TabMessage(cmd)
+"  tabnew
+"  execute ':silent !'.<cmd>
+"  set nomodified
+"endfunction
+
+""command! -nargs=* -complete=shellcmd S new | 
+""      \ setlocal buftype=nofile bufhidden=hide noswapfile |
+""      \ r !<args>
 
 " DEPRECATED
 " For using vim as a manpager:
