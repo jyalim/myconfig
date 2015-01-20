@@ -21,7 +21,8 @@ set nocompatible
 " 
 " Changes mapleader from default of / 
 " mapleader is useful for setting custom modified commands.
-let mapleader=" "
+let mapleader=' '
+let maplocalleader='\'
 
 " Sets automatic carriage return at column number <textwidth>. 
 "   0/78 off/defl. 
@@ -43,6 +44,8 @@ set hidden
 
 " Shows info on current command in status line
 set showcmd 
+" set laststatus=2
+" set statusline="%f %y %n %c %m"
 
 " Swap mark goto commands s.t. ' := goto exact mark & ` 
 "   := goto line of mark
@@ -176,10 +179,10 @@ endif
 
 " TeX indentexpr function, GetTexIndent() drives me crazy
 if s:extfname ==? "tex" 
-  filetype plugin indent off
+  filetype indent off
   inoremap $ $$<left>
-  " Test this out
   set iskeyword+=:
+  let g:LatexBox_split_type="new"
 endif
 
 au FileType * exec( "setlocal dictionary+=" . 
@@ -188,14 +191,26 @@ set complete+=k
 
 let asyncfile = &backupdir . '/scratch'
 
-command! -nargs=1 -complete=command TabMessage tabnew 
+" From http://vim.wikia.com/wiki/Capture_ex_command_output
+function! TabMess(cmd)
+  redir => message
+  silent execute a:cmd
+  redir END
+  tabnew
+  setlocal buftype=nowrite bufhidden=unload noswapfile
+  silent put=message
+  set nomodified
+endfunction
+command! -nargs=+ -complete=command TabMess call TabMess(<q-args>)
+
+command! -nargs=1 -complete=shellcmd TabMessage tabnew 
       \ | setlocal buftype=nowrite bufhidden=unload noswapfile 
       \ | execute ':read !'.<q-args>
 
-command! -nargs=1 -complete=command Async
+command! -nargs=1 -complete=shellcmd Async
       \ | execute ':!' . <q-args> . ' > ' . asyncfile . ' & '
 
-command! -complete=command AsyncTab tabnew
+command! AsyncTab tabnew
       \ | setlocal buftype=nowrite bufhidden=unload noswapfile 
       \ | execute ':read ' . asyncfile
 
@@ -204,25 +219,32 @@ command! -nargs=1 -complete=shellcmd S
       \ | execute ':redraw!'
 
 "" Group Closing
-inoremap ()  ()<Left>
-inoremap {}  {}<Left><CR><CR><C-D><Up><tab>
-inoremap []  []<Left>
-inoremap <>  <><Left>
-inoremap ''  ''<Left>
-inoremap ""  ""<Left>
-inoremap `'  `'<Left>
-inoremap ``" ``"<Left>
+inoremap (<tab>  ()<Left>
+inoremap {<tab>  {}<Left><CR><CR><C-D><Up><tab>
+inoremap [<tab>  []<Left>
+inoremap <<tab>  <><Left>
+inoremap '<tab>  ''<Left>
+inoremap "<tab>  ""<Left>
+inoremap `<tab>  `'<Left>
+inoremap ``<tab> ``"<Left>
+inoremap ()      ()<Left>
+inoremap {}      {}<Left><CR><CR><C-D><Up><tab>
+inoremap []      []<Left>
+inoremap <>      <><Left>
+inoremap ''      ''<Left>
+inoremap ""      ""<Left>
+inoremap `'      `'<Left>
+inoremap ``"     ``"<Left>
 " Lazy (plus back up for {}) 
-inoremap (<space> ()<Left>
-inoremap {<space> {}<Left>
-inoremap [<space> []<Left>
-inoremap <<space> <><Left>
+inoremap (<space> (  )<Left><Left>
+inoremap {<space> {  }<Left><Left>
+inoremap [<space> [  ]<Left><Left>
+inoremap <<space> <  ><Left><Left>
 "inoremap <expr> )  
 "    \ strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 " inoremap '<space> '  '<Left><Left>
 " inoremap "<space> "  "<Left><Left>
 " Common in programming 
-inoremap (<space><space> (  )<Left><Left>
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -355,13 +377,6 @@ autocmd Syntax * call HighlightKeywords()
 " Allows for system clipboard pasted text to not be butchered by
 " builtin autoindent.
 set pastetoggle=<F2>
-
-" From http://vim.wikia.com/wiki/Capture_ex_command_output
-"function! TabMessage(cmd)
-"  tabnew
-"  execute ':silent !'.<cmd>
-"  set nomodified
-"endfunction
 
 ""command! -nargs=* -complete=shellcmd S new | 
 ""      \ setlocal buftype=nofile bufhidden=hide noswapfile |

@@ -163,8 +163,10 @@ g:LatexBox_output_type	latex-box.txt	/*g:LatexBox_output_type*
 g:LatexBox_quickfix	latex-box.txt	/*g:LatexBox_quickfix*
 g:LatexBox_ref_pattern	latex-box.txt	/*g:LatexBox_ref_pattern*
 g:LatexBox_show_warnings	latex-box.txt	/*g:LatexBox_show_warnings*
+g:LatexBox_split_length	latex-box.txt	/*g:LatexBox_split_length*
 g:LatexBox_split_resize	latex-box.txt	/*g:LatexBox_split_resize*
 g:LatexBox_split_side	latex-box.txt	/*g:LatexBox_split_side*
+g:LatexBox_split_type	latex-box.txt	/*g:LatexBox_split_type*
 g:LatexBox_split_width	latex-box.txt	/*g:LatexBox_split_width*
 g:LatexBox_templates	latex-box.txt	/*g:LatexBox_templates*
 g:LatexBox_toc_hidehelp	latex-box.txt	/*g:LatexBox_toc_hidehelp*

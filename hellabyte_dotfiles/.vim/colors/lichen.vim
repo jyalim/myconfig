@@ -126,9 +126,9 @@ elseif &t_Co == 88 || &t_Co == 256
   hi ModeMsg      ctermfg=192
   hi LineNr       ctermfg=059
   hi Question     ctermfg=46
-  hi StatusLine   ctermfg=NONE ctermbg=NONE
-  hi StatusLineNC ctermfg=NONE ctermbg=NONE
-  hi VertSplit    ctermfg=236 ctermbg=238
+  hi StatusLine   cterm=none ctermfg=249 ctermbg=234
+  hi StatusLineNC cterm=none ctermfg=243 ctermbg=234
+  hi VertSplit    ctermfg=234 ctermbg=239
   hi Title        ctermfg=68
   hi Visual       ctermfg=016 ctermbg=116
   hi VisualNOS    cterm=bold,underline    ctermfg=60
