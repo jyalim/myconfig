@@ -159,6 +159,8 @@ if has("autocmd")
   au BufRead,BufNewFile *.fh  setfiletype fortran
   au BufRead,BufNewFile *.osa setfiletype applescript
   au BufRead,BufNewFile *.applescript setfiletype applescript
+  au BufRead,BufWrite,BufWritePost,BufNewFile *.org setfiletype org
+  au BufEnter org set syntax=org
   au Filetype pov set syntax=fortran
   au Filetype gplot,gp set syntax=gnuplot
   au Filetype applescript,osa set syntax=applescript
@@ -180,9 +182,22 @@ endif
 " TeX indentexpr function, GetTexIndent() drives me crazy
 if s:extfname ==? "tex" 
   filetype indent off
-  inoremap $ $$<left>
   set iskeyword+=:
   let g:LatexBox_split_type="new"
+  inoremap $       $$<left>
+  inoremap '<tab>  ''<Left>
+  inoremap "       ""<Left>
+  inoremap `       `'<Left>
+  inoremap ``      ``"<Left>
+else
+  inoremap '<tab>  ''<Left>
+  inoremap "<tab>  ""<Left>
+  inoremap `<tab>  `'<Left>
+  inoremap ``<tab> ``"<Left>
+  inoremap '       ''<Left>
+  inoremap "       ""<Left>
+  inoremap `       `'<Left>
+  inoremap ``      ``"<Left>
 endif
 
 au FileType * exec( "setlocal dictionary+=" . 
@@ -219,16 +234,16 @@ command! -nargs=1 -complete=shellcmd S
       \ | execute ':redraw!'
 
 "" Group Closing
-inoremap (<tab>  ()<Left>
-inoremap {<tab>  {}<Left><CR><CR><C-D><Up><tab>
-inoremap [<tab>  []<Left>
-inoremap <<tab>  <><Left>
-inoremap '<tab>  ''<Left>
-inoremap "<tab>  ""<Left>
-inoremap `<tab>  `'<Left>
-inoremap ``<tab> ``"<Left>
+inoremap (<cr>  ()<Left><CR><CR><C-D><Up><tab>
+inoremap {<cr>  {}<Left><CR><CR><C-D><Up><tab>
+inoremap [<cr>  []<Left><CR><CR><C-D><Up><tab>
+inoremap <<cr>  <><Left><CR><CR><C-D><Up><tab>
+inoremap (       ()<Left>
+inoremap {       {}<Left>
+inoremap [       []<Left>
+inoremap <       <><Left>
 inoremap ()      ()<Left>
-inoremap {}      {}<Left><CR><CR><C-D><Up><tab>
+inoremap {}      {}<Left>
 inoremap []      []<Left>
 inoremap <>      <><Left>
 inoremap ''      ''<Left>
