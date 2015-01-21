@@ -229,7 +229,7 @@ set_prompt() {
   export ITERM_PROFILE="dark"
 }
 
-reset-prompt() {
+reset_prompt() {
   export PS1=$OLD_PS1
   export PROMPT_COMMAND=$OLD_PSC
 }
