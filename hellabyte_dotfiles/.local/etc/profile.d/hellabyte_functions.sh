@@ -201,8 +201,8 @@ set_prompt() {
   # Set old PS1 as backup in case display issues
   # NOTE: user can run, $ reset_prompt to revert to old $PS1 
   #       and old $PROMPT_COMMAND
-  local  old_ps1=${OLD_PS1:=$PS1}
-  local  old_psc=${OLD_PSC:=$PROMPT_COMMAND}
+  local  old_ps1=${OLD_PS1:-$PS1}
+  local  old_psc=${OLD_PSC:-$PROMPT_COMMAND}
   export OLD_PS1=$old_ps1
   export OLD_PSC=$old_psc
   # TODO  Set either light or dark prompt based on color of terminal 
@@ -230,8 +230,14 @@ set_prompt() {
 }
 
 reset_prompt() {
-  export PS1=$OLD_PS1
-  export PROMPT_COMMAND=$OLD_PSC
+  nargs=$#
+  if [[ $nargs -gt 0 ]]; then
+    export PS1='\u@\h:\W\$ '
+    export PROMPT_COMMAND=''
+  else
+    export PS1=${OLD_PS1:-'\u@\h:\W\$ '}
+    export PROMPT_COMMAND=${OLD_PSC:-''}
+  fi
 }
 
 alert() {
