@@ -198,6 +198,13 @@ set_prompt() {
   LIGHTTERM_PS1="${LIGHTTERM_PS1}${capstr}"
   DARKTERM_PS1="${DARKTERM_PS1}${capstr}"
   export LIGHTTERM_PS1; export DARKTERM_PS1
+  # Set old PS1 as backup in case display issues
+  # NOTE: user can run, $ reset_prompt to revert to old $PS1 
+  #       and old $PROMPT_COMMAND
+  local  old_ps1=${OLD_PS1:=$PS1}
+  local  old_psc=${OLD_PSC:=$PROMPT_COMMAND}
+  export OLD_PS1=$old_ps1
+  local  OLD_PSC=${OLD_PSC:=$PROMPT_COMMAND}
   # TODO  Set either light or dark prompt based on color of terminal 
   #       background.
   # ISSUE Currently assumes dark background
@@ -220,6 +227,11 @@ set_prompt() {
     echo -e "\033[38;05;203m${ESTR}"; unset ER BSTR ESTR )'
   # TODO Make Less Arbitrary
   export ITERM_PROFILE="dark"
+}
+
+reset-prompt() {
+  export PS1=$OLD_PS1
+  export PROMPT_COMMAND=$OLD_PSC
 }
 
 alert() {
