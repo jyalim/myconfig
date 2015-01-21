@@ -204,7 +204,7 @@ set_prompt() {
   local  old_ps1=${OLD_PS1:=$PS1}
   local  old_psc=${OLD_PSC:=$PROMPT_COMMAND}
   export OLD_PS1=$old_ps1
-  local  OLD_PSC=${OLD_PSC:=$PROMPT_COMMAND}
+  export OLD_PSC=$old_psc
   # TODO  Set either light or dark prompt based on color of terminal 
   #       background.
   # ISSUE Currently assumes dark background
