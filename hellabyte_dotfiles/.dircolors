@@ -164,6 +164,7 @@ EXEC                  38;05;72  # for files with executible bit
 # prop. document files 
 *.doc        38;05;218 
 *.docx       38;05;218 
+*.org        38;05;218 
 
 # backup/storage files
 *.bak        38;05;146
