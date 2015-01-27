@@ -397,6 +397,17 @@ set pastetoggle=<F2>
 ""      \ setlocal buftype=nofile bufhidden=hide noswapfile |
 ""      \ r !<args>
 
+"" 
+" http://vim.wikia.com/wiki/Diff_current_buffer_and_the_original_file
+function! s:DiffWithSaved()
+  let filetype=&ft
+  diffthis
+  vnew | r # | normal! 1Gdd
+  diffthis
+  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+endfunction
+com! DiffSaved call s:DiffWithSaved()
+
 " DEPRECATED
 " For using vim as a manpager:
 "$PAGER=''
