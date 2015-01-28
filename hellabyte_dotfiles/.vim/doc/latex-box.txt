@@ -300,7 +300,7 @@ Motion ~
         Open a table of contents.
         Use Enter to navigate to selected entry.
         See |g:LatexBox_split_type|.
-        See |g:LatexBox_split_lenth|.
+        See |g:LatexBox_split_length|.
         See |g:LatexBox_split_width|.
         See |g:LatexBox_split_side|.
         See |g:LatexBox_split_resize|.
