@@ -98,10 +98,8 @@ endif
 
 if exists("+undofile")
   " undofile -- This allows you to use undos after exiting and 
-  "             restarting. This, like swaps and backups, uses
-  "             .vim-undo first, then ~/.vim/undo.
+  "             restarting. NOTE: only present in 7.3+
   "             :help undo-persistence
-  "             NOTE: only present in 7.3+
   if isdirectory( $HOME . '/.vim/.undo' ) == 0
     :silent !mkdir -m 700 -p ~/.vim/.undo > /dev/null 2>&1
   endif
