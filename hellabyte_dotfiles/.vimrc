@@ -77,8 +77,7 @@ set scrolloff=0
 
 " Sets central temp file location, to prevent local default behavior.
 if isdirectory($HOME . '/.vim/.tmp') == 0
-  :silent !mkdir  -p ~/.vim/.tmp > /dev/null 2>&1
-  :silent !chmod 700 ~/.vim/.tmp > /dev/null 2>&1
+  :silent !mkdir -m 700  -p ~/.vim/.tmp > /dev/null 2>&1
 endif
 
 set backupdir=~/.vim/.tmp ",~/.local/tmp/vim,/var/tmp,/tmp,
@@ -92,8 +91,7 @@ if exists("+viminfo")
   "            Allegedly default permissions are sufficient for privacy.
   "
   if isdirectory( $HOME . '/.vim/.state') == 0
-    :silent !mkdir  -p ~/.vim/.state > /dev/null 2>&1
-    :silent !chmod 700 ~/.vim/.state > /dev/null 2>&1
+    :silent !mkdir -m 700 -p ~/.vim/.state > /dev/null 2>&1
   endif
   set viminfo+=n~/.vim/.state/viminfo
 endif
@@ -105,8 +103,7 @@ if exists("+undofile")
   "             :help undo-persistence
   "             NOTE: only present in 7.3+
   if isdirectory( $HOME . '/.vim/.undo' ) == 0
-    :silent !mkdir  -p ~/.vim/.undo > /dev/null 2>&1
-    :silent !chmod 700 ~/.vim/.undo > /dev/null 2>&1
+    :silent !mkdir -m 700 -p ~/.vim/.undo > /dev/null 2>&1
   endif
   set undodir=~/.vim/.undo
   set undofile
@@ -122,8 +119,7 @@ endif
 "   ISSUE : doesn't necessarily update with the .vimrc, requires 
 "           cleaning.
 if isdirectory( $HOME . '/.vim/.state/view') == 0
-  :silent !mkdir  -p ~/.vim/.state/view > /dev/null 2>&1
-  :silent !chmod 700 ~/.vim/.state/view > /dev/null 2>&1
+  :silent !mkdir -m 700 -p ~/.vim/.state/view > /dev/null 2>&1
 endif
 set viewdir=~/.vim/.state/view
 autocmd BufWrite * mkview
@@ -238,18 +234,18 @@ inoremap (<cr>  ()<Left><CR><CR><C-D><Up><tab>
 inoremap {<cr>  {}<Left><CR><CR><C-D><Up><tab>
 inoremap [<cr>  []<Left><CR><CR><C-D><Up><tab>
 inoremap <<cr>  <><Left><CR><CR><C-D><Up><tab>
-inoremap (       ()<Left>
-inoremap {       {}<Left>
-inoremap [       []<Left>
-inoremap <       <><Left>
-inoremap ()      ()<Left>
-inoremap {}      {}<Left>
-inoremap []      []<Left>
-inoremap <>      <><Left>
-inoremap ''      ''<Left>
-inoremap ""      ""<Left>
-inoremap `'      `'<Left>
-inoremap ``"     ``"<Left>
+inoremap (      ()<Left>
+inoremap {      {}<Left>
+inoremap [      []<Left>
+inoremap <      <><Left>
+inoremap ()     ()<Left>
+inoremap {}     {}<Left>
+inoremap []     []<Left>
+inoremap <>     <><Left>
+inoremap ''     ''<Left>
+inoremap ""     ""<Left>
+inoremap `'     `'<Left>
+inoremap ``"    ``"<Left>
 " Lazy (plus back up for {}) 
 inoremap (<space> (  )<Left><Left>
 inoremap {<space> {  }<Left><Left>
