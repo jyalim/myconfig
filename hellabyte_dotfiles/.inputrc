@@ -26,6 +26,7 @@
 "\e[6~": next-history
 # "\es": forward-search-history
 #
+"\C-x\C-l": complete
 
 "\ec": "cd 		"
 	

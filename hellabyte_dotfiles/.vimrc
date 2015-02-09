@@ -147,6 +147,7 @@ filetype indent on
 " Has filetype associated with various syntax files
 if has("autocmd")
   au BufEnter * let &titlestring=expand("%:p")
+  au BufRead,BufNewFile *.se  setfiletype python
   au BufRead,BufNewFile *.rkt setfiletype scheme
   au BufRead,BufNewFile *.CR2 setfiletype txt
   au BufRead,BufNewFile *.inc setfiletype fortran
