@@ -420,3 +420,9 @@ cwd() {
     export DESK=${1:-$(pwd)}
   fi
 }
+## Change Old Directory ================================================
+# To be used in conjuction with cwd, cod changes back to previous
+#   directory.
+cod() {
+  cd $OLDPWD
+}
