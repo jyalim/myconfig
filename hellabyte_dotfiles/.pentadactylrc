@@ -7,8 +7,8 @@
 " au PageLoadPre http|https zoom 120
 
 " Command mode map
-cmap <C-f> <right>
-cmap <C-b> <left>
+map <C-f> <right>
+map <C-b> <left>
 
 " FollowHints -- default is 0
 "   1 -- prevents links from being followed without confirmation from

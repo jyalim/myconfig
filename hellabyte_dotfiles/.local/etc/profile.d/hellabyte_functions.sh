@@ -400,3 +400,23 @@ manual() {
   [[ $ext =~ 'gz' ]] && local printer="gzip -cd" || :
   $printer $mpath | $cmd | less
 }
+
+## Set Working Directory ===============================================
+# Affect workflow by exporting base of directory tree to DESK, for 
+#   as it's where you work from home.
+# Set to pwd if no directory is specified.
+swd() {
+  local directory=${1:-$(pwd)} 
+  export DESK=$directory
+}
+## Change Working Directory ============================================
+# Affect workflow by changing to base of directory tree to DESK, or 
+#   set DESK if not already set.
+cwd() {
+  if ! [[ -z $DESK ]]; then 
+    cd $DESK
+  else 
+    echo '$DESK not set--setting..'
+    export DESK=${1:-$(pwd)}
+  fi
+}
