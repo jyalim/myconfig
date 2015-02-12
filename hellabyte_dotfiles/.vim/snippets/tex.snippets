@@ -181,3 +181,34 @@ snippet cSec
 	% section $1
 snippet href
 	\href{${1:url}}{${2:Description}}
+
+snippet tikzpicture
+	\tikzsetnextfilename{${1:filename}}
+	\begin{tikzpicture}[trim axis left, trim axis right]
+		\begin{axis}[
+			title         = {${2:title}},
+			xlabel        = {${3:xlabel}},
+			ylabel        = {${4:ylabel}},
+			xmajorgrids   = true,
+			ymajorgrids   = true,
+			grid style    = dashed,
+			legend pos    = north east,
+			enlargelimits = false
+		]
+			\addplot[ color = blue ] table{${5:datafile}};
+			\legend{${6:legendname}}
+		\end{axis}
+	\end{tikzpicture}
+	$7
+
+snippet subfig
+	\begin{figure}[h] 
+		\centering
+		\xfl{${1:subcap}}{${2:linewidth}}{${3:figfile}}{${4:label}} 
+		$7
+		\caption{${5:caption}}
+		\label{${6:label}}
+	\end{figure}
+
+
+
