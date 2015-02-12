@@ -36,3 +36,8 @@ set bell-style visible
 
 # No case for li3f
 set completion-ignore-case on
+
+## My Favorites:
+# These can all be listed with $ bind -p
+# \C-x\C-e: edit-and-execute-command
+# \e\C-e:   shell-expand-line   
