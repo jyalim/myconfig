@@ -289,15 +289,18 @@ inoremap <C-x><C-a> <C-a>
 inoremap <C-x><C-b> <C-d> 
 inoremap <C-x><C-t> <C-t> 
 " EMACS keybindings for command line mode 
-cnoremap <C-x> <C-f>
-cnoremap <C-f> <right>
-cnoremap <C-b> <left>
-cnoremap <C-a> <Home>
-cnoremap <C-d> <delete>
-cnoremap <C-p> <up>
-cnoremap <C-n> <down>
-cnoremap <C-q> <C-k>
-cnoremap <C-k> <C-e><C-u>
+cnoremap <C-x>      <C-f>
+cnoremap <C-y>      <C-r>
+cnoremap <C-r>      <C-f><C-[>F
+cnoremap <C-s>      <C-f><C-[>s
+cnoremap <C-f>      <right>
+cnoremap <C-b>      <left>
+cnoremap <C-a>      <Home>
+cnoremap <C-d>      <delete>
+cnoremap <C-p>      <up>
+cnoremap <C-n>      <down>
+cnoremap <C-q>      <C-k>
+cnoremap <C-k>      <C-f><C-[>C<C-c>
 cnoremap <C-x><C-a> <C-a>
 
 " Perform macro for common python calculation
