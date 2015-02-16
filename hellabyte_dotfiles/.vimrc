@@ -312,8 +312,8 @@ nmap <leader>M :!AsyncTab
 nmap <leader>A :!Async
 nmap <leader>S :!S
 nmap <leader>a :!aspell -c %<C-j>
-nmap <leader>l :!pdflatex %<C-j>
-nmap <leader>z :!xelatex %<C-j>
+nmap <leader>l :!lualatex %<C-j>
+nmap <leader>z :!pdflatex %<C-j>
 nmap <leader>p :!python %<C-j>
 nmap <leader>o :!open
 nmap <leader>f :!open .<C-j>
