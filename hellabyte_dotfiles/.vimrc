@@ -96,6 +96,7 @@ if exists("+viminfo")
   set viminfo+=n~/.vim/.state/viminfo
   set spellfile =$HOME/.vim/.state/spell/en.utf-8.add
   set spellfile+=$HOME/.vim/.state/spell/en.latin1.add
+  set spellfile+=$HOME/.vim/.state/spell/en.ascii.add
   set spelllang=en_us
 endif
 
