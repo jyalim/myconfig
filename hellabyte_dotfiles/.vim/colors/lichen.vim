@@ -211,6 +211,11 @@ elseif &t_Co == 88 || &t_Co == 256
   hi Error       ctermfg=186 ctermbg=89
   hi Todo        cterm=NONE ctermfg=245 ctermbg=NONE
 
+  hi SpellBad    ctermfg=186 ctermbg=89 
+  hi SpellCap    ctermfg=232 ctermbg=89 
+  hi SpellRare   ctermfg=89  ctermbg=186
+  hi SpellLocal  ctermfg=89  ctermbg=249
+
   hi def link mailSubject Title
   hi def link mailSignature Comment
   hi def link mailQuoted2 mailQuoted1
