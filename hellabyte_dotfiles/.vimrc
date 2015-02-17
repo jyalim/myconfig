@@ -94,6 +94,9 @@ if exists("+viminfo")
     :silent !mkdir -m 700 -p ~/.vim/.state > /dev/null 2>&1
   endif
   set viminfo+=n~/.vim/.state/viminfo
+  set spellfile =$HOME/.vim/.state/spell/en.utf-8.add
+  set spellfile+=$HOME/.vim/.state/spell/en.latin1.add
+  set spelllang=en_us
 endif
 
 if exists("+undofile")
@@ -122,6 +125,7 @@ endif
 set viewdir=~/.vim/.state/view
 autocmd BufWrite * mkview
 autocmd BufRead  * silent loadview
+
 
 " Line Numbers, nu = number
 set nu 
@@ -303,6 +307,9 @@ cnoremap <C-q>      <C-k>
 cnoremap <C-k>      <C-f><C-[>C<C-c>
 cnoremap <C-x><C-a> <C-a>
 
+" Shows tabs and trailing spaces
+set listchars=tab:>-,trail:_,eol:$
+nmap <silent> <leader>s :set nolist!<CR>
 " Perform macro for common python calculation
 nmap <silent> <leader>q :r!python -c 'print <C-r><C-w> 
 nmap <leader>; :
@@ -311,6 +318,8 @@ nmap <leader>m :TabMessage
 nmap <leader>M :!AsyncTab
 nmap <leader>A :!Async
 nmap <leader>S :!S
+nmap <leader>e :set spell<C-j>
+nmap <leader>E :set nospell<C-j>
 nmap <leader>a :!aspell -c %<C-j>
 nmap <leader>l :!lualatex %<C-j>
 nmap <leader>z :!pdflatex %<C-j>
@@ -336,9 +345,6 @@ set incsearch
 " <mapleader>n :silent :nohlsearch<CR> all turn off highlight like :noh
 nmap <silent> <leader>h :silent :nohlsearch<CR>
 
-" Shows tabs and trailing spaces
-set listchars=tab:>-,trail:_,eol:$
-nmap <silent> <leader>s :set nolist!<CR>
 
 set showmatch
 set matchtime=0
