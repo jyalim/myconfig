@@ -160,6 +160,7 @@ if has("autocmd")
   au BufRead,BufNewFile *.osa setfiletype applescript
   au BufRead,BufNewFile *.applescript setfiletype applescript
   au BufRead,BufWrite,BufWritePost,BufNewFile *.org setfiletype org
+  au BufNewFile,BufReadPost *.md set filetype=markdown
   au BufEnter org set syntax=org
   au Filetype pov set syntax=fortran
   au Filetype gplot,gp set syntax=gnuplot
@@ -182,22 +183,19 @@ endif
 " TeX indentexpr function, GetTexIndent() drives me crazy
 if s:extfname ==? "tex" 
   filetype indent off
-  set iskeyword+=:
+  set iskeyword=48-58,a-z,A-Z,192-255
   let g:LatexBox_split_type="new"
   inoremap $       $$<left>
   inoremap '<tab>  ''<Left>
   inoremap "       ""<Left>
   inoremap `       `'<Left>
-  inoremap ``      ``"<Left>
 else
   inoremap '<tab>  '
   inoremap "<tab>  "
   inoremap `<tab>  `
-  inoremap ``<tab> ``
   inoremap '       ''<Left>
   inoremap "       ""<Left>
-  inoremap `       `'<Left>
-  inoremap ``      ``"<Left>
+  inoremap `       ``<Left>
 endif
 
 au FileType * exec( "setlocal dictionary+=" . 
@@ -246,10 +244,6 @@ inoremap ()     ()<Left>
 inoremap {}     {}<Left>
 inoremap []     []<Left>
 inoremap <>     <><Left>
-inoremap ''     ''<Left>
-inoremap ""     ""<Left>
-inoremap `'     `'<Left>
-inoremap ``"    ``"<Left>
 " Lazy (plus back up for {}) 
 inoremap (<space> (  )<Left><Left>
 inoremap {<space> {  }<Left><Left>
@@ -413,6 +407,13 @@ function! s:DiffWithSaved()
 endfunction
 com! DiffSaved call s:DiffWithSaved()
 
+let g:markdown_fenced_languages = [
+    \ 'css', 'erb=eruby', 'javascript', 'js=javascript', 
+    \ 'json=javascript', 'ruby', 'sass', 'xml', 'html', 'fortran',
+    \ 'python', 'py=python', 'f90=fortran', 'C', 'cpp', 'c', 'matlab',
+    \ 'go', 'julia', 'perl', 'vim', 'haskell', 'lisp', 'awk', 'bash=sh', 
+    \ 'sh'
+\ ]
 " DEPRECATED
 " For using vim as a manpager:
 "$PAGER=''
@@ -423,3 +424,4 @@ com! DiffSaved call s:DiffWithSaved()
 "
 " Shows info about line, column and positional info in bottom right corner.
 " set ruler
+"

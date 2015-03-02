@@ -1,4 +1,10 @@
 # \begin{}...\end{}
+snippet beg
+	%
+	\begin{${1:env}}
+		${2}
+	\end{$1}
+	%
 snippet begin
 	%
 	\begin{${1:env}}
@@ -146,6 +152,12 @@ snippet pGraph
 snippet nGraph
 	\nGraph{${1:scale}}{${2:path}}{${3:label}}
 	${5}
+snippet wgraph
+	\wGraph{${1:lwidth}}{${2:path}}{${3:label}}{${4:capwidth}}{${5:cap}}
+	${6}
+snippet wGraph
+	\wGraph{${1:lwidth}}{${2:path}}{${3:label}}{${4:capwidth}}{${5:cap}}
+	${6}
 snippet pTable
 	\pTable{${1:ccc}}{${2:NumCols}}{${3:Title}}{
 		${4:ColLabels}
