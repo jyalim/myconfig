@@ -40,7 +40,7 @@ set_path() {
     "${L}/usr/sbin" "${L}/usr/local/bin" "${L}/usr/local/sbin"
     "/usr/local/bin" "/usr/local/sbin" "/usr/bin" "/usr/sbin" "/bin" 
     "/sbin" "/usr/texbin" "/opt/X11/bin" "/usr/bin/X11" "/usr/games" 
-    "/Developer/NVIDIA/CUDA-6.0/bin" "/opt/ganglia/bin"
+    "/usr/local/cuda/bin" "/opt/ganglia/bin"
     "/Applications/MATLAB_R2013b.app/bin" "/usr/local/matlab/bin" 
     "/Applications/MATLAB_R2014b.app/bin"
     "/usr/local/maple/bin" "/usr/local/sage" 
@@ -55,16 +55,19 @@ set_path() {
     "${H}/local/usr/share/man" "${H}/.local/usr/local/share/man" 
     "${H}/local/usr/local/share/man" "${LO}/anaconda/share/man" 
     "${H}/local/anaconda/share/man" 
+    "/usr/local/cuda/doc/man"
   )
   local lib_paths=( 
     "${H}/.${lps}" "${H}/${lps}" "${H}/lib" "${H}/.local/usr/lib" 
     "${H}/.local/usr/local/lib" "${H}/local/usr/lib" 
     "${H}/local/usr/local/lib" 
+    "/usr/local/cuda/lib"
   )
   local inc_paths=( 
     "${H}/.${ips}" "${H}/${ips}" "${H}/include" 
     "${H}/.local/usr/include" "${H}/.local/usr/local/include" 
     "${H}/local/usr/include" "${H}/local/usr/local/include" 
+    "/usr/local/cuda/include"
   )
 
   OLDXPATH=$PATH             # Archive Old Paths
