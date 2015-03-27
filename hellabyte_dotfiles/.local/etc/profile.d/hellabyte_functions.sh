@@ -35,7 +35,7 @@ set_path() {
   local O="openmpi/bin"
   local LO="${L}/opt"
   local exe_paths=(
-    "${LO}/${O}" "${LO}/${A}" "${L}/bin" "${L}/sbin" "${H}/bin" 
+    "${LO}/${O}" "${L}/bin" "${LO}/${A}" "${L}/sbin" "${H}/bin" 
     "${H}/sbin" "${H}/local/bin" "${H}/local/sbin" "${L}/usr/bin" 
     "${L}/usr/sbin" "${L}/usr/local/bin" "${L}/usr/local/sbin"
     "/usr/local/bin" "/usr/local/sbin" "/usr/bin" "/usr/sbin" "/bin" 

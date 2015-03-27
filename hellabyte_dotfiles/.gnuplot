@@ -33,6 +33,8 @@ orange   = "#F2A20E"
 nl = "\n"
 tb = "\t"
 
+fortfmt = 'binary format="%*1int%double%*1int"'
+
 if ( system("hostname") eq "mathpost" ) {
     f = './forward_file.dat'; r = './reverse_file.dat';
     fwd = 'forward'; rev = 'reverse'
