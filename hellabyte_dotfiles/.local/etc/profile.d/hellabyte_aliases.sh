@@ -14,6 +14,7 @@
 case "$(uname -s)" in
   "Darwin") 
     # Replace old bsd coreutils with modern, homebrew installed gnu-coreutils
+    command -v gcal &> /dev/null && alias "cal"='gcal' || :
     command -v gcat &> /dev/null && alias "cat"='gcat' || :
     command -v gchgrp &> /dev/null && alias "chgrp"='gchgrp' || :
     command -v gchmod &> /dev/null && alias "chmod"='gchmod' || :
