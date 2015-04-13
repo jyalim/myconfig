@@ -27,6 +27,7 @@ case "$(uname -s)" in
     command -v gdu &> /dev/null && alias "du"='gdu' || :
     command -v gecho &> /dev/null && alias "echo"='gecho' || :
     command -v gfind &> /dev/null && alias "find"='gfind' || :
+    command -v ggetopt &> /dev/null && alias "getopt"='ggetopt' || :
     command -v ghead &> /dev/null && alias "head"='ghead' || :
     command -v gkill &> /dev/null && alias "kill"='gkill' || :
     command -v gls &> /dev/null && alias "ls"='gls $LS_OPTIONS' || :
