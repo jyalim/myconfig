@@ -67,8 +67,8 @@ case "$(uname -s)" in
       alias "bw"='brew'; alias "bws"='brew search'; \
       alias "bwi"='brew install'; \
       alias "bwh"='brew home'; \
-      alias "upup"='brew update --all && brew upgrade'
-      alias "tuneup"='( brew update --all && brew upgrade ); \
+      alias "upup"='brew update && brew upgrade --all '
+      alias "tuneup"='( brew update && brew upgrade --all ); \
                           echo "Pruning, cleaning..."; \
                           brew prune; brew cleanup; brew doctor' || :
     command -v define &> /dev/null && alias "def"='define' || :
