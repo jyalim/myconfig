@@ -6,11 +6,13 @@ snippet beg
 	\end{$1}
 	%
 snippet begin
-	%
 	\begin{${1:env}}
 		${2}
 	\end{$1}
-	%
+snippet bmat
+	\begin{bmatrix*}[r]
+		${1:entries} 
+	\end{bmatrix*}
 # Tabular
 snippet tab
 	\begin{${1:tabular}}{${2:c}}
@@ -56,6 +58,10 @@ snippet mat
 	\begin{${1:p/b/v/V/B/small}matrix}
 		${2}
 	\end{$1matrix}
+snippet amat
+	\begin{${1:p/b/v/V/B/small}matrix*}[r]
+		${2}
+	\end{$1matrix*}
 # Cases
 snippet cas
 	\begin{cases}
