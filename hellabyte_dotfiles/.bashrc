@@ -47,12 +47,8 @@ sourcing() {
 # Always need to resource aliases/functions etc
 sourcing
 # ======================================================================
-# Prevent redundant paths
-# [[ $SOURCED_PATHS -ne 1 ]] && path_set || :
-# export SOURCED_PATHS=1
-# 
-# New path setting function trims redundant paths
-set_path
+# To have env use pre-sourced path, simply uncomment the following:
+#reset_path
 
 # ======================================================================
 # Create Prompt

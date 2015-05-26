@@ -1,4 +1,4 @@
-# .login
+#!/usr/bin/env bash
 # ======================================================================
 # ALIAS FILE
 #   PURPOSE - To be dedicated to general shell environment structures 
@@ -14,49 +14,49 @@
 case "$(uname -s)" in
   "Darwin") 
     # Replace old bsd coreutils with modern, homebrew installed gnu-coreutils
-    command -v gcal &> /dev/null && alias "cal"='gcal' || :
-    command -v gcat &> /dev/null && alias "cat"='gcat' || :
-    command -v gchgrp &> /dev/null && alias "chgrp"='gchgrp' || :
-    command -v gchmod &> /dev/null && alias "chmod"='gchmod' || :
-    command -v gchown &> /dev/null && alias "chown"='gchown' || :
-    command -v gcp &> /dev/null && alias "cp"='gcp' || :
-    command -v gcut &> /dev/null && alias "cut"='gcut' || :
-    command -v gdate &> /dev/null && alias "date"='gdate' || :
-    command -v gdircolors &>/dev/null && alias "dircolors"='gdircolors' || :
-    command -v gdf &> /dev/null && alias "df"='gdf' || :
-    command -v gdu &> /dev/null && alias "du"='gdu' || :
-    command -v gecho &> /dev/null && alias "echo"='gecho' || :
-    command -v gfind &> /dev/null && alias "find"='gfind' || :
-    command -v ggetopt &> /dev/null && alias "getopt"='ggetopt' || :
-    command -v ghead &> /dev/null && alias "head"='ghead' || :
-    command -v gkill &> /dev/null && alias "kill"='gkill' || :
-    command -v gls &> /dev/null && alias "ls"='gls $LS_OPTIONS' || :
-    command -v gln &> /dev/null && alias "ln"='gln' || :
-    command -v gmkdir &> /dev/null && alias "mkdir"='gmkdir' || :
-    command -v gmv &> /dev/null && alias "mv"='gmv' || :
-    command -v gnl &> /dev/null && alias "nl"='gnl' || :
-    command -v gpwd &> /dev/null && alias "pwd"='gpwd' || :
-    command -v grm &> /dev/null && alias "rm"='grm' || :
-    command -v gsed &> /dev/null && alias "sed"="gsed" || :
-    command -v gsplit &> /dev/null && alias "split"='gsplit' || :
-    command -v gsort &> /dev/null && alias "sort"='gsort' || :
-    command -v gstat &> /dev/null && alias "stat"='gstat' || :
-    command -v gsync &> /dev/null && alias "sync"='gsync' || :
-    command -v gtac &> /dev/null && alias "tac"='gtac' || :
-    command -v gtail &> /dev/null && alias "tail"='gtail' || :
-    command -v gnutar &> /dev/null && alias "tar"='gnutar' || :
-    command -v greadlink &> /dev/null && alias "readlink"='greadlink' || :
-    command -v grealpath &> /dev/null && alias "realpath"='grealpath' || :
-    command -v gtee &> /dev/null && alias "tee"='gtee' || :
-    command -v gtest &> /dev/null && alias "test"='gtest' || :
-    command -v gtouch &> /dev/null && alias "touch"='gtouch' || :
-    command -v gtty &> /dev/null && alias "tty"='gtty' || :
-    command -v guniq &> /dev/null && alias "uniq"='guniq' || :
-    command -v gunlink &> /dev/null && alias "unlink"='gunlink' || :
-    command -v guptime &> /dev/null && alias "uptime"='guptime' || :
-    command -v gusers &> /dev/null && alias "users"='gusers' || :
-    command -v gwc &> /dev/null && alias "wc"='gwc' || : || :
-    command -v gwho &> /dev/null && alias "who"='gwho'
+    swhich gcal       && alias "cal"='gcal'             || :
+    swhich gcat       && alias "cat"='gcat'             || :
+    swhich gchgrp     && alias "chgrp"='gchgrp'         || :
+    swhich gchmod     && alias "chmod"='gchmod'         || :
+    swhich gchown     && alias "chown"='gchown'         || :
+    swhich gcp        && alias "cp"='gcp'               || :
+    swhich gcut       && alias "cut"='gcut'             || :
+    swhich gdate      && alias "date"='gdate'           || :
+    swhich gdircolors && alias "dircolors"='gdircolors' || :
+    swhich gdf        && alias "df"='gdf'               || :
+    swhich gdu        && alias "du"='gdu'               || :
+    swhich gecho      && alias "echo"='gecho'           || :
+    swhich gfind      && alias "find"='gfind'           || :
+    swhich ggetopt    && alias "getopt"='ggetopt'       || :
+    swhich ghead      && alias "head"='ghead'           || :
+    swhich gkill      && alias "kill"='gkill'           || :
+    swhich gls        && alias "ls"='gls $LS_OPTIONS'   || :
+    swhich gln        && alias "ln"='gln'               || :
+    swhich gmkdir     && alias "mkdir"='gmkdir'         || :
+    swhich gmv        && alias "mv"='gmv'               || :
+    swhich gnl        && alias "nl"='gnl'               || :
+    swhich gpwd       && alias "pwd"='gpwd'             || :
+    swhich grm        && alias "rm"='grm'               || :
+    swhich gsed       && alias "sed"="gsed"             || :
+    swhich gsplit     && alias "split"='gsplit'         || :
+    swhich gsort      && alias "sort"='gsort'           || :
+    swhich gstat      && alias "stat"='gstat'           || :
+    swhich gsync      && alias "sync"='gsync'           || :
+    swhich gtac       && alias "tac"='gtac'             || :
+    swhich gtail      && alias "tail"='gtail'           || :
+    swhich gnutar     && alias "tar"='gnutar'           || :
+    swhich greadlink  && alias "readlink"='greadlink'   || :
+    swhich grealpath  && alias "realpath"='grealpath'   || :
+    swhich gtee       && alias "tee"='gtee'             || :
+    swhich gtest      && alias "test"='gtest'           || :
+    swhich gtouch     && alias "touch"='gtouch'         || :
+    swhich gtty       && alias "tty"='gtty'             || :
+    swhich guniq      && alias "uniq"='guniq'           || :
+    swhich gunlink    && alias "unlink"='gunlink'       || :
+    swhich guptime    && alias "uptime"='guptime'       || :
+    swhich gusers     && alias "users"='gusers'         || :
+    swhich gwc        && alias "wc"='gwc'               || :  
+    swhich gwho       && alias "who"='gwho'             || :
     [[ -f /usr/local/bin/vim ]] && alias "vim"='/usr/local/bin/vim' || :
 
     alias calendar='calendar -f /etc/calendar/default'
