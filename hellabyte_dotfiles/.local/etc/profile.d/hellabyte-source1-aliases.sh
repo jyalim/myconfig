@@ -13,51 +13,30 @@
 
 case "$(uname -s)" in
   "Darwin") 
-    # Replace old bsd coreutils with modern, homebrew installed gnu-coreutils
-    swhich gcal       && alias "cal"='gcal'             || :
-    swhich gcat       && alias "cat"='gcat'             || :
-    swhich gchgrp     && alias "chgrp"='gchgrp'         || :
-    swhich gchmod     && alias "chmod"='gchmod'         || :
-    swhich gchown     && alias "chown"='gchown'         || :
-    swhich gcp        && alias "cp"='gcp'               || :
-    swhich gcut       && alias "cut"='gcut'             || :
-    swhich gdate      && alias "date"='gdate'           || :
-    swhich gdircolors && alias "dircolors"='gdircolors' || :
-    swhich gdf        && alias "df"='gdf'               || :
-    swhich gdu        && alias "du"='gdu'               || :
-    swhich gecho      && alias "echo"='gecho'           || :
-    swhich gfind      && alias "find"='gfind'           || :
-    swhich ggetopt    && alias "getopt"='ggetopt'       || :
-    swhich ghead      && alias "head"='ghead'           || :
-    swhich gkill      && alias "kill"='gkill'           || :
-    swhich gls        && alias "ls"='gls $LS_OPTIONS'   || :
-    swhich gln        && alias "ln"='gln'               || :
-    swhich gmkdir     && alias "mkdir"='gmkdir'         || :
-    swhich gmv        && alias "mv"='gmv'               || :
-    swhich gnl        && alias "nl"='gnl'               || :
-    swhich gpwd       && alias "pwd"='gpwd'             || :
-    swhich grm        && alias "rm"='grm'               || :
-    swhich gsed       && alias "sed"="gsed"             || :
-    swhich gsplit     && alias "split"='gsplit'         || :
-    swhich gsort      && alias "sort"='gsort'           || :
-    swhich gstat      && alias "stat"='gstat'           || :
-    swhich gsync      && alias "sync"='gsync'           || :
-    swhich gtac       && alias "tac"='gtac'             || :
-    swhich gtail      && alias "tail"='gtail'           || :
-    swhich gnutar     && alias "tar"='gnutar'           || :
-    swhich greadlink  && alias "readlink"='greadlink'   || :
-    swhich grealpath  && alias "realpath"='grealpath'   || :
-    swhich gtee       && alias "tee"='gtee'             || :
-    swhich gtest      && alias "test"='gtest'           || :
-    swhich gtouch     && alias "touch"='gtouch'         || :
-    swhich gtty       && alias "tty"='gtty'             || :
-    swhich guniq      && alias "uniq"='guniq'           || :
-    swhich gunlink    && alias "unlink"='gunlink'       || :
-    swhich guptime    && alias "uptime"='guptime'       || :
-    swhich gusers     && alias "users"='gusers'         || :
-    swhich gwc        && alias "wc"='gwc'               || :  
-    swhich gwho       && alias "who"='gwho'             || :
-    [[ -f /usr/local/bin/vim ]] && alias "vim"='/usr/local/bin/vim' || :
+    # Replace old bsd coreutils with modern, homebrew installed
+    # gnu-coreutils. Could do this with function as well
+    update_gnu() {
+      cmd=$1
+      opt=${@:2}
+      swhich $cmd && alias ${cmd[@]:1}="$cmd $opt" || :
+    }
+    gnu_tools_general=(
+      gcal gcat gchgrp gchmod gchown gcp gcut gdate gdircolors gdf
+      gdu gecho gfind ggetopt ghead gkill gln gmkdir gmv gnl gpwd
+      grm gsed gsplit gsort gstat gsync gtac gtail gnutar greadlink
+      grealpath gtee gtest gtouch gtty guniq gunlink guptime gusers
+      gwc gwho
+    )
+    gnu_tools_special_cmds=( gls )
+    gnu_tools_special_opts=( '$LS_OPTIONS' )
+
+    for c in ${gnu_tools_general[@]}; do update_gnu $c; done
+
+    for k in ${!gnu_tools_special_cmds[@]}; do
+      cmd=${gnu_tools_special_cmds[$k]}
+      opt=${gnu_tools_special_opts[$k]}
+      update_gnu $cmd $opt
+    done
 
     alias calendar='calendar -f /etc/calendar/default'
 
@@ -72,19 +51,18 @@ case "$(uname -s)" in
                           echo "Pruning, cleaning..."; \
                           brew prune; brew cleanup; brew doctor' || :
     command -v define &> /dev/null && alias "def"='define' || :
-    [[ -d /Applications/Firefox.app ]] && \
+    [[ -d /Applications/Firefox.app ]] && 
       alias "firefox"='open -a /Applications/Firefox.app' || :
-    [[ -d /Applications/FirefoxAurora.app ]] && \
-      alias "aurora"='open -a /Applications/FirefoxAurora.app'; \
-      alias "netflix"='open https://www.netflix.com -a /Applications/FirefoxAurora.app'; \
-      alias "amazon"='open https://www.amazon.com -a /Applications/FirefoxAurora.app' || :
+    [[ -d /Applications/FirefoxAurora.app ]] && {
+      alias "aurora"='open -a /Applications/FirefoxAurora.app'; 
+    } || :
     alias "vlc"='/Applications/VLC.app/Contents/MacOS/VLC' || :
     alias "ptop"='top -stats pid,command,cpu,th,mem,pstate,time,power'
     ;;
   "Linux")
     alias "ls"='ls --color'
-    LINUX_DISTRIBUTIONS=("ubuntu" "centos" "arch")
-    for f in ${LINUX_DISTRIBUTIONS[@]}; do
+    linux_distributions=(ubuntu centos arch)
+    for f in ${linux_distributions[@]}; do
       cat /etc/*-release | grep -i "${f}" &> /dev/null &&
         case "${f}" in
           "centos")
@@ -99,12 +77,9 @@ case "$(uname -s)" in
             ;;
           : | * )
             :
-            echo "NO SPECIFIC LINUX DISTRIBUTION ALIAS " \
-                 "SUPPORT YET -- STILL REQUIRES SWITCH " \
-                 "STATEMENT IN ${HOME}/.login"
             ;;
           esac
-      done; unset f; unset LINUX_DISTRIBUTIONS 
+      done; unset f; unset linux_distributions 
       ;;
     : | * )
       :
@@ -151,9 +126,13 @@ alias "pt"='ping -c 3'
 alias "ptg"='pt 8.8.8.8'
 alias "py"='python'
 alias "pyc"="python -c"
-#command -v julia &>/dev/null && \
-#  alias ijulia="ipython notebook inline --profile=julia" || :
-command -v ipython &> /dev/null && alias "ipy"="ipython" || :
+
+swhich ipython && { 
+  alias "ipy"="ipython" 
+  swhich julia && 
+    alias ijulia="ipython notebook inline --profile=julia" || :
+}
+  || :
 
 p=$(whereis ifort | awk '{print $2}')
 ! [[ -z $p ]] && alias 'ifort'=$p || :
