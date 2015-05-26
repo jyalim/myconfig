@@ -51,7 +51,8 @@ names=(
 ! [[ -d $local_confsdir ]] && mkdir -p $local_confsdir || :
 
 for f in ${profiles}/*; do
-  if ! [[ $f =~ ^$owner ]]; then
+  bf=$(basename $f)
+  if [[ $bf =~ ^$owner ]]; then
     cp $f $local_profiles
   fi
 done
@@ -84,8 +85,8 @@ special_d="${loc_ship}/.vim/.tmp"
 #cd $loc_ship
 #tar czf $loc_tarb ./
 #mv $loc_tarb $git_home
-cp -r $loc_ship $git_home
-echo "Files moved, attempting commit."
+[[ $loc_home != $git_home ]] && cp -r $loc_ship $git_home || :
+echo "Import complete, attempting commit."
 cd $git_home
 git add -A
 git commit -a -m "$commit_message"
