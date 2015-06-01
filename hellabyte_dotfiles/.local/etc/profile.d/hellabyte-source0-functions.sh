@@ -280,7 +280,7 @@ alias_checker() {
   fi
 }
 
-easy_ip() {
+easy-ip() {
   ping -c 1 google.com &> /dev/null
   if [[ $? -eq 0 ]]; then
     IPADDR_PRI=$(ipconfig getifaddr en0)
@@ -299,7 +299,7 @@ easy_ip_geo() {
   # TODO - Find ethical use for the data.
   ping -c 1 google.com &> /dev/null
   if [[ $? -eq 0 ]]; then
-    [[ -z $IP_ADDR_PUB ]] && easy_ip &> /dev/null
+    [[ -z $IP_ADDR_PUB ]] && easy-ip &> /dev/null
     [[ -d "${INETDIR}" ]] || mkdir "${GEO_DATA_DIR}" &> /dev/null
     local WEBADDR="http://services.ipaddresslabs.com/iplocation/locateip?key=demo&ip="
     local IP_GEO_STR="${WEBADDR}${IPADDR_PUB}"

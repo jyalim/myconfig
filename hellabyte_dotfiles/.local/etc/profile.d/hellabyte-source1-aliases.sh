@@ -131,8 +131,7 @@ swhich ipython && {
   alias "ipy"="ipython" 
   swhich julia && 
     alias ijulia="ipython notebook inline --profile=julia" || :
-}
-  || :
+} || :
 
 p=$(whereis ifort | awk '{print $2}')
 ! [[ -z $p ]] && alias 'ifort'=$p || :

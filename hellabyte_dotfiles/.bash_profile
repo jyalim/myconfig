@@ -24,7 +24,7 @@ if [[ -f "${HOME}/.bashrc" ]] && [[ $SOURCED_RC -eq 0 ]]; then
 fi
 
 export EDITOR=vim
-export HISTSIZE=10000
+export HISTSIZE=50000
 export HISTFILESIZE=$(( $HISTSIZE * 25 ))
 export HISTCONTROL=ignoreboth
 export HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
