@@ -49,6 +49,9 @@ sourcing
 # ======================================================================
 # To have env use pre-sourced path, simply uncomment the following:
 #reset_path
+# Prevent redundant Paths
+[[ $SOURCED_PATHS -ne 1 ]] && set_path || :
+export SOURCED_PATHS=1
 
 # ======================================================================
 # Create Prompt
