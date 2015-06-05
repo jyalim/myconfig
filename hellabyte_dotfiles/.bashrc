@@ -37,8 +37,8 @@ sourcing() {
     if [[ -f $source_path ]]; then # If the path is a regular file
       builtin source $source_path
     elif [[ -d $source_path ]]; then # If the path is a directory
-      for source_files in $(find $source_path -type f -print); do
-        builtin source $source_files # TODO only source .sh
+      for source_files in $(ls -A $source_path/*.sh); do
+        builtin source $source_files 
       done
     fi
   done
