@@ -14,9 +14,9 @@
 #   IdentityFile ~/.ssh/bbucks_rsa
 # ======================================================================
 Host {{hostname}} {{althostnames}}
-    User {{username}}
-    IdentityFile ~/.ssh/{{private_key}}
-    IdentitiesOnly yes
-    RequestTTY yes
-    ForwardX11 no
-    Port 22
+  User {{username}}
+  IdentityFile ~/.ssh/{{private_key}}
+  IdentitiesOnly yes
+  RequestTTY yes
+  ForwardX11 no
+  Port 22

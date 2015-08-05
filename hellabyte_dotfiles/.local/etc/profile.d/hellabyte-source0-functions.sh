@@ -365,12 +365,13 @@ h2d() {
   python - $@ << __EOF 
 from sys import argv 
 params = argv[1:]
+outstring = ""
 for arg in params:
   if '0x' in arg:
     val = int( arg, 16 )
   else:
     val = int( '0x{}'.format(arg), 16 )
-print val
+  print(val)
 __EOF
 }
 
