@@ -126,6 +126,7 @@ alias "pt"='ping -c 3'
 alias "ptg"='pt 8.8.8.8'
 alias "py"='python'
 alias "pyc"="python -c"
+alias "git-branch-actual"="git rev-parse --abbrev-ref HEAD"
 
 swhich ipython && { 
   alias "ipy"="ipython" 
