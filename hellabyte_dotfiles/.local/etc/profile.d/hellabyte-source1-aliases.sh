@@ -10,6 +10,10 @@
 # ----------------------------------------------------------------------
 # Note : called by .{zshrc,bash_profile}
 # ======================================================================
+## listing directory contents
+# Make sure ls on darwin will accept the aliases
+# without breaking ls_style for all systems.
+ls_style="--si --sort=version --time-style=+'%m-%d %H:%M'"
 
 case "$(uname -s)" in
   "Darwin") 
@@ -38,6 +42,7 @@ case "$(uname -s)" in
       update_gnu $cmd $opt
     done
 
+    command -v gls &> /dev/null && : || ls_style=''
     alias calendar='calendar -f /etc/calendar/default'
 
     # General Darwin stuff.
@@ -86,11 +91,6 @@ case "$(uname -s)" in
       ;;
 esac
 
-## listing directory contents
-# Make sure ls on darwin will accept the aliases
-# without breaking ls_style for all systems.
-ls_style="--si --sort version --time-style=+'%m-%d %H:%M'"
-command -v gls &> /dev/null && : || ls_style=''
 
 ## Allow sudo to accept aliases
 alias sudo='sudo '

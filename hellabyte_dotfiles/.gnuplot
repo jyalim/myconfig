@@ -55,4 +55,4 @@ if ( system("hostname") eq "mathpost" ) {
     qpsf = "p for [k=0:1000] ts(fwd,k) u 2:3 w l t sprintf('%03d',k)" 
 }
 
-
+col(k) = column(k)

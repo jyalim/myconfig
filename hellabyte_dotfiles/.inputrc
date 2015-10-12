@@ -18,15 +18,17 @@
 #   [B  down 
 #   [5~ page up
 #   [6~ page down 
-"\e[A": history-search-backward   
-"\e[B": history-search-forward
-"\C-p": history-search-backward   
-"\C-n": history-search-forward
+"\e[A":  history-search-backward   
+"\e[B":  history-search-forward
+"\C-p":  history-search-backward   
+"\C-n":  history-search-forward
 "\e[5~": previous-history
 "\e[6~": next-history
 # "\es": forward-search-history
 #
 "\C-x\C-l": complete
+"\C-x\C-N": menu-complete 
+"\C-x\C-P": menu-complete-backward
 
 "\ec": "cd 		"
 	

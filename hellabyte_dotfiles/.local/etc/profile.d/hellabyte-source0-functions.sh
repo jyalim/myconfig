@@ -15,11 +15,17 @@
 # preserving order
 awk_magic() {
   input=${1:-''}
-  temp=$(awk 'BEGIN{ORS=RS=":"}{ 
-    if ( a[$0] == 0) { 
-      print $0; a[$0]++ 
-    } 
-  }' <<< "$input:" )
+  temp=$(
+    awk '
+      BEGIN{
+        ORS=RS=":"
+      }{ 
+        if ( a[$0] == 0) { 
+          print $0; a[$0]++ 
+        } 
+      }
+    ' <<< "$input:" 
+  )
   echo ${temp%:*}
 }
 
@@ -330,13 +336,13 @@ duh() {
 }
 
 now() {
-  echo $(date +"%Y.%m.%d-%H.%M.%S")
+  echo $(date +"%FT%T%z")
 }
 
 scd() {
   # Nearly as good as quick-cd
   # Also for changing directory to deeper directories
-  if [ $# != 1 ]; then
+  if [[ $# -ne 1 ]]; then
     echo "No input passed."
   else
     [[ -z ${DSTACK[@]} ]] && { 
@@ -344,9 +350,11 @@ scd() {
       return 
     } || :
     local null="/dev/null" item="*${1}*" 
-    local prc=$(find ${DSTACK[@]} \
-      -maxdepth 3 -type d -iname $item 2> $null | sed 1q)
-    cd ${prc[0]}
+    local prc=$(
+      find ${DSTACK[@]} -maxdepth 3 -type d -iname $item 2> $null | 
+        sed 1q
+    )
+    cd ${prc[0]} || exit 200
   fi
 }
 
