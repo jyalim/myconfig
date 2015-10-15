@@ -33,6 +33,7 @@ ExtractSnipsFile()	snipMate.txt	/*ExtractSnipsFile()*
 Filename()	snipMate.txt	/*Filename()*
 MultipleCursorsFind	multiple_cursors.txt	/*MultipleCursorsFind*
 ResetSnippets()	snipMate.txt	/*ResetSnippets()*
+Tabular.txt	Tabular.txt	/*Tabular.txt*
 [<C-L>	unimpaired.txt	/*[<C-L>*
 [<C-Q>	unimpaired.txt	/*[<C-Q>*
 [<Space>	unimpaired.txt	/*[<Space>*
@@ -107,6 +108,7 @@ b:build_dir	latex-box.txt	/*b:build_dir*
 b:dispatch	dispatch.txt	/*b:dispatch*
 b:main_tex_file	latex-box.txt	/*b:main_tex_file*
 b:start	dispatch.txt	/*b:start*
+cS	surround.txt	/*cS*
 cob	unimpaired.txt	/*cob*
 coc	unimpaired.txt	/*coc*
 cod	unimpaired.txt	/*cod*
@@ -174,7 +176,9 @@ g:LatexBox_viewer	latex-box.txt	/*g:LatexBox_viewer*
 g:dispatch_compilers	dispatch.txt	/*g:dispatch_compilers*
 g:multi_cursor_exit_from_insert_mode	multiple_cursors.txt	/*g:multi_cursor_exit_from_insert_mode*
 g:multi_cursor_exit_from_visual_mode	multiple_cursors.txt	/*g:multi_cursor_exit_from_visual_mode*
+g:multi_cursor_insert_maps	multiple_cursors.txt	/*g:multi_cursor_insert_maps*
 g:multi_cursor_next_key	multiple_cursors.txt	/*g:multi_cursor_next_key*
+g:multi_cursor_normal_maps	multiple_cursors.txt	/*g:multi_cursor_normal_maps*
 g:multi_cursor_prev_key	multiple_cursors.txt	/*g:multi_cursor_prev_key*
 g:multi_cursor_quit_key	multiple_cursors.txt	/*g:multi_cursor_quit_key*
 g:multi_cursor_skip_key	multiple_cursors.txt	/*g:multi_cursor_skip_key*
@@ -272,6 +276,12 @@ surround-mappings	surround.txt	/*surround-mappings*
 surround-replacements	surround.txt	/*surround-replacements*
 surround-targets	surround.txt	/*surround-targets*
 surround.txt	surround.txt	/*surround.txt*
+tabular	Tabular.txt	/*tabular*
+tabular-intro	Tabular.txt	/*tabular-intro*
+tabular-scripting	Tabular.txt	/*tabular-scripting*
+tabular-toc	Tabular.txt	/*tabular-toc*
+tabular-walkthrough	Tabular.txt	/*tabular-walkthrough*
+tabular.vim	Tabular.txt	/*tabular.vim*
 unimpaired	unimpaired.txt	/*unimpaired*
 unimpaired-encoding	unimpaired.txt	/*unimpaired-encoding*
 unimpaired-lines	unimpaired.txt	/*unimpaired-lines*

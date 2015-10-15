@@ -44,7 +44,7 @@ let s:before_function_called = 0
 
 " Used for searching whole words (search pattern is wrapped with \< and \>)
 " Keep old behaviour by default (act like g*)
-let s:use_word_boundary = 0
+let s:use_word_boundary = 1
 
 " Set up highlighting
 if !hlexists(s:hi_group_cursor)
@@ -53,6 +53,11 @@ endif
 if !hlexists(s:hi_group_visual)
   exec "highlight link ".s:hi_group_visual." Visual"
 endif
+
+" Temporary buffer that is used for individual paste buffer save/restore
+" operations
+let s:paste_buffer_temporary_text = ''
+let s:paste_buffer_temporary_type = ''
 
 "===============================================================================
 " Internal Mappings
@@ -165,6 +170,11 @@ function! multiple_cursors#new(mode, word_boundary)
   endif
 endfunction
 
+" Quit out of multicursor mode, fixes #27.
+function! multiple_cursors#quit()
+  call s:exit()
+endfunction
+
 " Delete the current cursor. If there's no more cursors, stop the loop
 function! multiple_cursors#prev()
   call s:cm.delete_current()
@@ -236,6 +246,14 @@ function! multiple_cursors#find(start, end, pattern)
     return
   else
     echohl Normal | echo 'Added '.s:cm.size().' cursor'.(s:cm.size()>1?'s':'') | echohl None
+
+    " If we've created any cursors, we need to call the before function, end
+    " function will be called via normal routes
+    if exists('*Multiple_cursors_before') && !s:before_function_called
+      exe "call Multiple_cursors_before()"
+      let s:before_function_called = 1
+    endif
+
     call s:wait_for_user_input('v')
   endif
 endfunction
@@ -250,6 +268,9 @@ function! s:Cursor.new(position)
   let obj = copy(self)
   let obj.position = copy(a:position)
   let obj.visual = []
+  " Stores text that was yanked after any commands in Normal or Visual mode
+  let obj.paste_buffer_text = getreg('"')
+  let obj.paste_buffer_type = getregtype('"')
   let obj.cursor_hi_id = s:highlight_cursor(a:position)
   let obj.visual_hi_id = 0
   let obj.line_length = col([a:position[0], '$'])
@@ -317,6 +338,17 @@ function! s:Cursor.remove_visual_selection() dict
   let self.visual_hi_id = 0
 endfunction
 
+" Restore unnamed register from paste buffer
+function! s:Cursor.restore_unnamed_register() dict
+  call setreg('"', self.paste_buffer_text, self.paste_buffer_type)
+endfunction
+
+" Save contents of the unnamed register into paste buffer
+function! s:Cursor.save_unnamed_register() dict
+  let self.paste_buffer_text = getreg('"')
+  let self.paste_buffer_type = getregtype('"')
+endfunction
+
 "===============================================================================
 " CursorManager class
 "===============================================================================
@@ -337,6 +369,7 @@ function! s:CursorManager.new()
         \ 'cursorline': &cursorline,
         \ 'lazyredraw': &lazyredraw,
         \ 'paste': &paste,
+        \ 'clipboard': &clipboard,
         \ }
   " We save the window view when multicursor mode is entered
   let obj.saved_winview = []
@@ -457,9 +490,17 @@ function! s:CursorManager.update_current() dict
     exec "normal! gv\<Esc>"
     call cur.update_visual_selection(s:get_visual_region(s:pos('.')))
   elseif s:from_mode ==# 'v' || s:from_mode ==# 'V'
+    " Save contents of unnamed register after each operation in Visual mode.
+    " This should be executed after user input is processed, when unnamed
+    " register already contains the text.
+    call cur.save_unnamed_register()
+
     call cur.remove_visual_selection()
-  elseif s:from_mode ==# 'i' && s:to_mode ==# 'n' && self.current_index == self.size() - 1
-    normal! `^
+  elseif s:from_mode ==# 'i' && s:to_mode ==# 'n' && self.current_index != self.size() - 1
+    normal! h
+  elseif s:from_mode ==# 'n'
+    " Save contents of unnamed register after each operation in Normal mode.
+    call cur.save_unnamed_register()
   endif
   let vdelta = line('$') - s:saved_linecount
   " If the total number of lines changed in the buffer, we need to potentially
@@ -543,19 +584,28 @@ endfunction
 " cursors on screen
 " paste mode needs to be switched off since it turns off a bunch of features
 " that's critical for the plugin to function
+" clipboard should not have unnamed and unnamedplus otherwise plugin cannot
+" reliably use unnamed register ('"')
 function! s:CursorManager.initialize() dict
   let self.saved_settings['virtualedit'] = &virtualedit
   let self.saved_settings['cursorline'] = &cursorline
   let self.saved_settings['lazyredraw'] = &lazyredraw
   let self.saved_settings['paste'] = &paste
+  let self.saved_settings['clipboard'] = &clipboard
   let &virtualedit = "onemore"
   let &cursorline = 0
   let &lazyredraw = 1
   let &paste = 0
+  set clipboard-=unnamed clipboard-=unnamedplus
   " We could have already saved the view from multiple_cursors#find
   if !self.start_from_find
     let self.saved_winview = winsaveview()
   endif
+
+  " Save contents and type of unnamed register upon entering multicursor mode
+  " to restore it later when leaving mode
+  let s:paste_buffer_temporary_text = getreg('"')
+  let s:paste_buffer_temporary_type = getregtype('"')
 endfunction
 
 " Restore user settings.
@@ -565,7 +615,15 @@ function! s:CursorManager.restore_user_settings() dict
     let &cursorline = self.saved_settings['cursorline']
     let &lazyredraw = self.saved_settings['lazyredraw']
     let &paste = self.saved_settings['paste']
+    let &clipboard = self.saved_settings['clipboard']
   endif
+
+  " Restore original contents and type of unnamed register. This method is
+  " called from reset, which calls us only when restore_setting argument is
+  " true, which happens only when we leave multicursor mode. This should be
+  " symmetrical to saving of unnamed register upon the start of multicursor
+  " mode.
+  call setreg('"', s:paste_buffer_temporary_text, s:paste_buffer_temporary_type)
 endfunction
 
 " Reselect the current cursor's region in visual mode
@@ -806,6 +864,12 @@ function! s:process_user_input()
   call s:cm.get_current().update_line_length()
   let s:saved_linecount = line('$')
 
+  " Restore unnamed register only in Normal mode. This should happen before user
+  " input is processed.
+  if s:from_mode ==# 'n' || s:from_mode ==# 'v' || s:from_mode ==# 'V'
+    call s:cm.get_current().restore_unnamed_register()
+  endif
+
   " Apply the user input. Note that the above could potentially change mode, we
   " use the mapping below to help us determine what the new mode is
   " Note that it's possible that \<Plug>(multiple-cursors-apply) never gets called, we have a
@@ -985,7 +1049,9 @@ endfunction
 
 let s:retry_keys = ""
 function! s:display_error()
-  if s:bad_input == s:cm.size() && has_key(g:multi_cursor_normal_maps, s:char[0])
+  if s:bad_input == s:cm.size()
+        \ && s:from_mode ==# 'n'
+        \ && has_key(g:multi_cursor_normal_maps, s:char[0])
     " we couldn't replay it anywhere but we're told it's the beginning of a
     " multi-character map like the `d` in `dw`
     let s:retry_keys = s:char
@@ -1037,13 +1103,13 @@ function! s:last_char()
 endfunction
 
 function! s:wait_for_user_input(mode)
+  call s:display_error()
+
   let s:from_mode = a:mode
   if empty(a:mode)
     let s:from_mode = s:to_mode
   endif
   let s:to_mode = ''
-
-  call s:display_error()
 
   " Right before redraw, apply the highlighting bug fix
   call s:apply_highlight_fix()
