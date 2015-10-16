@@ -79,15 +79,18 @@ set_path() {
     "${H}/local/usr/local/share/man" "${LO}/anaconda/share/man" 
     "${H}/local/anaconda/share/man" 
     "/usr/local/cuda/doc/man"
+    "${H}/.local/opt/openmpi/share/man"
   )
   local lib_paths=( 
     "${H}/.${lps}" "${H}/${lps}" "${H}/lib" "${H}/.local/usr/lib" 
+    "${H}/.local/opt/openmpi/lib"
     "${H}/.local/usr/local/lib" "${H}/local/usr/lib" 
     "${H}/local/usr/local/lib" 
     "/usr/local/cuda/lib"
   )
   local inc_paths=( 
     "${H}/.${ips}" "${H}/${ips}" "${H}/include" 
+    "${H}/.local/opt/openmpi/inc"
     "${H}/.local/usr/include" "${H}/.local/usr/local/include" 
     "${H}/local/usr/include" "${H}/local/usr/local/include" 
     "/usr/local/cuda/include"

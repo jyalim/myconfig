@@ -1,16 +1,19 @@
 MANDATORY_MANPATH           $HOME/.local/opt/anaconda/share/man
+MANDATORY_MANPATH           $HOME/.local/opt/openmpi/share/man
 MANDATORY_MANPATH           $HOME/.local/share/man
 MANDATORY_MANPATH           $HOME/.local/man
 MANDATORY_MANPATH           $HOME/.local/usr/share/man
 MANDATORY_MANPATH           $HOME/.local/usr/local/share/man
 
 MANPATH_MAP $HOME/.local/opt/anaconda/bin $HOME/.local/opt/anaconda/share/man
+MANPATH_MAP $HOME/.local/opt/openmpi/bin  $HOME/.local/opt/openmpi/share/man
 MANPATH_MAP $HOME/.local/bin              $HOME/.local/share/man
 MANPATH_MAP $HOME/.local/bin              $HOME/.local/man
 MANPATH_MAP $HOME/.local/usr/bin          $HOME/.local/usr/share/man
 MANPATH_MAP $HOME/.local/usr/local/bin    $HOME/.local/usr/local/share/man
 
 MANDB_MAP $HOME/.local/opt/anaconda/share/man $HOME/.local/var/cache/man
+MANDB_MAP $HOME/.local/opt/openmpi/share/man  $HOME/.local/var/cache/man
 MANDB_MAP $HOME/.local/share/man              $HOME/.local/var/cache/man
 MANDB_MAP $HOME/.local/man                    $HOME/.local/var/cache/man
 MANDB_MAP $HOME/.local/usr/share/man          $HOME/.local/var/cache/man
