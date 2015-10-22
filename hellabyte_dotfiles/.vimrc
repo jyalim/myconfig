@@ -318,7 +318,6 @@ nmap <leader>A :!Async
 nmap <leader>S :!S
 nmap <leader>e :set spell<C-j>
 nmap <leader>E :set nospell<C-j>
-nmap <leader>a :!aspell -c %<C-j>
 nmap <leader>l :!lualatex %<C-j>
 nmap <leader>z :!pdflatex %<C-j>
 nmap <leader>p :!python %<C-j>
