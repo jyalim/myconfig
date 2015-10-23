@@ -262,6 +262,11 @@ nnoremap <C-l> <C-w>l
 
 nnoremap <C-x><C-t> :Tabularize /=<C-j>
 vnoremap <C-x><C-t> :Tabularize /=<C-j>
+inoremap <C-x><C-t> :Tabularize /=<C-j>
+
+nnoremap <C-x><C-g> :Tabularize /
+vnoremap <C-x><C-g> :Tabularize /
+inoremap <C-x><C-g> :Tabularize /
 
 " Speed up paging
 nnoremap <C-e> 5<C-e>
