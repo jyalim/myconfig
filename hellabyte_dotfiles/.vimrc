@@ -183,7 +183,7 @@ endif
 " TeX indentexpr function, GetTexIndent() drives me crazy
 if s:extfname ==? "tex" 
   filetype indent off
-  set iskeyword=48-58,a-z,A-Z,192-255
+  set iskeyword=@,48-58,_
   let g:LatexBox_split_type="new"
   inoremap $       $$<left>
   inoremap '<tab>  ''<Left>
@@ -235,20 +235,24 @@ command! -nargs=1 -complete=shellcmd S
 inoremap (<cr>  ()<Left><CR><CR><C-D><Up><tab>
 inoremap {<cr>  {}<Left><CR><CR><C-D><Up><tab>
 inoremap [<cr>  []<Left><CR><CR><C-D><Up><tab>
-inoremap <<cr>  <><Left><CR><CR><C-D><Up><tab>
 inoremap (      ()<Left>
 inoremap {      {}<Left>
 inoremap [      []<Left>
-inoremap <      <><Left>
 inoremap ()     ()<Left>
 inoremap {}     {}<Left>
 inoremap []     []<Left>
-inoremap <>     <><Left>
 " Lazy (plus back up for {}) 
 inoremap (<space> (  )<Left><Left>
 inoremap {<space> {  }<Left><Left>
 inoremap [<space> [  ]<Left><Left>
-inoremap <<space> <  ><Left><Left>
+
+if s:extfname ==? "html" 
+  inoremap <<cr>  <><Left><CR><CR><C-D><Up><tab>
+  inoremap <      <><Left>
+  inoremap <>     <><Left>
+  inoremap <<space> <  ><Left><Left>
+endif
+
 "inoremap <expr> )  
 "    \ strpart(getline('.'), col('.')-1, 1) == ")" ? "\<Right>" : ")"
 " inoremap '<space> '  '<Left><Left>
