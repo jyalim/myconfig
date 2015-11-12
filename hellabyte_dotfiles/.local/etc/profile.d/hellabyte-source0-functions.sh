@@ -438,6 +438,14 @@ manual() {
   $printer $mpath | $cmd | less
 }
 
+xdisp() {
+  # from https://unix.stackexchange.com/questions/17255/
+  #            is-there-a-command-to-list-all-open-displays-on-a-machine
+  netstat -lnt | awk 'sub(/.*:/,"",$4) && $4 >= 6000 && $4 < 6100 {
+    print ($1 == "tcp6" ? "ip6-localhost:" : "localhost:") ($4 - 6000) 
+  }'
+}
+
 ## Set Working Directory ===============================================
 # Affect workflow by exporting base of directory tree to DESK, for 
 #   as it's where you work from home.
