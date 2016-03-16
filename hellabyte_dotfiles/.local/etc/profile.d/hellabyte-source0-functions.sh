@@ -66,6 +66,7 @@ set_path() {
     "/usr/local/cuda/bin" "/opt/ganglia/bin"
     "/Applications/MATLAB_R2013b.app/bin" "/usr/local/matlab/bin" 
     "/Applications/MATLAB_R2014b.app/bin"
+    "/Applications/MATLAB_R2015b.app/bin"
     "/usr/local/maple/bin" "/usr/local/sage" 
     "/usr/local/mathematica/Executables" 
   )

@@ -12,4 +12,4 @@ try:
   import readline, rlcompleter
 #  readline.parse_and_bind("\C-x\C-l: complete")
 except ImportError:
-  print "Module readline not available."
+  print("Module readline not available.")

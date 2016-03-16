@@ -69,4 +69,3 @@ if [ $TERM != "dumb" ]; then
     eval $(dircolors -b ~/.dircolors)
   fi
 fi
-

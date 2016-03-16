@@ -51,10 +51,15 @@ case "$(uname -s)" in
       alias "bw"='brew'; alias "bws"='brew search'; \
       alias "bwi"='brew install'; \
       alias "bwh"='brew home'; \
-      alias "upup"='brew update && brew upgrade --all '
-      alias "tuneup"='( brew update && brew upgrade --all ); \
-                          echo "Pruning, cleaning..."; \
-                          brew prune; brew cleanup; brew doctor' || :
+      alias "upup"='brew update && brew upgrade --all '; \
+      tuneup() {
+        local old_path_tmp=${PATH}
+        export PATH=${PATH/anaconda/anaconda-tmp}
+        brew update && brew upgrade --all 
+        echo "Pruning, cleaning..."; 
+        brew prune; brew cleanup; brew doctor
+        export PATH=${old_path_tmp}
+      }
     command -v define &> /dev/null && alias "def"='define' || :
     [[ -d /Applications/Firefox.app ]] && 
       alias "firefox"='open -a /Applications/Firefox.app' || :
