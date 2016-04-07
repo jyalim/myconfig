@@ -183,7 +183,7 @@ endif
 " TeX indentexpr function, GetTexIndent() drives me crazy
 if s:extfname ==? "tex" 
   filetype indent off
-  set iskeyword=@,48-58,_
+  set iskeyword=@,48-58
   let g:LatexBox_split_type="new"
   inoremap $       $$<left>
   inoremap '<tab>  ''<Left>
@@ -197,6 +197,8 @@ else
   inoremap "       ""<Left>
   inoremap `       ``<Left>
 endif
+
+set iskeyword+=_
 
 au FileType * exec( "setlocal dictionary+=" . 
       \ $HOME . "/.vim/dictionaries/".expand('<amatch>'))
@@ -436,3 +438,4 @@ let g:markdown_fenced_languages = [
 " Shows info about line, column and positional info in bottom right corner.
 " set ruler
 "
+set noacd
