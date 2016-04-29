@@ -44,7 +44,7 @@ export PYTHONSTARTUP="${HOME}/.pythonrc"
 
 # For forward search with readline -- Stops terminal from stopping 
 # when C-s is pressed.
-stty -ixon
+[[ $- == *i* ]] && stty -ixon || :
 
 # For using vim as manpager: (be sure to put let $PAGER='' in .vimrc)
 # export PAGER="/bin/sh -c \"unset PAGER; col -b -x | \
