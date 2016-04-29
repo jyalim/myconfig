@@ -161,10 +161,10 @@ common_dir_init() {
   fi
   DSTACK=( $USER_HOME $ROOT_HOME )
   # Various directories and files 
-  DOCDIR="${HOME}/documents"
-  INETDIR="${DOCDIR}/various/inet"
-  NOTEFILE="${DOCDIR}/various/notes.txt"
-  TASKFILE="${DOCDIR}/various/tasks.txt"
+  DOCDIR="${HOME}/.local/etc/docs"
+  INETDIR="${DOCDIR}/inet"
+  NOTEFILE="${DOCDIR}/notes.txt"
+  TASKFILE="${DOCDIR}/tasks.txt"
   INETGEOFILE="${INETDIR}/geo.xml"
   ! [[ -d $DOCDIR      ]] && mkdir -m 700 $DOCDIR || :
   ! [[ -d $INETDIR     ]] && mkdir -p $INETDIR    || :
