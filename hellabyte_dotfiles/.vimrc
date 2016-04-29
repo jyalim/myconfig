@@ -384,6 +384,8 @@ let g:tex_flavor="latex"
 "setlocal spell spelllang=en_us
 if $TERM == "dumb"
   colorscheme default
+elseif $ITERM_BG == "light"
+  colo light_lichen
 else
   set t_Co=256
   colo lichen
