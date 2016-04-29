@@ -62,7 +62,7 @@ SETGID                30;43     # file that is setgid ( g+s )
 CAPABILITY            30;41     # Wut
 STICKY_OTHER_WRITABLE 30;42     # dir that is sticky and other-writable ( +t, o+w )
 STICKY                37;44     # Sticky bit set ( +t ) other not other-writable
-EXEC                  38;05;72  # for files with executible bit
+EXEC                  38;05;35  # for files with executible bit
 
 # List any file extensions like '.gz' or '.tar' that you would like ls
 # to colorize below. Put the extension, a space, and the color init string.
