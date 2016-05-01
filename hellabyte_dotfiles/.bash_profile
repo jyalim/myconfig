@@ -60,7 +60,7 @@ export LESS_TERMCAP_ue=$'\e[0m'            # end underline
 export LESS_TERMCAP_us=$'\e[04;38;05;073m' # begin underline
 
 # Setting colors for file types with gnu-dircolors
-if [ $TERM != "dumb" ]; then
+if [[ $TERM != "dumb" ]] && [[ -e ~/.dircolors ]]; then
   if [[ "$(uname -s)" == "Darwin" ]]; then
     export LS_OPTIONS='--color=auto'
     command -v gdircolors &> /dev/null && 
