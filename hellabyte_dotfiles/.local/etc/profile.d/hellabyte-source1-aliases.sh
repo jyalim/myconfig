@@ -132,6 +132,7 @@ alias "ptg"='pt 8.8.8.8'
 alias "py"='python'
 alias "pyc"="python -c"
 alias "git-branch-actual"="git rev-parse --abbrev-ref HEAD"
+alias "sshy"='ssh -Y'
 
 swhich ipython && { 
   alias "ipy"="ipython" 
