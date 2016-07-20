@@ -24,7 +24,7 @@ awk_magic() {
           print $0; a[$0]++ 
         } 
       }
-    ' <<< "$input:" 
+    ' <<< "${input}:" 
   )
   echo ${temp%:*}
 }

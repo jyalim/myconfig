@@ -150,11 +150,11 @@ EXEC                  38;05;35  # for files with executible bit
 *.csv        38;05;110
 *.tsv        38;05;110
 *.yml        38;05;110
-*.yaml       38;05;187
-*.json       38;05;187
-*.bson       38;05;187
-*.sql        38;05;187
-*.ldb        38;05;187
+*.yaml       38;05;245
+*.json       38;05;245
+*.bson       38;05;245
+*.sql        38;05;245
+*.ldb        38;05;245
 
 # parameter files
 *.prm        38;05;193
@@ -193,11 +193,11 @@ EXEC                  38;05;35  # for files with executible bit
 *.gpg        38;05;223
 
 # storage/disk files
-*.deb        38;05;188
-*.rpm        38;05;188
-*.dmg        38;05;188
-*.img        38;05;188
-*.iso        38;05;188
+*.deb        38;05;177
+*.rpm        38;05;177
+*.dmg        38;05;177
+*.img        38;05;177
+*.iso        38;05;177
 
 # configuration files
 *rc          38;05;108  
