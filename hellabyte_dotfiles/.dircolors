@@ -129,14 +129,14 @@ EXEC                  38;05;35  # for files with executible bit
 *.vim        38;05;115
 
 # source code files general 
-*.PL         38;05;187
-*.pm         38;05;187
-*.tt         38;05;187
-*.sql        38;05;187
-*.html       38;05;187
-*.css        38;05;187
-*.js         38;05;187
-*.awk        38;05;187
+*.PL         38;05;175
+*.pm         38;05;175
+*.tt         38;05;175
+*.sql        38;05;175
+*.html       38;05;175
+*.css        38;05;175
+*.js         38;05;175
+*.awk        38;05;175
 
 # module/header/support files
 *.mod        38;05;195
@@ -190,7 +190,7 @@ EXEC                  38;05;35  # for files with executible bit
 *.7z         38;05;146
 
 # encrypted/private files
-*.gpg        38;05;223
+*.gpg        38;05;209
 
 # storage/disk files
 *.deb        38;05;177
