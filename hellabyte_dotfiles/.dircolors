@@ -150,6 +150,7 @@ EXEC                  38;05;35  # for files with executible bit
 *.csv        38;05;110
 *.tsv        38;05;110
 *.yml        38;05;110
+*.vtk        38;05;110
 *.yaml       38;05;245
 *.json       38;05;245
 *.bson       38;05;245
