@@ -139,10 +139,10 @@ EXEC                  38;05;35  # for files with executible bit
 *.awk        38;05;175
 
 # module/header/support files
-*.mod        38;05;45
-*.h          38;05;45
-*.hpp        38;05;45
-*.pyc        38;05;45
+*.mod        38;05;39
+*.h          38;05;39
+*.hpp        38;05;39
+*.pyc        38;05;39
 
 # data files
 *.dat        38;05;110
