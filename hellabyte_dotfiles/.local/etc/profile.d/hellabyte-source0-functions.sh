@@ -132,13 +132,23 @@ set_path() {
   # TODO Determine how intel64 linking affects MIC linking
   local INTEL_PROF='/opt/intel/bin/compilervars.sh'
   local INTEL_ARCH='intel64'
+  local INTEL_VAR=(
+    "/opt/intel/advisor_xe/advixe-vars.sh"
+    "/opt/intel/inspector_xe/inspxe-vars.sh"
+    "/opt/intel/vtune_amplifier_xe/amplxe-vars.sh"
+  )
   if [[ -f $INTEL_PROF ]]; then 
     builtin source $INTEL_PROF $INTEL_ARCH 
     local INTEL_MIKE='/opt/intel/mkl/bin/mklvars.sh'
     local INTEL_MARC='mic'
     command -v micnativeloadex &>/dev/null && \
       builtin source $INTEL_MIKE $INTEL_MARC || :
+    for file in ${INTEL_VAR[@]}; do
+      [[ -f "${file}" ]] && builtin source ${file} 'quiet' || :
+    done
   fi
+
+
 
   # Append old path to new path, remove redundancies, preserve order
   export PATH=$(awk_magic "$xpath:$PATH")

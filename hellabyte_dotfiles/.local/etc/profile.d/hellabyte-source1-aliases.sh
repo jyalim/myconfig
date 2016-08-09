@@ -28,7 +28,7 @@ case "$(uname -s)" in
       gcal gcat gchgrp gchmod gchown gcp gcut gdate gdircolors gdf
       gdu gecho gfind ggetopt ghead gkill gln gmkdir gmv gnl gpwd
       grm gsed gsplit gsort gstat gsync gtac gtail gnutar greadlink
-      grealpath gtee gtest gtouch gtty guniq gunlink guptime gusers
+      grealpath gtar gtee gtest gtouch gtty guniq gunlink guptime gusers
       gwc gwho
     )
     gnu_tools_special_cmds=( gls )
