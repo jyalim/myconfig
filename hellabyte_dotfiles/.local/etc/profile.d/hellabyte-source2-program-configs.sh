@@ -9,6 +9,11 @@ if ! shopt -oq posix; then
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
+  if [ -d /etc/bash_completion.d ]; then
+    for f in /etc/bash_completion.d/*.sh; do
+      source $f
+    done
+  fi
 fi
 
 ## git fancy log

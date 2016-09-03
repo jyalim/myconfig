@@ -60,6 +60,12 @@ case "$(uname -s)" in
         brew prune; brew cleanup; brew doctor
         export PATH=${old_path_tmp}
       }
+    command -v conda &>/dev/null && command -v brew &>/dev/null &&
+      cotuneup() {
+        conda update conda jupyter python mkl numpy scipy \
+                     matplotlib scikit-learn ipython pip  \
+                     numba numbapro accelerate && tuneup
+      }
     command -v define &> /dev/null && alias "def"='define' || :
     [[ -d /Applications/Firefox.app ]] && 
       alias "firefox"='open -a /Applications/Firefox.app' || :
