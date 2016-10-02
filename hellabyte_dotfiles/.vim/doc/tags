@@ -14,6 +14,7 @@
 :LatexmkStatus	latex-box.txt	/*:LatexmkStatus*
 :LatexmkStatus!	latex-box.txt	/*:LatexmkStatus!*
 :LatexmkStop	latex-box.txt	/*:LatexmkStop*
+:Tabularize	Tabular.txt	/*:Tabularize*
 <P	unimpaired.txt	/*<P*
 <Plug>LatexBox_BackJumpToMatch	latex-box.txt	/*<Plug>LatexBox_BackJumpToMatch*
 <Plug>LatexBox_JumpToMatch	latex-box.txt	/*<Plug>LatexBox_JumpToMatch*

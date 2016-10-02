@@ -489,7 +489,15 @@ easyColor() {
   COLOR=(); for k in {0..255}; do COLOR+=($(tput setaf $k)); done
 }
 
+## Simple CLI calc =====================================================
+# http://stackoverflow.com/a/9576030/2142582
+calc() {
+  awk 'BEGIN{print '$@'}'
+}
+
 ### INITIALIZATION -----------------------------------------------------
 common_dir_init
 set_path
 ### --------------------------------------------------------------------
+
+
