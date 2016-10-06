@@ -47,25 +47,29 @@ case "$(uname -s)" in
 
     # General Darwin stuff.
     alias '.A'='cd /usr/local/Athenaeum/'
-    command -v brew &> /dev/null &&
-      alias "bw"='brew'; alias "bws"='brew search'; \
-      alias "bwi"='brew install'; \
-      alias "bwh"='brew home'; \
-      alias "upup"='brew update && brew upgrade --all '; \
+    command -v brew &> /dev/null && {
+      alias "bw"='brew'; alias "bws"='brew search'
+      alias "bwi"='brew install'
+      alias "bwh"='brew home'
+      alias "upup"='brew update && brew upgrade'
       tuneup() {
         local old_path_tmp=${PATH}
         export PATH=${PATH/anaconda/anaconda-tmp}
-        brew update && brew upgrade --all 
+        brew update && brew upgrade
         echo "Pruning, cleaning..."; 
         brew prune; brew cleanup; brew doctor
         export PATH=${old_path_tmp}
       }
-    command -v conda &>/dev/null && command -v brew &>/dev/null &&
-      cotuneup() {
-        conda update conda jupyter python mkl numpy scipy \
-                     matplotlib scikit-learn ipython pip  \
-                     numba numbapro accelerate && tuneup
+    }
+    command -v conda &>/dev/null && {
+      command -v brew &>/dev/null && {
+        cotuneup() {
+          conda update conda jupyter python mkl numpy scipy \
+                       matplotlib scikit-learn ipython pip  \
+                       numba numbapro accelerate && tuneup
+        }
       }
+    }
     command -v define &> /dev/null && alias "def"='define' || :
     [[ -d /Applications/Firefox.app ]] && 
       alias "firefox"='open -a /Applications/Firefox.app' || :
