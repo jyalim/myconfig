@@ -15,17 +15,7 @@
 # preserving order
 awk_magic() {
   input=${1:-''}
-  temp=$(
-    awk '
-      BEGIN{
-        ORS=RS=":"
-      }{ 
-        if ( a[$0] == 0) { 
-          print $0; a[$0]++ 
-        } 
-      }
-    ' <<< "${input}:" 
-  )
+  temp=$(awk 'BEGIN{ORS=RS=":"} !a[$0]++' <<< "${input}:")
   echo ${temp%:*}
 }
 
