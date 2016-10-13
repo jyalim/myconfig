@@ -2,6 +2,7 @@
 #
 # For Mac OS X
 
-set-option -g default-command "reattach-to-user-namespace -l bash"
+set -g default-shell $SHELL
+set -g default-command "reattach-to-user-namespace -l ${SHELL}"
 bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
 
