@@ -30,6 +30,8 @@
 "\C-x\C-N": menu-complete 
 "\C-x\C-P": menu-complete-backward
 
+"\C-h": backward-delete-char
+
 "\ec": "cd 		"
 	
 # Set to audible to announce to the World how much you suck.

@@ -424,6 +424,31 @@ note() {
 }
 
 # ======================================================================
+# World Clock
+wdate() {
+  zones=(
+    "Pacific/Midway"
+    "Pacific/Honolulu"
+    "America/Anchorage"
+    "America/Los_Angeles"
+    "America/Phoenix"  
+    "America/New_York"
+    "Europe/London"
+    "Europe/Berlin"
+    "Europe/Moscow"
+    "Asia/Baghdad"
+    "Asia/Calcutta"
+    "Asia/Shanghai"
+    "Australia/Melbourne"
+  )
+  for zone in ${zones[@]}; do
+    dstr="$(TZ=$zone gdate '+%Y %m %d T %H:%M:%S:%::z' )"
+    zstr="${zone#*/}"
+    printf '%20s :: %20s\n' "${zstr//_/ }" "${dstr}"
+  done
+}
+
+# ======================================================================
 # Custom man page command that will correctly display man pages.
 # Someimtes man only displays a part of man page, thus manual.
 manual() {

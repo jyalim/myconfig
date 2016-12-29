@@ -27,10 +27,10 @@ let maplocalleader='\'
 " Sets automatic carriage return at column number <textwidth>. 
 "   0/78 off/defl. 
 set textwidth=72
-set formatoptions=c,q,r,t    " c    auto-wrap comments w/ text-width
+set formatoptions=c,q,r,t    
+" c    auto-wrap comments w/ text-width
 " q    Allow formatting of comments with <gq>
-" r    Auto insert current comment leader after
-"      <enter>
+" r    Auto insert current comment leader after <enter>
 " t    Auto wrapping of non-comment text
 
 " Color 72nd and 80+ columns a different color to indicate width limit.
