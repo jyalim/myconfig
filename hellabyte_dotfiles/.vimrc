@@ -323,6 +323,7 @@ nmap <silent> <leader>s :set nolist!<CR>
 nmap <silent> <leader>q :r!python -c 'print <C-r><C-w> 
 nmap <leader>; :
 nmap <leader>t :!
+nmap <leader>T :r!date '+\%Y\%m\%dT\%H\%M\%S '<C-j>
 nmap <leader>m :TabMessage 
 nmap <leader>M :!AsyncTab
 nmap <leader>A :!Async

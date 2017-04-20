@@ -1,16 +1,16 @@
 top's Config File (Linux processes with windows)
-Id:h, Mode_altscr=0, Mode_irixps=1, Delay_time=3.0, Curwin=0
-Def	fieldscur=¥¦¨³´»½ÀÄ·º¹°¿Å§­¶¼¸¾ªÁÃÆµÇ)+,./12BHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
-	winflags=195068, sortindx=18, maxtasks=0
+Id:i, Mode_altscr=0, Mode_irixps=1, Delay_time=3.0, Curwin=0
+Def	fieldscur=¥¦¨³»½À¼¿¸Ä·ºÁÂÅ¶Ã¾§­¹ªÆµ´Ç°ÍÎ)+,./12HIJKLOPQRSTUVWXYZ[\]^_`abcdefghij
+	winflags=195068, sortindx=18, maxtasks=0, graph_cpus=0, graph_mems=0
 	summclr=6, msgsclr=7, headclr=6, taskclr=7
 Job	fieldscur=¥¦*(-068>?@ACFG¹·º³´Ä»¼½§Å)+,./125BHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
-	winflags=194876, sortindx=0, maxtasks=0
+	winflags=194876, sortindx=0, maxtasks=0, graph_cpus=0, graph_mems=0
 	summclr=6, msgsclr=6, headclr=2, taskclr=4
 Mem	fieldscur=¥º»¼½¾¿ÀÁÃ&*'·°Å­6¸9FGÄ³´¨)+,./125BHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
-	winflags=195892, sortindx=21, maxtasks=0
+	winflags=195892, sortindx=21, maxtasks=0, graph_cpus=0, graph_mems=0
 	summclr=2, msgsclr=7, headclr=2, taskclr=6
 Usr	fieldscur=¥¦§¨ª°-3468;<=>?@ACFG¹·ºÄÅ)+,./125BHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghij
-	winflags=194876, sortindx=3, maxtasks=0
+	winflags=194876, sortindx=3, maxtasks=0, graph_cpus=0, graph_mems=0
 	summclr=2, msgsclr=5, headclr=2, taskclr=7
 Fixed_widest=0, Summ_mscale=0, Task_mscale=0, Zero_suppress=0
 
