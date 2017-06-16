@@ -18,9 +18,10 @@
 # ======================================================================
 
 export SOURCED_PROFILE=1
-if [[ -f "${HOME}/.bashrc" ]] && [[ $SOURCED_RC -eq 0 ]]; then
-    builtin source "${HOME}/.bashrc" 
-    export SOURCED_RC=1
+
+if [[ -f "${HOME}/.bashrc" ]] && (( SOURCED_RC != 1 )); then
+  builtin source "${HOME}/.bashrc" 
+  export SOURCED_RC=1
 fi
 
 export EDITOR=vim
@@ -69,3 +70,4 @@ if [[ $TERM != "dumb" ]] && [[ -e ~/.dircolors ]]; then
     eval $(dircolors -b ~/.dircolors)
   fi
 fi
+

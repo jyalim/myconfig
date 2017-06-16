@@ -160,7 +160,9 @@ if has("autocmd")
   au BufRead,BufNewFile *.osa setfiletype applescript
   au BufRead,BufNewFile *.applescript setfiletype applescript
   au BufRead,BufWrite,BufWritePost,BufNewFile *.org setfiletype org
-  au BufNewFile,BufReadPost *.md set filetype=markdown
+  au BufNewFile,BufReadPost *.md       set filetype=markdown
+  au BufNewFile,BufReadPost *.mkd      set filetype=markdown
+  au BufNewFile,BufReadPost *.markdown set filetype=markdown
   au BufEnter org set syntax=org
   au Filetype pov set syntax=fortran
   au Filetype gplot,gp set syntax=gnuplot
@@ -196,6 +198,14 @@ else
   inoremap '       ''<Left>
   inoremap "       ""<Left>
   inoremap `       ``<Left>
+endif
+
+if s:extfname ==? "markdown"
+  set tw=0
+  set wrap linebreak nolist
+  set breakindent
+  set breakindentopt=sbr,shift:15
+  set fo-=t
 endif
 
 set iskeyword+=_

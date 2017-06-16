@@ -11,7 +11,6 @@
 # ======================================================================
 # Prevent recursive sourcing
 export SOURCED_RC=1
-
 # ======================================================================
 # Vital to multi file sourcing
 sourcing() {
@@ -29,7 +28,7 @@ sourcing() {
     ;;
     * | : | ? ) : ;;
   esac
-  if [[ $SOURCED_PROFILE -eq 0 ]]; then 
+  if (( SOURCED_PROFILE != 1 )); then
     export SOURCED_PROFILE=1 
     [[ -f $bashp_path ]] && builtin source $bashp_path || :
   fi
@@ -50,7 +49,7 @@ sourcing
 # To have env use pre-sourced path, simply uncomment the following:
 #reset_path
 # Prevent redundant Paths
-[[ $SOURCED_PATHS -ne 1 ]] && set_path || :
+(( SOURCED_PATHS != 1 )) && set_path || :
 export SOURCED_PATHS=1
 
 # ======================================================================
@@ -59,3 +58,4 @@ set_prompt
 
 # ======================================================================
 # Possibly: http://alias.sh/filesystem-markers-jump
+

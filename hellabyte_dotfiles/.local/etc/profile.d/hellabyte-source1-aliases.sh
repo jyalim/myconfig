@@ -78,6 +78,7 @@ case "$(uname -s)" in
     } || :
     alias "vlc"='/Applications/VLC.app/Contents/MacOS/VLC' || :
     alias "ptop"='top -stats pid,command,cpu,th,mem,pstate,time,power'
+    alias "acroread"='open -a "/Applications/Adobe Acrobat Reader DC.app/"'
     ;;
   "Linux")
     alias "ls"='ls --color'
