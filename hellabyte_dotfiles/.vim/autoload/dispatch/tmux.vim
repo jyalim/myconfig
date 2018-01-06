@@ -30,7 +30,7 @@ function! dispatch#tmux#handle(request) abort
       let command .= ' -d'
     endif
     let command .= ' ' . shellescape('exec ' . dispatch#isolate(
-          \ ['TMUX', 'TMUX_PANE'],
+          \ a:request, ['TMUX', 'TMUX_PANE'],
           \ dispatch#set_title(a:request),
           \ dispatch#prepare_start(a:request)))
     call system(command)
@@ -42,12 +42,13 @@ function! dispatch#tmux#make(request) abort
   let pipepane = (&shellpipe ==# '2>&1| tee' || &shellpipe ==# '|& tee')
         \ && a:request.format !~# '%\\[er]'
   let session = get(g:, 'tmux_session', '')
-  let script = dispatch#isolate(['TMUX', 'TMUX_PANE'],
+  let script = dispatch#isolate(a:request, ['TMUX', 'TMUX_PANE'],
         \ call('dispatch#prepare_make', [a:request] +
-        \ (pipepane ? [a:request.expanded . '; echo $? > ' . a:request.file . '.complete'] : [])))
+        \ (pipepane ? [a:request.expanded . '; echo ' . dispatch#status_var()
+        \  . ' > ' . a:request.file . '.complete'] : [])))
 
   let title = shellescape(get(a:request, 'title', get(a:request, 'compiler', 'make')))
-  let height = get(g:, 'dispatch_tmux_height', 10)
+  let height = get(g:, 'dispatch_tmux_height', get(g:, 'dispatch_quickfix_height', 10))
   if get(a:request, 'background', 0)
     let cmd = 'new-window -d -n '.title
   elseif has('gui_running') || empty($TMUX) || (!empty(''.session) && session !=# system('tmux display-message -p "#S"')[0:-2])

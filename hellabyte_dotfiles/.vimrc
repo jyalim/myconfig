@@ -338,8 +338,7 @@ nmap <leader>m :TabMessage
 nmap <leader>M :!AsyncTab
 nmap <leader>A :!Async
 nmap <leader>S :!S
-nmap <leader>e :set spell<C-j>
-nmap <leader>E :set nospell<C-j>
+nmap <leader>e :set invspell<C-j>
 nmap <leader>l :!lualatex %<C-j>
 nmap <leader>z :!pdflatex %<C-j>
 nmap <leader>p :!python %<C-j>
@@ -452,3 +451,6 @@ let g:markdown_fenced_languages = [
 " set ruler
 "
 set noacd
+
+" Omni completion: http://vim.wikia.com/wiki/Omni_completion
+set omnifunc=syntaxcomplete#Complete
