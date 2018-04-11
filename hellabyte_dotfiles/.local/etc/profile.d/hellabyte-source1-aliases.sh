@@ -13,7 +13,11 @@
 ## listing directory contents
 # Make sure ls on darwin will accept the aliases
 # without breaking ls_style for all systems.
-ls_style="--si --sort=version --time-style=+'%m-%d %H:%M'"
+newline='
+'
+fmt1='%Y-%m-%d %H:%M'
+fmt2='%Y-%m-%d %H:%M'
+ls_style="--si --sort=version --time-style=+'${fmt1}${newline}${fmt2}'"
 
 case "$(uname -s)" in
   "Darwin") 
