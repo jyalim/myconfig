@@ -27,5 +27,4 @@ config_personal() {
   git config --global alias.tags 'tag -l'
 
   git config --global alias.st 'status -sb'
-
 }

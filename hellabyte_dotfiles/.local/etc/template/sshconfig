@@ -5,18 +5,21 @@
 #
 # Guideline on ssh setup:
 #
-# $ ssh-keygen
-# $ mv public_key $HOME/.ssh/pubs/
-# $ ssh user@host "cat - >> .ssh/authorized_keys" < pubs/public_key
+# $ ssh-keygen -t rsa -b 4096 -N '' -f $HOME/.ssh/pubs/server_rsa
+# $ ssh user@host "mkdir -pm 700 .ssh && cat - >> .ssh/authorized_keys" < $HOME/.ssh/pubs/server_rsa.pub
 #
-# Ex. with Bitbucket:
-# Host bitbucket.org
-#   IdentityFile ~/.ssh/bbucks_rsa
+# Ex. with github:
+# Host github.com*
+#   User         git
+#   Hostname     bgithub.com
+#   IdentityFile ~/.ssh/github_rsa  
 # ======================================================================
-Host {{hostname}} {{althostnames}}
-  User {{username}}
-  IdentityFile ~/.ssh/{{private_key}}
-  IdentitiesOnly yes
-  RequestTTY yes
-  ForwardX11 no
-  Port 22
+
+Host {{alias}}
+  User              {{username}}
+  Hostname          {{hostname}}
+  IdentityFile      ~/.ssh/{{private_key}}
+  IdentitiesOnly    yes
+  ForwardX11        {{yes or no}}
+  ForwardX11Trusted {{yes or no}}
+  Port              {{port number}}
