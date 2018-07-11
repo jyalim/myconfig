@@ -13,17 +13,17 @@ function! dispatch#x11#handle(request) abort
         \ (!v:windowid || !executable('wmctrl'))
     return 0
   endif
-  if !empty($TERMINAL)
-    let terminal = $TERMINAL
-  elseif executable('x-terminal-emulator')
-    let terminal = 'x-terminal-emulator'
+  if exists('g:dispatch_terminal_exec')
+    let terminal = g:dispatch_terminal_exec
+  elseif !empty($TERMINAL)
+    let terminal = $TERMINAL . ' -e'
   elseif executable('xterm')
-    let terminal = 'xterm'
+    let terminal = 'xterm -e'
   else
     return 0
   endif
   if a:request.action ==# 'make'
-    if !get(a:request, 'background', 0) && empty(v:servername)
+    if !get(a:request, 'background', 0) && !dispatch#has_callback()
       return 0
     endif
     return dispatch#x11#spawn(terminal, dispatch#prepare_make(a:request), a:request)
@@ -39,7 +39,7 @@ function! dispatch#x11#spawn(terminal, command, request) abort
   if a:request.background || a:request.action ==# 'make'
     let command = 'wmctrl -i -a '.v:windowid . ';' . command
   endif
-  call system(dispatch#shellescape(a:terminal, '-e', &shell, &shellcmdflag, command). ' &')
+  call system(a:terminal . ' ' . dispatch#shellescape(&shell, &shellcmdflag, command). ' &')
   return 1
 endfunction
 

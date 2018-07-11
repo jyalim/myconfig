@@ -1,5 +1,5 @@
 " Name:    gnupg.vim
-" Last Change: 2017 May 31
+" Last Change: 2018 Jan 23
 " Maintainer:  James McCoy <jamessan@jamessan.com>
 " Original Author:  Markus Braun <markus.braun@krawel.de>
 " Summary: Vim plugin for transparent editing of gpg encrypted files.
@@ -455,7 +455,7 @@ function s:GPGDecrypt(bufread)
   call s:GPGDebug(3, printf(">>>>>>>> Entering s:GPGDecrypt(%d)", a:bufread))
 
   " get the filename of the current buffer
-  let filename = expand("<afile>:p")
+  let filename = resolve(expand("<afile>:p"))
 
   " clear GPGRecipients and GPGOptions
   if type(g:GPGDefaultRecipients) == type([])
@@ -469,14 +469,28 @@ function s:GPGDecrypt(bufread)
   let b:GPGOptions = []
 
   " file name minus extension
-  let autocmd_filename = expand('<afile>:r')
+  let autocmd_filename = fnamemodify(filename, ':r')
 
   " File doesn't exist yet, so nothing to decrypt
   if !filereadable(filename)
+    if !a:bufread
+      redraw!
+      echohl GPGError
+      echom "E484: Can't open file" filename
+      echohl None
+      return
+    endif
+
     " Allow the user to define actions for GnuPG buffers
     silent doautocmd User GnuPG
     silent execute ':doautocmd BufNewFile ' . fnameescape(autocmd_filename)
     call s:GPGDebug(2, 'called BufNewFile autocommand for ' . autocmd_filename)
+
+    set buftype=acwrite
+    " Remove the buffer name ...
+    silent 0file
+    " ... so we can force it to be absolute
+    exe 'silent file' fnameescape(filename)
 
     " This is a new file, so force the user to edit the recipient list if
     " they open a new file and public keys are preferred
@@ -601,8 +615,14 @@ function s:GPGDecrypt(bufread)
       call s:GPGDebug(3, "<<<<<<<< Leaving s:GPGDecrypt()")
       return
     endif
-    " Ensure the buffer is only saved by using our BufWriteCmd
-    set buftype=acwrite
+    if a:bufread
+      " Ensure the buffer is only saved by using our BufWriteCmd
+      set buftype=acwrite
+      " Always set the buffer name to the absolute path, otherwise Vim won't
+      " track the correct buffer name when changing directories (due to
+      " buftype=acwrite).
+      exe 'file' fnameescape(filename)
+    endif
   else
     execute silent 'read' fnameescape(filename)
   endif
@@ -661,7 +681,7 @@ function s:GPGEncrypt()
   endif
 
   " file name minus extension
-  let autocmd_filename = expand('<afile>:r')
+  let autocmd_filename = expand('<afile>:p:r')
 
   silent exe ':doautocmd '. auType .'Pre '. fnameescape(autocmd_filename)
   call s:GPGDebug(2, 'called '. auType .'Pre autocommand for ' . autocmd_filename)
@@ -675,7 +695,7 @@ function s:GPGEncrypt()
     return
   endif
 
-  let filename = resolve(expand('<afile>'))
+  let filename = resolve(expand('<afile>:p'))
   " initialize GPGOptions if not happened before
   if (!exists("b:GPGOptions") || empty(b:GPGOptions))
     let b:GPGOptions = []
@@ -751,7 +771,10 @@ function s:GPGEncrypt()
   endif
 
   if auType == 'BufWrite'
-    setl nomodified
+    if expand('%:p') == filename
+      setl nomodified
+    endif
+    setl buftype=acwrite
     let &readonly = filereadable(filename) && filewritable(filename) == 0
   endif
 
@@ -938,7 +961,7 @@ function s:GPGFinishRecipientsBuffer()
   " go to buffer before doing work
   if (bufnr("%") != expand("<abuf>"))
     " switch to scratch buffer window
-    execute 'silent! ' . bufwinnr(expand("<afile>")) . "wincmd w"
+    execute 'silent! ' . bufwinnr(expand("<afile>:p")) . "wincmd w"
   endif
 
   " delete the autocommand
@@ -1121,7 +1144,7 @@ function s:GPGFinishOptionsBuffer()
   " go to buffer before doing work
   if (bufnr("%") != expand("<abuf>"))
     " switch to scratch buffer window
-    execute 'silent! ' . bufwinnr(expand("<afile>")) . "wincmd w"
+    execute 'silent! ' . bufwinnr(expand("<afile>:p")) . "wincmd w"
   endif
 
   " clear options and unknownOptions

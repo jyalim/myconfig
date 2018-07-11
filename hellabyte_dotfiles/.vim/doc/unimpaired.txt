@@ -39,6 +39,8 @@ is "args" and for the "q" commands is "quickfix".
 *]t*     |:tnext|
 *[T*     |:tfirst|
 *]T*     |:tlast|
+*[<C-T>* |:ptprevious|
+*]<C-T>* |:ptnext|
 
                                                 *[f*
 [f                      Go to the file preceding the current one
@@ -73,19 +75,21 @@ LINE OPERATIONS                                 *unimpaired-lines*
 OPTION TOGGLING                                 *unimpaired-toggling*
 
 On	Off	Toggle	Option
-*[ob*	*]ob*	*cob*	'background' (dark is off, light is on)
-*[oc*	*]oc*	*coc*	'cursorline'
-*[od*	*]od*	*cod*	'diff' (actually |:diffthis| / |:diffoff|)
-*[oh*	*]oh*	*coh*	'hlsearch'
-*[oi*	*]oi*	*coi*	'ignorecase'
-*[ol*	*]ol*	*col*	'list'
-*[on*	*]on*	*con*	'number'
-*[or*	*]or*	*cor*	'relativenumber'
-*[os*	*]os*	*cos*	'spell'
-*[ou*	*]ou*	*cou*	'cursorcolumn'
-*[ov*	*]ov*	*cov*	'virtualedit'
-*[ow*	*]ow*	*cow*	'wrap'
-*[ox*	*]ox*	*cox*	'cursorline' 'cursorcolumn' (x as in crosshairs)
+*[ob*	*]ob*	*yob*	'background' (dark is off, light is on)
+*[oc*	*]oc*	*yoc*	'cursorline'
+*[od*	*]od*	*yod*	'diff' (actually |:diffthis| / |:diffoff|)
+*[oh*	*]oh*	*yoh*	'hlsearch'
+*[oi*	*]oi*	*yoi*	'ignorecase'
+*[ol*	*]ol*	*yol*	'list'
+*[on*	*]on*	*yon*	'number'
+*[or*	*]or*	*yor*	'relativenumber'
+*[os*	*]os*	*yos*	'spell'
+*[ou*	*]ou*	*you*	'cursorcolumn'
+*[ov*	*]ov*	*yov*	'virtualedit'
+*[ow*	*]ow*	*yow*	'wrap'
+*[ox*	*]ox*	*yox*	'cursorline' 'cursorcolumn' (x as in crosshairs)
+
+The mnemonic for y is that if you tilt it a bit it looks like a switch.
 
 PASTING                                         *unimpaired-pasting*
 
@@ -98,14 +102,15 @@ These are experimental:
 *=p*    Paste after linewise, reindenting.
 *=P*    Paste before linewise, reindenting.
 
-|]p| and |[p| have also been remapped to force linewise pasting, while
-preserving their usual indent matching behavior.
+|]p|, |[p|, |[P|, and |]P| have also been remapped to force linewise pasting,
+while preserving their usual indent matching behavior.
 
-                                                *yo* *yO*
+                                                *[op* *]op* *yop*
 A toggle has not been provided for 'paste' because the typical use case of
-wrapping of a solitary insertion is so wasteful:  You toggle twice, but
-you only paste once (YOPO).  Instead, press yo or yO to invoke |o| or |O| with
-'paste' already set.  Leaving insert mode sets 'nopaste' automatically.
+wrapping of a solitary insertion is inefficient:  You toggle twice, but
+you only paste once (YOPO).  Instead, press [op, ]op, or yop to invoke |o|,
+|O|, or |0||C| with 'paste' already set.  Leaving insert mode sets 'nopaste'
+automatically.
 
 ENCODING AND DECODING                           *unimpaired-encoding*
 
@@ -145,8 +150,27 @@ Mnemonic: encoding always comes before decoding; "[" always comes before "]".
 ]yy
 {Visual}]y
 
-TODO                                            *unimpaired-todo*
+CUSTOMIZATION                                   *unimpaired-customization*
 
-Avoid munging null characters when encoding and decoding.
-
+Maps for normal, visual, and operator pending mode can be customized by
+assigning dictionaries to g:nremap, g:xremap, and g:oremap respectively.  The
+key can be either a complete map or a prefix thereof, and the value is the key
+sequence to use instead, or an empty string to disable the mapping or mappings
+entirely.  For example, to replace all square bracket maps with angle bracket
+maps, one could use the following:
+>
+  let g:nremap = {"[": "<", "]": ">"}
+  let g:xremap = {"[": "<", "]": ">"}
+  let g:oremap = {"[": "<", "]": ">"}
+<
+Generally, you will want to pair this with a set of global maps to handle the
+built-ins as well:
+>
+  nnoremap < [
+  nnoremap > ]
+  xnoremap < [
+  xnoremap > ]
+  onoremap < [
+  onoremap > ]
+<
  vim:tw=78:et:ft=help:norl:

@@ -191,7 +191,7 @@ if s:extfname ==? "tex"
   inoremap '<tab>  ''<Left>
   inoremap "       ""<Left>
   inoremap `       `'<Left>
-else
+else 
   inoremap '<tab>  '
   inoremap "<tab>  "
   inoremap `<tab>  `
