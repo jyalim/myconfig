@@ -336,7 +336,7 @@ nmap <leader>t :!
 nmap <leader>T :r!date '+\%Y\%m\%dT\%H\%M\%S '<C-j>
 nmap <leader>m :TabMessage 
 nmap <leader>M :!AsyncTab
-nmap <leader>N :set invrnu
+nmap <leader>N :set invrnu<C-j>
 nmap <leader>A :!Async
 nmap <leader>S :!S
 nmap <leader>e :set invspell<C-j>
