@@ -348,7 +348,8 @@ nmap <leader>f :!open .<C-j>
 nmap <leader>w :w<C-j>
 nmap <leader>q :q
 nmap <leader>x :x
-nmap <leader>c :!pwd |
+" change directory to path of current file (useful after using buffer)
+nmap <leader>c :cd %:p:h
 nmap <leader>k :<C-p>
 
 " Remap old sourcing

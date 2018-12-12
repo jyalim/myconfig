@@ -30,10 +30,10 @@ case "$(uname -s)" in
     }
     gnu_tools_general=(
       gcal gcat gchgrp gchmod gchown gcp gcut gdate gdircolors gdf
-      gdu gecho gfind ggetopt ghead gkill gln gmkdir gmv gnl gpwd
-      grm gsed gsplit gsort gstat gsync gtac gtail gnutar greadlink
-      grealpath grsync gtar gtee gtest gtouch gtty guniq gunits 
-      gunlink guptime gusers gwc gwho
+      gdu gecho gfind ggetopt ghead gkill gln glocate gmkdir gmv gnl
+      gpwd grm gsed gsplit gsort gstat gsync gtac gtail gnutar greadlink
+      grealpath grsync gtar gtee gtest gtouch gtty guniq gunits gunlink
+      gupdatedb guptime gusers gwc gwho gxargs
     )
     gnu_tools_special_cmds=( gls )
     gnu_tools_special_opts=( '$LS_OPTIONS' )
