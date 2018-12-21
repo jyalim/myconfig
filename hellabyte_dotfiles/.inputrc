@@ -44,3 +44,12 @@ set completion-ignore-case on
 # These can all be listed with $ bind -p
 # \C-x\C-e: edit-and-execute-command
 # \e\C-e:   shell-expand-line   
+#   \e-d:   kill-word
+# \C\e-h:   backward-kill-word
+# \C-x!:    possible-command-completions
+# \C-x/:    possible-filename-completions
+# \C-x@:    possible-hostname-completions
+# \C-x~:    possible-username-completions
+# \C-x$:    possible-variable-completions
+# \C-x\C-r: re-read-init-file
+# \C-x\C-u: undo (also \C-_)
