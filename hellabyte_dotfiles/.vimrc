@@ -439,10 +439,10 @@ com! DiffSaved call s:DiffWithSaved()
 let g:markdown_fenced_languages = [
     \ 'css', 'erb=eruby', 'javascript', 'js=javascript', 
     \ 'json=javascript', 'ruby', 'sass', 'xml', 'html', 'fortran',
-    \ 'python', 'py=python', 'f90=fortran', 'C=c','cpp', 'c', 'matlab',
-    \ 'go', 'julia', 'perl', 'vim', 'haskell', 'lisp', 'awk', 'bash=sh', 
-    \ 'sh'
+    \ 'python', 'py=python', 'C=c','cpp', 'c', 'matlab',  'go', 'julia',
+    \ 'perl', 'haskell', 'lisp', 'awk', 'bash=sh', 'sh'
 \ ]
+" f90='fortran', 'vim'
 " DEPRECATED
 " For using vim as a manpager:
 "$PAGER=''

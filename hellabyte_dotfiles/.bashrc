@@ -18,6 +18,7 @@ sourcing() {
   local gitcomp_path="${HOME}/.git-completion"
   local prof_path="${HOME}/.local/etc/profile.d"
   local source_paths=( $prof_path $gitcomp_path )
+  # Handling special cases for various operating systems
   case "$(uname -s)" in
     "Darwin" ) 
       if [[ -n $(type -t brew) ]]; then
@@ -33,11 +34,14 @@ sourcing() {
     [[ -f $bashp_path ]] && builtin source $bashp_path || :
   fi
   for source_path in ${source_paths[@]}; do
-    if [[ -f $source_path ]]; then # If the path is a regular file
+    # If the path is a regular file, source it
+    if [[ -f $source_path ]]; then 
       builtin source $source_path
-    elif [[ -d $source_path ]]; then # If the path is a directory
-      for source_files in $(ls -A $source_path/*.sh); do
-        builtin source $source_files 
+    # If the path is a directory descend into it
+    elif [[ -d $source_path ]]; then 
+      # NOTE: source file must end with `sh`
+      for source_file in $(/bin/ls -A $source_path/*sh); do
+        builtin source $source_file
       done
     fi
   done

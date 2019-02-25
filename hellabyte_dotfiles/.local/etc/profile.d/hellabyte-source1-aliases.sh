@@ -60,8 +60,8 @@ case "$(uname -s)" in
         local old_path_tmp=${PATH}
         export PATH=${PATH/anaconda/anaconda-tmp}
         brew update && brew upgrade
-        echo "Pruning, cleaning..."; 
-        brew prune; brew cleanup; brew doctor
+        echo "Cleaning..."; 
+        brew cleanup; brew doctor
         export PATH=${old_path_tmp}
       }
     }
