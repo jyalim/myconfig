@@ -33,7 +33,8 @@ owner=hellabyte
 names=( 
         ".bashrc" ".bash_profile" ".tmux.conf" ".inputrc" ".htoprc" 
         ".gvimrc" ".gnuplot" ".dircolors" ".vim" ".vimrc" ".toprc" 
-        ".pythonrc" ".manpath" ".pentadactylrc" ".juliarc.jl"
+        ".project" ".plan" ".pythonrc" ".manpath" ".pentadactylrc"
+        ".juliarc.jl"
 )
 
 # Checks to see if tarball_contents file already exists. 
