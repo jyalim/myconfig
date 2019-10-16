@@ -221,7 +221,6 @@ elseif &t_Co == 88 || &t_Co == 256
   hi def link mailQuoted2 mailQuoted1
   hi def link perlSharpBang Comment
 else
-
   " Highlighting groups for various occasions
   " ------------------------------------------------------------------
   hi SpecialKey   ctermfg=LightMagenta

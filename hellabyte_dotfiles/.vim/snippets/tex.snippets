@@ -33,11 +33,11 @@ snippet eq
 	\begin{equation${1:*}}
 		${2}
 	\end{equation${1}}
-# Unnumbered Equation
-snippet \
-	\\[
-		${1}
-	\\]
+## Unnumbered Equation
+#snippet \
+#	\\[
+#		${1}
+#	\\]
 # Enumerate
 snippet enum
 	\begin{enumerate}
@@ -133,111 +133,114 @@ snippet page
 # ----------------------------------------------------------------------
 # CUSTOM SNIPPETS
 # ----------------------------------------------------------------------
+snippet //
+	\frac{${1:numerator}}{${2:denominator}}
+
 # pTitle
-snippet pT
-	\pTitle{${1}}{${2}}
-	${3}
-snippet pSec
-	\section*{\pSection{${1:section name}}{${2:sub name}}} % (fold)
-	\label{sec:${3:$1}}
-	${4}
-	% section $3 (end)
-snippet pSub
-	\subsection*{\pSection{${1:section name}}{${2:sub name}}} % (fold)
-	\label{sub:${3:$1}}
-	${4}
-	% subsection $3 (end)
-snippet pSubs
-	\subsubsection*{\pPart{${1:subsubsection name}}{${2:sub name}}} % (fold)
-	\label{ssub:${3:$1}}
-	${4}
-	% subsubsection $3 (end)
-snippet pGraph
-	\pGraph{${1:scale}}{${2:path}}{${3:label}}{${4:caption}}
-	${5}
-snippet nGraph
-	\nGraph{${1:scale}}{${2:path}}{${3:label}}
-	${5}
-snippet fgraph
-	\fGraph{${1:lwidth}}{${2:path}}{fig:${3:label}}{${4:capwidth}}{${5:cap}}
-	${6}
-snippet fGraph
-	\fGraph{${1:lwidth}}{${2:path}}{fig:${3:label}}{${4:capwidth}}{${5:cap}}
-	${6}
-snippet wgraph
-	\wGraph{${1:lwidth}}{${2:path}}{${3:label}}{${4:capwidth}}{${5:cap}}
-	${6}
-snippet wGraph
-	\wGraph{${1:lwidth}}{${2:path}}{${3:label}}{${4:capwidth}}{${5:cap}}
-	${6}
-snippet pTable
-	\pTable{${1:ccc}}{${2:NumCols}}{${3:Title}}{
-		${4:ColLabels}
-	}{
-		${5:ColData}
-	}
-	${6}
-snippet sfl
-	\sfl{${1:subCap}}{${2:Width}}{${3:Path}}
-	${4}
-snippet lfl
-	\lfl{${1:subCap}}{${2:Width}}{${3:Path}}{${4:Label}}
-	${5}
-snippet nfl
-	\nfl{${1:Width}}{${2:Path}}
-	${3}
-snippet qfl
-	\qfl{${1:Width}}{${2:Path}}{${3:Label}}
-	${4}
-snippet ni
-	\noindent
-	${1}
-snippet in
-	\indent
-	${1}
-snippet bs
-	\${1}
-snippet BS
-	\\
-	${1}
-snippet cSec
-	\noindent
-	{\bf\rsffont ${1:Section}}
-		${2}
-	% section $1
-snippet href
-	\href{${1:url}}{${2:Description}}
-
-snippet tikzpicture
-	\tikzsetnextfilename{${1:filename}}
-	\begin{tikzpicture}[trim axis left, trim axis right]
-		\begin{axis}[
-			title         = {${2:title}},
-			xlabel        = {${3:xlabel}},
-			ylabel        = {${4:ylabel}},
-			xmajorgrids   = true,
-			ymajorgrids   = true,
-			grid style    = dashed,
-			legend pos    = north east,
-			enlargelimits = false
-		]
-			\addplot[ color = blue ] table{${5:datafile}};
-			\legend{${6:legendname}}
-		\end{axis}
-	\end{tikzpicture}
-	$7
-
-snippet subfig
-	\begin{figure}[h] 
-		\centering
-		\xfl{${1:subcap}}{${2:linewidth}}{${3:figfile}}{${4:label}} 
-		$7
-		\caption{${5:caption}}
-		\label{${6:label}}
-	\end{figure}
-		
-snippet xfl
-	\xfl{${1:subcap}}{${2:linewidth}}{${3:figfile}}{${4:label}} 
-
-
-
+#snippet pT
+#	\pTitle{${1}}{${2}}
+#	${3}
+#snippet pSec
+#	\section*{\pSection{${1:section name}}{${2:sub name}}} % (fold)
+#	\label{sec:${3:$1}}
+#	${4}
+#	% section $3 (end)
+#snippet pSub
+#	\subsection*{\pSection{${1:section name}}{${2:sub name}}} % (fold)
+#	\label{sub:${3:$1}}
+#	${4}
+#	% subsection $3 (end)
+#snippet pSubs
+#	\subsubsection*{\pPart{${1:subsubsection name}}{${2:sub name}}} % (fold)
+#	\label{ssub:${3:$1}}
+#	${4}
+#	% subsubsection $3 (end)
+#snippet pGraph
+#	\pGraph{${1:scale}}{${2:path}}{${3:label}}{${4:caption}}
+#	${5}
+#snippet nGraph
+#	\nGraph{${1:scale}}{${2:path}}{${3:label}}
+#	${5}
+#snippet fgraph
+#	\fGraph{${1:lwidth}}{${2:path}}{fig:${3:label}}{${4:capwidth}}{${5:cap}}
+#	${6}
+#snippet fGraph
+#	\fGraph{${1:lwidth}}{${2:path}}{fig:${3:label}}{${4:capwidth}}{${5:cap}}
+#	${6}
+#snippet wgraph
+#	\wGraph{${1:lwidth}}{${2:path}}{${3:label}}{${4:capwidth}}{${5:cap}}
+#	${6}
+#snippet wGraph
+#	\wGraph{${1:lwidth}}{${2:path}}{${3:label}}{${4:capwidth}}{${5:cap}}
+#	${6}
+#snippet pTable
+#	\pTable{${1:ccc}}{${2:NumCols}}{${3:Title}}{
+#		${4:ColLabels}
+#	}{
+#		${5:ColData}
+#	}
+#	${6}
+#snippet sfl
+#	\sfl{${1:subCap}}{${2:Width}}{${3:Path}}
+#	${4}
+#snippet lfl
+#	\lfl{${1:subCap}}{${2:Width}}{${3:Path}}{${4:Label}}
+#	${5}
+#snippet nfl
+#	\nfl{${1:Width}}{${2:Path}}
+#	${3}
+#snippet qfl
+#	\qfl{${1:Width}}{${2:Path}}{${3:Label}}
+#	${4}
+#snippet ni
+#	\noindent
+#	${1}
+#snippet in
+#	\indent
+#	${1}
+#snippet bs
+#	\${1}
+#snippet BS
+#	\\
+#	${1}
+#snippet cSec
+#	\noindent
+#	{\bf\rsffont ${1:Section}}
+#		${2}
+#	% section $1
+#snippet href
+#	\href{${1:url}}{${2:Description}}
+#
+#snippet tikzpicture
+#	\tikzsetnextfilename{${1:filename}}
+#	\begin{tikzpicture}[trim axis left, trim axis right]
+#		\begin{axis}[
+#			title         = {${2:title}},
+#			xlabel        = {${3:xlabel}},
+#			ylabel        = {${4:ylabel}},
+#			xmajorgrids   = true,
+#			ymajorgrids   = true,
+#			grid style    = dashed,
+#			legend pos    = north east,
+#			enlargelimits = false
+#		]
+#			\addplot[ color = blue ] table{${5:datafile}};
+#			\legend{${6:legendname}}
+#		\end{axis}
+#	\end{tikzpicture}
+#	$7
+#
+#snippet subfig
+#	\begin{figure}[h] 
+#		\centering
+#		\xfl{${1:subcap}}{${2:linewidth}}{${3:figfile}}{${4:label}} 
+#		$7
+#		\caption{${5:caption}}
+#		\label{${6:label}}
+#	\end{figure}
+#		
+#snippet xfl
+#	\xfl{${1:subcap}}{${2:linewidth}}{${3:figfile}}{${4:label}} 
+#
+#
+#

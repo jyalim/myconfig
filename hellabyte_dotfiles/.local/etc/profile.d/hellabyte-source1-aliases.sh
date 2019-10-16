@@ -117,6 +117,7 @@ alias sudo='sudo '
 
 # General Aliases
 
+alias "bls"="/bin/ls"
 alias "lsa"="ls -aF"
 alias "lsl"="ls -lF"
 alias "lsf"="ls -F"

@@ -79,6 +79,7 @@ EXEC                  38;05;35  # for files with executible bit
 # image formats
 *.eps        38;05;37
 *.jpg        38;05;37
+*.jpeg       38;05;37
 *.png        38;05;37
 *.gif        38;05;37
 *.bmp        38;05;37
@@ -98,6 +99,7 @@ EXEC                  38;05;35  # for files with executible bit
 *.dl         38;05;37
 
 # source code files special
+*.for        38;05;27
 *.f90        38;05;27
 *.F90        38;05;27
 *.fpp        38;05;27

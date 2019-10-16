@@ -13,3 +13,7 @@ try:
 #  readline.parse_and_bind("\C-x\C-l: complete")
 except ImportError:
   print("Module readline not available.")
+
+class AttrDict(dict):
+    __getattr__ = dict.__getitem__
+    __setattr__ = dict.__setitem__

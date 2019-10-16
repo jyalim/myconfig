@@ -193,6 +193,8 @@ if s:extfname ==? "tex"
   inoremap '<tab>  ''<Left>
   inoremap "       ""<Left>
   inoremap `       `'<Left>
+  " allow spellcheck to work always in TeXfiles
+  syntax spell toplevel
 else 
   inoremap '<tab>  '
   inoremap "<tab>  "
@@ -334,8 +336,9 @@ nmap <silent> <leader>s :set nolist!<CR>
 " Perform macro for common python calculation
 nmap <silent> <leader>q :r!python -c 'print <C-r><C-w> 
 nmap <leader>; :
-nmap <leader>t :!
-nmap <leader>T :r!date '+\%Y\%m\%dT\%H\%M\%S '<C-j>
+nmap <leader>c :!
+nmap <leader>t :r!date '+\%H:\%M:\%S '<C-j>
+nmap <leader>T :r!date '+\%Y-\%m-\%dT\%H:\%M:\%S '<C-j>
 nmap <leader>m :TabMessage 
 nmap <leader>M :!AsyncTab
 nmap <leader>N :set invrnu<C-j>
@@ -351,7 +354,7 @@ nmap <leader>w :w<C-j>
 nmap <leader>q :q
 nmap <leader>x :x
 " change directory to path of current file (useful after using buffer)
-nmap <leader>c :cd %:p:h
+nmap <leader>C :cd %:p:h
 nmap <leader>k :<C-p>
 
 " Remap old sourcing

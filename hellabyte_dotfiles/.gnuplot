@@ -5,7 +5,7 @@
 # ======================================================================
 
 # QT is pretty, but slow
-set term x11 enhanced font 'times,25' size '1000,450'
+#set term x11 enhanced font 'times,25' size '1000,450'
 
 # Enable Macros
 set macros
@@ -58,7 +58,8 @@ if ( system("hostname") eq "mathpost" ) {
 col(k) = column(k)
 
 bf='binary format="%18double" skip=256'
-BF='binary format="%21double" skip=512'
+BF21='binary format="%21double" skip=512'
+BF='binary format="%25double" skip=512'
 
 bind "ctrl-l" "set logscale y; set format y '%.2le%L'; replot"
 bind "ctrl-r" "reset; replot"

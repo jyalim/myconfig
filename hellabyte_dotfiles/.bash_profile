@@ -71,3 +71,19 @@ if [[ $TERM != "dumb" ]] && [[ -e ~/.dircolors ]]; then
   fi
 fi
 
+
+# >>> CRAPPY CONDA INITIALIZE >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/pafnuty/.local/opt/anaconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+  eval "$__conda_setup"
+else
+  if [ -f "/Users/pafnuty/.local/opt/anaconda/etc/profile.d/conda.sh" ]; then
+    . "/Users/pafnuty/.local/opt/anaconda/etc/profile.d/conda.sh"  
+  else
+    export PATH="/Users/pafnuty/.local/opt/anaconda/bin:$PATH"  
+  fi
+fi
+export PATH=$(awk_magic $PATH);
+unset __conda_setup
+# <<< GARBAGE conda initialize <<<
