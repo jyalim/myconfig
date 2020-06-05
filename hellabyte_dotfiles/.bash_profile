@@ -74,6 +74,6 @@ fi
 
 # CRAPPY SOFTWARE HACKING MY ENVIRONMENT
 if [[ "$(uname -s)" == "Darwin" ]]; then
-  builtin source $HOME/.local/etc/profile.d/zconda.sh
-  builtin source $HOME/.local/etc/profile.d/znvm.sh
+  builtin source $HOME/.local/etc/confs/conda/osx
+  builtin source $HOME/.local/etc/confs/nvm/osx
 fi
