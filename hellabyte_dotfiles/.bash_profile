@@ -72,18 +72,8 @@ if [[ $TERM != "dumb" ]] && [[ -e ~/.dircolors ]]; then
 fi
 
 
-# >>> CRAPPY CONDA INITIALIZE >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/pafnuty/.local/opt/anaconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-  eval "$__conda_setup"
-else
-  if [ -f "/Users/pafnuty/.local/opt/anaconda/etc/profile.d/conda.sh" ]; then
-    . "/Users/pafnuty/.local/opt/anaconda/etc/profile.d/conda.sh"  
-  else
-    export PATH="/Users/pafnuty/.local/opt/anaconda/bin:$PATH"  
-  fi
+# CRAPPY SOFTWARE HACKING MY ENVIRONMENT
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  builtin source $HOME/.local/etc/profile.d/zconda.sh
+  builtin source $HOME/.local/etc/profile.d/znvm.sh
 fi
-export PATH=$(awk_magic $PATH);
-unset __conda_setup
-# <<< GARBAGE conda initialize <<<

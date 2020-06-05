@@ -368,7 +368,7 @@ set hlsearch
 " Highlight matches as search is being typed.
 set incsearch
 " <mapleader>n :silent :nohlsearch<CR> all turn off highlight like :noh
-nmap <silent> <leader>h :silent :nohlsearch<CR>
+nmap <silent> <leader>h :silent :set invhlsearch<CR>
 
 
 set showmatch

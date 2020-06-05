@@ -48,9 +48,18 @@ set_path() {
   local O="openmpi/bin"
   local LO="${L}/opt"
   local exe_paths=(
-    "${LO}/${O}" "${L}/bin" "${LO}/${A}" "${L}/sbin" "${H}/bin" 
-    "${H}/sbin" "${H}/local/bin" "${H}/local/sbin" "${L}/usr/bin" 
-    "${L}/usr/sbin" "${L}/usr/local/bin" "${L}/usr/local/sbin"
+    "${LO}/${O}" 
+    "${L}/bin" 
+    "${LO}/${A}" 
+    "${L}/sbin" 
+    "${H}/bin" 
+    "${H}/sbin" 
+    "${H}/local/bin" 
+    "${H}/local/sbin" 
+    "${L}/usr/bin" 
+    "${L}/usr/sbin" 
+    "${L}/usr/local/bin"
+    "${L}/usr/local/sbin"
     "/usr/local/bin" "/usr/local/sbin" "/usr/bin" "/usr/sbin" "/bin" 
     "/sbin" "/usr/texbin" "/opt/X11/bin" "/usr/bin/X11" "/usr/games" 
     "/usr/local/cuda/bin" "/opt/ganglia/bin"
@@ -137,8 +146,6 @@ set_path() {
       [[ -f "${file}" ]] && builtin source ${file} 'quiet' || :
     done
   fi
-
-
 
   # Append old path to new path, remove redundancies, preserve order
   export PATH=$(awk_magic "$xpath:$PATH")
