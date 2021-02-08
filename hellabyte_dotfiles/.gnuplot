@@ -62,6 +62,8 @@ bf18='binary format="%18double" skip=256'
 bf19='binary format="%19double" skip=256'
 bf='binary format="%19double" skip=256'
 
+Bf21='binary format="%21double" skip=512'
+Bf24='binary format="%24double" skip=512'
 Bf43='binary format="%43double" skip=512'
 Bf='binary format="%43double" skip=512'
 

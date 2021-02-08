@@ -128,6 +128,11 @@ if !exists('g:undotree_HighlightChangedText')
     let g:undotree_HighlightChangedText = 1
 endif
 
+" Highlight changed text using signs in the gutter
+if !exists('g:undotree_HighlightChangedWithSign')
+    let g:undotree_HighlightChangedWithSign = 1
+endif
+
 " Highlight linked syntax type.
 " You may chose your favorite through ":hi" command
 if !exists('g:undotree_HighlightSyntaxAdd')
@@ -135,6 +140,9 @@ if !exists('g:undotree_HighlightSyntaxAdd')
 endif
 if !exists('g:undotree_HighlightSyntaxChange')
     let g:undotree_HighlightSyntaxChange = "DiffChange"
+endif
+if !exists('g:undotree_HighlightSyntaxDel')
+    let g:undotree_HighlightSyntaxDel = "DiffDelete"
 endif
 
 " Deprecates the old style configuration.
@@ -148,11 +156,10 @@ if !exists('g:undotree_HelpLine')
     let g:undotree_HelpLine = 1
 endif
 
-"let s:auEvents = "InsertEnter,InsertLeave,WinEnter,WinLeave,CursorMoved"
-let s:auEvents = "BufEnter,InsertLeave,CursorMoved,BufWritePost"
-augroup Undotree
-    exec "au! ".s:auEvents." * call undotree#UndotreeUpdate()"
-augroup END
+" Show cursorline
+if !exists('g:undotree_CursorLine')
+    let g:undotree_CursorLine = 1
+endif
 
 "=================================================
 " User commands.

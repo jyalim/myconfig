@@ -47,7 +47,7 @@ function! dispatch#tmux#make(request) abort
         \ (pipepane ? [a:request.expanded . '; echo ' . dispatch#status_var()
         \  . ' > ' . a:request.file . '.complete'] : [])))
 
-  let title = shellescape(get(a:request, 'title', get(a:request, 'compiler', 'make')))
+  let title = shellescape(a:request.title)
   let height = get(g:, 'dispatch_tmux_height', get(g:, 'dispatch_quickfix_height', 10))
   if get(a:request, 'background', 0) || (height <= 0 && dispatch#has_callback())
     let cmd = 'new-window -d -n '.title
@@ -68,7 +68,7 @@ function! dispatch#tmux#make(request) abort
   endif
   let filter .= " -e \"s/\r\r*$//\" -e \"s/.*\r//\""
   let filter .= " -e \"s/\e\\[K//g\" "
-  let filter .= " -e \"s/.*\e\\[2K\e\\[0G//g\""
+  let filter .= " -e \"s/.*\e\\[2K\e\\[[01]G//g\""
   let filter .= " -e \"s/.*\e\\[?25h\e\\[0G//g\""
   let filter .= " -e \"s/\e\\[[0-9;]*m//g\""
   let filter .= " -e \"s/\017//g\""

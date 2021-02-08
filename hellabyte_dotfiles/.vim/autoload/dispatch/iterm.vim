@@ -6,7 +6,7 @@ endif
 let g:autoloaded_dispatch_iterm = 1
 
 function! dispatch#iterm#handle(request) abort
-  if $TERM_PROGRAM !=# 'iTerm.app' && !(has('gui_macvim') && has('gui_running'))
+  if $TERM_PROGRAM !=# 'iTerm.app' && !((has('gui_macvim') || has('gui_vimr')) && has('gui_running'))
     return 0
   endif
   if a:request.action ==# 'make'
@@ -62,9 +62,9 @@ function! dispatch#iterm#spawn2(command, request, activate) abort
       \     'set oldsession to the current session',
       \     'tell (make new session)',
       \       'set name to ' . s:escape(a:request.title),
-      \       'set title to ' . s:escape(a:request.command),
+      \       'set title to ' . s:escape(a:request.expanded),
       \       'exec command ' . s:escape(script),
-      \       a:request.background ? 'select oldsession' : '',
+      \       a:request.background || !has('gui_running') ? 'select oldsession' : '',
       \     'end tell',
       \   'end tell',
       \   a:activate ? 'activate' : '',
@@ -84,9 +84,9 @@ function! dispatch#iterm#spawn3(command, request, activate) abort
       \     'set newtab to (create tab with default profile command ' . s:escape(script) . ')',
       \     'tell current session of newtab',
       \       'set name to ' . s:escape(a:request.title),
-      \       'set title to ' . s:escape(a:request.command),
+      \       'set title to ' . s:escape(a:request.expanded),
       \     'end tell',
-      \     a:request.background ? 'select oldtab' : '',
+      \     a:request.background || !has('gui_running') ? 'select oldtab' : '',
       \   'end tell',
       \   a:activate ? 'activate' : '',
       \ 'end tell')

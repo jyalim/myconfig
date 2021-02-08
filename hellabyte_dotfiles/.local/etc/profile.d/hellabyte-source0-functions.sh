@@ -14,8 +14,8 @@
 # Use awk magic (associative arrays) to remove duplicate paths while
 # preserving order
 awk_magic() {
-  input=${1:-''}
-  temp=$(awk 'BEGIN{ORS=RS=":"} !a[$0]++' <<< "${input}:")
+  local input=${1:-''}
+  local temp=$(awk 'BEGIN{ORS=RS=":"} !a[$0]++' <<< "${input}:")
   echo ${temp%:*}
 }
 
@@ -23,8 +23,8 @@ awk_magic() {
 # -s flag from bsd which, runs silent, returns 0 or 1 if program found
 # or not. 
 swhich() {
-  check=${1:-''}
-  value=2
+  local check=${1:-''}
+  local value=2
   [[ -z $check ]] && {
     echo 'No command provided'
     return $value
@@ -105,7 +105,7 @@ set_path() {
 
   # General helper function for generating path strings
   path_check() {
-    dir_list=(${@})
+    local dir_list=(${@})
     local collect=''
     for dir in ${dir_list[@]}; do
       [[ -d $dir ]] && collect="${collect}:${dir}" || :
@@ -270,7 +270,7 @@ set_prompt() {
 }
 
 reset_prompt() {
-  nargs=$#
+  local nargs=$#
   if [[ $nargs -gt 0 ]]; then
     export PS1='\u@\h:\W\$ '
     export PROMPT_COMMAND=''

@@ -48,7 +48,7 @@ function! s:opendir(cmd) abort
   elseif expand('%') =~# '^$\|^term:[\/][\/]'
     execute a:cmd '.'
   else
-    execute a:cmd '%:h'
+    execute a:cmd '%:h' . s:slash()
     call s:seek(expand('#:t'))
   endif
 endfunction
@@ -75,6 +75,7 @@ endfunction
 function! s:absolutes(first, ...) abort
   let files = getline(a:first, a:0 ? a:1 : a:first)
   call filter(files, 'v:val !~# "^\" "')
+  call map(files, "substitute(v:val, '^\\(| \\)*', '', '')")
   call map(files, 'b:netrw_curdir . s:slash() . substitute(v:val, "[/*|@=]\\=\\%(\\t.*\\)\\=$", "", "")')
   return files
 endfunction
@@ -121,7 +122,8 @@ function! s:setup_vinegar() abort
   endif
   nmap <buffer> ! .!
   xmap <buffer> ! .!
-  let g:netrw_sort_sequence = '[\/]$,*,\%(' . join(map(split(&suffixes, ','), 'escape(v:val, ".*$~")'), '\|') . '\)[*@]\=$'
+  let g:netrw_sort_sequence = '[\/]$,*' . (empty(&suffixes) ? '' : ',\%(' .
+        \ join(map(split(&suffixes, ','), 'escape(v:val, ".*$~")'), '\|') . '\)[*@]\=$')
   exe 'syn match netrwSuffixes =\%(\S\+ \)*\S\+\%('.join(map(split(&suffixes, ','), s:escape), '\|') . '\)[*@]\=\S\@!='
   hi def link netrwSuffixes SpecialKey
 endfunction

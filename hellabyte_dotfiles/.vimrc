@@ -461,3 +461,11 @@ set noacd
 
 " Omni completion: http://vim.wikia.com/wiki/Omni_completion
 set omnifunc=syntaxcomplete#Complete
+
+
+" visual-multi (VM cursors)
+let g:VM_maps                    = {}
+let g:VM_maps['Add Cursor Up']   = '<S-C-k>'
+let g:VM_maps['Add Cursor Down'] = '<S-C-j>'
+let g:VM_maps['Move Right']   = '<S-C-l>'
+let g:VM_maps['Move Left']    = '<S-C-h>'

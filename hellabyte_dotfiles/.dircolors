@@ -226,6 +226,13 @@ EXEC                  38;05;35  # for files with executible bit
 # Formatted Data Files
 *.ods        38;05;215
 
+# message files
+*.mime       38;05;045 
+*.eml        38;05;045 
+
 # Crap files 
+*.pptx       38;05;095
+*.docx       38;05;095
+*.xlsx       38;05;095
 # .DS_Store  00;30
 # .localized 00;30
