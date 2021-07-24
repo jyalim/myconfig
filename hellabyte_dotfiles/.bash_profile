@@ -75,5 +75,5 @@ fi
 # CRAPPY SOFTWARE HACKING MY ENVIRONMENT
 if [[ "$(uname -s)" == "Darwin" ]]; then
   builtin source $HOME/.local/etc/confs/conda/osx
-  builtin source $HOME/.local/etc/confs/nvm/osx
+# builtin source $HOME/.local/etc/confs/nvm/osx
 fi

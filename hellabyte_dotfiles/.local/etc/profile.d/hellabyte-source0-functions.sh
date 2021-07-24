@@ -161,12 +161,12 @@ set_path() {
 common_dir_init() {
   if [[ "$(uname -s)" == "Darwin" ]]; then
     USER_HOME="/Users/${USER}"
-    ROOT_HOME="/private/var/root"
+#   ROOT_HOME="/private/var/root"
   else
     USER_HOME="/home/${USER}"
-    ROOT_HOME="/etc/root"
+#   ROOT_HOME="/etc/root"
   fi
-  DSTACK=( $USER_HOME $ROOT_HOME )
+  DSTACK=( $USER_HOME ) #$ROOT_HOME )
   # Various directories and files 
   DOCDIR="${HOME}/.local/etc/docs"
   INETDIR="${DOCDIR}/inet"
@@ -354,18 +354,13 @@ scd() {
   # Nearly as good as quick-cd
   # Also for changing directory to deeper directories
   if [[ $# -ne 1 ]]; then
-    echo "No input passed."
+    echo "Exactly one input directory must be passed."
   else
-    [[ -z ${DSTACK[@]} ]] && { 
-      echo "Empty directory stack."; 
-      return 
-    } || :
-    local null="/dev/null" item="*${1}*" 
     local prc=$(
-      find ${DSTACK[@]} -maxdepth 3 -type d -iname $item 2> $null | 
-        sed 1q
+      find $HOME -maxdepth 3 -type d -iname "${1}*" 2> /dev/null \
+        | sed 1q
     )
-    cd ${prc[0]} || exit 200
+    cd "$prc" || return 200
   fi
 }
 
