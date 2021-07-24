@@ -21,14 +21,17 @@ profiledir='.local/etc/profile.d'
 templatedir='.local/etc/template'
 testsdir='.local/etc/tests'
 confsdir='.local/etc/confs'
+fontsdir='.local/etc/fonts'
 profiles="${HOME}/${profiledir}"
 proftemp="${HOME}/${templatedir}"
 testsshp="${HOME}/${testsdir}"
 confspwd="${HOME}/${confsdir}"
+fontspwd="${HOME}/${fontsdir}"
 local_profiles="${loc_ship}/${profiledir}"
 local_proftemp="${loc_ship}/${templatedir}"
 local_testsdir="${loc_ship}/${testsdir}"
 local_confsdir="${loc_ship}/${confsdir}"
+local_fontsdir="${loc_ship}/${fontsdir}"
 owner=hellabyte
 names=( 
         ".bashrc" ".bash_profile" ".tmux.conf" ".inputrc" ".htoprc" 
@@ -50,6 +53,7 @@ names=(
 ! [[ -d $local_proftemp ]] && mkdir -p $local_proftemp || :
 ! [[ -d $local_testsdir ]] && mkdir -p $local_testsdir || :
 ! [[ -d $local_confsdir ]] && mkdir -p $local_confsdir || :
+! [[ -d $local_fontsdir ]] && mkdir -p $local_fontsdir || :
 
 for f in ${profiles}/*; do
   bf=$(basename $f)
@@ -60,6 +64,7 @@ done
 cp -r $proftemp ${local_proftemp%/*}
 cp -r $testsshp ${local_testsdir%/*}
 cp -r $confspwd ${local_confsdir%/*}
+cp -r $fontspwd ${local_fontsdir%/*}
  
 for f in ${names[@]}; do
     # Make sure file exists, and force copy to ship directory
