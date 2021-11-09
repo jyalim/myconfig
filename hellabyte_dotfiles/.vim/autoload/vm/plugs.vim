@@ -24,6 +24,7 @@ fun! vm#plugs#permanent() abort
   xnoremap <silent><expr> <Plug>(VM-Find-Subword-Under)      <sid>Visual('under')
 
   nnoremap <silent>       <Plug>(VM-Start-Regex-Search)      @=vm#commands#find_by_regex(1)<cr>
+  nnoremap <silent>       <Plug>(VM-Slash-Search)            @=vm#commands#find_by_regex(3)<cr>
   xnoremap <silent>       <Plug>(VM-Visual-Regex)            :call vm#commands#find_by_regex(2)<cr>:call feedkeys('/', 'n')<cr>
 
   nnoremap <silent>       <Plug>(VM-Left-Mouse)              <LeftMouse>
@@ -80,7 +81,6 @@ fun! vm#plugs#buffer() abort
   nnoremap <silent>       <Plug>(VM-Undo)                    :call vm#commands#undo()<cr>
   nnoremap <silent>       <Plug>(VM-Redo)                    :call vm#commands#redo()<cr>
 
-  nnoremap <silent>       <Plug>(VM-Invert-Direction)        :call vm#commands#invert_direction(1)<cr>
   nnoremap <silent>       <Plug>(VM-Goto-Next)               :call vm#commands#find_next(0, 1)<cr>
   nnoremap <silent>       <Plug>(VM-Goto-Prev)               :call vm#commands#find_prev(0, 1)<cr>
   nnoremap <silent>       <Plug>(VM-Find-Next)               :call vm#commands#find_next(0, 0)<cr>
@@ -167,8 +167,8 @@ fun! vm#plugs#buffer() abort
   nnoremap <silent>        <Plug>(VM-A)                       :<C-u>call b:VM_Selection.Insert.key('A')<cr>
   nnoremap <silent>        <Plug>(VM-i)                       :<C-u>call b:VM_Selection.Insert.key('i')<cr>
   nnoremap <silent>        <Plug>(VM-I)                       :<C-u>call b:VM_Selection.Insert.key('I')<cr>
-  nnoremap <silent>        <Plug>(VM-o)                       :<C-u>call b:VM_Selection.Insert.key('o')<cr>
-  nnoremap <silent>        <Plug>(VM-O)                       :<C-u>call b:VM_Selection.Insert.key('O')<cr>
+  nnoremap <silent>        <Plug>(VM-o)                       :<C-u>call <sid>O(0)<cr>
+  nnoremap <silent>        <Plug>(VM-O)                       :<C-u>call <sid>O(1)<cr>
   nnoremap <silent>        <Plug>(VM-c)                       :<C-u>call b:VM_Selection.Edit.change(g:Vm.extend_mode, v:count1, v:register, 0)<cr>
   nnoremap <silent>        <Plug>(VM-gc)                      :<C-u>call b:VM_Selection.Edit.change(g:Vm.extend_mode, v:count1, v:register, 1)<cr>
   nnoremap <silent>        <Plug>(VM-gu)                      :<C-u>call <sid>Operator('gu', v:count1, v:register)<cr>
@@ -248,6 +248,14 @@ endfun
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Helper functions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+fun! s:O(upper)
+  if g:Vm.extend_mode
+    call vm#commands#invert_direction(1)
+  else
+    call b:VM_Selection.Insert.key(a:upper ? 'O' : 'o')
+  endif
+endfun
 
 fun! s:Insert(key) abort
   " Handle keys in insert mode.
@@ -336,9 +344,13 @@ endfun
 fun! s:Visual(cmd) abort
   " Restore register after a visual yank.
   if !g:Vm.buffer
-    let g:Vm.visual_reg = ['"', getreg('"'), getregtype('"')]
-    let r = "g:Vm.visual_reg[0], g:Vm.visual_reg[1], g:Vm.visual_reg[2]"
-    let r = ":let b:VM_Selection.Vars.oldreg = g:Vm.visual_reg\<cr>:call setreg(".r.")\<cr>"
+    let g:Vm.vreg = ['"', getreg('"'), getregtype('"')]
+    let r = "g:Vm.vreg[0], g:Vm.vreg[1], g:Vm.vreg[2]"
+    let r = ":let b:VM_Selection.Vars.oldreg = g:Vm.vreg\<cr>:call setreg(".r.")\<cr>"
+    if &clipboard =~ 'plus'
+      let g:Vm.vregplus = ['+', getreg('+'), getregtype('+')]
+      let r .= ":call setreg(g:Vm.vregplus[0], g:Vm.vregplus[1], g:Vm.vregplus[2])\<cr>"
+    endif
   else
     let r = ''
   endif

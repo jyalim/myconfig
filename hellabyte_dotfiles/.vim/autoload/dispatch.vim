@@ -267,8 +267,19 @@ endfunction
 
 function! dispatch#autowrite() abort
   if &autowrite || &autowriteall
-    silent! wall
+    try
+      if &confirm
+        let reconfirm = 1
+        setglobal noconfirm
+      endif
+      silent! wall
+    finally
+      if exists('reconfirm')
+        setglobal confirm
+      endif
+    endtry
   endif
+  return ''
 endfunction
 
 function! dispatch#status_var() abort
@@ -343,7 +354,7 @@ function! dispatch#isolate(request, keep, ...) abort
   let command += a:000
   let temp = type(a:request) == type({}) ? a:request.file . '.dispatch' : dispatch#tempname()
   call writefile(command, temp)
-  return 'env -i ' . join(map(copy(keep), 'v:val."=\"$". v:val ."\" "'), '') . &shell . ' ' . temp
+  return 'env -i ' . join(map(copy(keep), 'v:val."=". dispatch#shellescape(eval("$".v:val))." "'), '') . &shell . ' ' . temp
 endfunction
 
 function! s:current_compiler(...) abort
@@ -363,6 +374,40 @@ function! s:postfix(request) abort
   return '(' . a:request.handler.'/'.(!empty(pid) ? pid : '?') . ')'
 endfunction
 
+function! s:echo_truncated(left, right) abort
+  if exists('v:echospace')
+    let max_len = (&cmdheight - 1) * &columns + v:echospace
+  else
+    let max_len = &cmdheight * &columns - 1
+    let last_has_status = (&laststatus == 2 || (&laststatus == 1 && winnr('$') != 1))
+
+    if &ruler && !last_has_status
+      if empty(&rulerformat)
+        " Default ruler is 17 chars wide.
+        let max_len -= 17
+      elseif exists('g:rulerwidth')
+        " User specified width of custom ruler.
+        let max_len -= g:rulerwidth
+      else
+        " Don't know width of custom ruler, make a conservative guess.
+        let max_len -= &columns / 2
+      endif
+      let max_len -= 1
+    endif
+    if &showcmd
+      let max_len -= 10
+      if !&ruler || last_has_status
+        let max_len -= 1
+      endif
+    endif
+  endif
+  let msg = a:left . a:right
+  if len(substitute(msg, '.', '.', 'g')) > max_len
+    let msg = a:left . '<' . matchstr(a:right, '\v.{'.(max_len - len(substitute(a:left, '.', '.', 'g')) - 1).'}$')
+  endif
+  echo msg
+endfunction
+
 function! s:dispatch(request) abort
   for handler in g:dispatch_handlers
     if get(g:, 'dispatch_no_' . handler . '_' . get(a:request, 'action')) ||
@@ -377,41 +422,8 @@ function! s:dispatch(request) abort
       redraw
       let msg = ':!'
       let suffix = s:postfix(a:request)
-      let suffix_len = len(substitute(suffix, '.', '.', 'g'))
-      let max_cmd_len = (&cmdheight * &columns) - 2 - suffix_len - 2
-
-      if has('cmdline_info')
-        let last_has_status = (&laststatus == 2 || (&laststatus == 1 && winnr('$') != 1))
-
-        if &ruler && !last_has_status
-          if empty(&rulerformat)
-            " Default ruler is 17 chars wide.
-            let max_cmd_len -= 17
-          elseif exists('g:rulerwidth')
-            " User specified width of custom ruler.
-            let max_cmd_len -= g:rulerwidth
-          else
-            " Don't know width of custom ruler, make a conservative guess.
-            let max_cmd_len -= &columns / 2
-          endif
-          let max_cmd_len -= 1
-        endif
-        if &showcmd
-          let max_cmd_len -= 10
-          if !&ruler || last_has_status
-            let max_cmd_len -= 1
-          endif
-        endif
-      endif
-      let cmd = a:request.expanded
-      let cmd_len = len(substitute(cmd, '.', '.', 'g'))
-      if cmd_len > max_cmd_len
-        let msg .= '<' . matchstr(cmd, '\v.{'.(max_cmd_len - 1).'}$')
-      else
-        let msg .= cmd
-      endif
-      let msg .= ' '.suffix
-      echo msg
+      let cmd = a:request.expanded . ' ' . suffix
+      call s:echo_truncated(':!', a:request.expanded . ' ' . s:postfix(a:request))
       return response
     endif
   endfor
@@ -467,7 +479,7 @@ function! s:focus(count) abort
   endif
 endfunction
 
-function! dispatch#spawn_command(bang, command, count, ...) abort
+function! dispatch#spawn_command(bang, command, count, mods, ...) abort
   let [command, opts] = s:extract_opts(a:command)
   if empty(command) && a:count >= 0
     let command = s:focus(a:count)
@@ -475,6 +487,7 @@ function! dispatch#spawn_command(bang, command, count, ...) abort
     let [command, opts] = s:extract_opts(command, opts)
   endif
   let opts.background = a:bang
+  let opts.mods = a:mods ==# '<mods>' ? '' : a:mods
   call dispatch#spawn(command, opts, a:count)
   return ''
 endfunction
@@ -514,9 +527,10 @@ function! s:parse_start(command, count) abort
   return [command, opts]
 endfunction
 
-function! dispatch#start_command(bang, command, count, ...) abort
+function! dispatch#start_command(bang, command, count, mods, ...) abort
   let [command, opts] = s:parse_start(a:command, a:count)
   let opts.background = get(opts, 'background') || a:bang
+  let opts.mods = a:mods ==# '<mods>' ? '' : a:mods
   if command =~# '^:\S'
     unlet! g:dispatch_last_start
     return s:wrapcd(get(opts, 'directory', getcwd()),
@@ -543,6 +557,7 @@ function! dispatch#spawn(command, ...) abort
         \ 'command': command,
         \ 'directory': getcwd(),
         \ 'title': '',
+        \ 'mods': '',
         \ }, a:0 ? a:1 : {})
   if empty(a:command)
     call extend(request, {'wait': 'never'}, 'keep')
@@ -799,11 +814,10 @@ if !exists('s:makes')
   let s:files = {}
 endif
 
-function! dispatch#compile_command(bang, args, count, ...) abort
-  let [args, request] = s:extract_opts(a:args)
+function! dispatch#compile_command(bang, args, count, mods, ...) abort
+  let [args, request] = s:extract_opts(a:args, {'mods': a:mods ==# '<mods>' ? '' : a:mods})
 
   if empty(args)
-    let args = '--'
     let default_dispatch = 1
     if type(get(b:, 'dispatch')) == type('')
       unlet! default_dispatch
@@ -816,6 +830,9 @@ function! dispatch#compile_command(bang, args, count, ...) abort
       endif
     endfor
     let [args, request] = s:extract_opts(args, request)
+  endif
+  if empty(args)
+    let args = '--'
   endif
 
   if args =~# '^!'
@@ -1194,15 +1211,6 @@ function! dispatch#complete(file, ...) abort
       let status = -1
       call writefile([-1], request.file . '.complete')
     endtry
-    if has_key(request, 'aborted')
-      let label = 'Aborted:'
-    elseif status > 0
-      let label = 'Failure:'
-    elseif status == 0
-      let label = 'Success:'
-    else
-      let label = 'Complete:'
-    endif
     if !a:0
       silent doautocmd ShellCmdPost
     endif
@@ -1210,7 +1218,21 @@ function! dispatch#complete(file, ...) abort
       call s:cwindow(request, 0, status, '', 'make')
       redraw!
     endif
-    echo label '!'.request.expanded s:postfix(request)
+    if has_key(request, 'aborted')
+      echohl DispatchAbortedMsg
+      let label = 'Aborted:'
+    elseif status > 0
+      echohl DispatchFailureMsg
+      let label = 'Failure:'
+    elseif status == 0
+      echohl DispatchSuccessMsg
+      let label = 'Success:'
+    else
+      echohl DispatchCompleteMsg
+      let label = 'Complete:'
+    endif
+    call s:echo_truncated(label . '!', request.expanded . ' ' . s:postfix(request))
+    echohl NONE
     if !a:0
       checktime
     endif

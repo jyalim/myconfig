@@ -184,11 +184,18 @@ else
 " let fortran_more_precise=1
 endif
 
+" Respect ics 75 character limit 
+if s:extfname ==? "ics" 
+  if exists('+colorcolumn')
+    execute "set colorcolumn=" . join(range(76,300),",")
+  endif
+endif
 " TeX indentexpr function, GetTexIndent() drives me crazy
 if s:extfname ==? "tex" 
   filetype indent off
   set iskeyword=@,48-58
   let g:LatexBox_split_type="new"
+  let g:tex_comment_nospell=1
   inoremap $       $$<left>
   inoremap '<tab>  ''<Left>
   inoremap "       ""<Left>
@@ -341,7 +348,7 @@ nmap <leader>t :r!date '+\%H:\%M:\%S '<C-j>
 nmap <leader>T :r!date '+\%Y-\%m-\%dT\%H:\%M:\%S '<C-j>
 nmap <leader>m :TabMessage 
 nmap <leader>M :!AsyncTab
-nmap <leader>N :set invrnu<C-j>
+nmap <leader>n :set invrnu<C-j>
 nmap <leader>A :!Async
 nmap <leader>S :!S
 nmap <leader>e :set invspell<C-j>
@@ -464,8 +471,10 @@ set omnifunc=syntaxcomplete#Complete
 
 
 " visual-multi (VM cursors)
+let g:VM_theme                   = 'iceblue'
+let g:VM_leader                  = 'vm'
 let g:VM_maps                    = {}
-let g:VM_maps['Add Cursor Up']   = '<S-C-k>'
-let g:VM_maps['Add Cursor Down'] = '<S-C-j>'
-let g:VM_maps['Move Right']   = '<S-C-l>'
-let g:VM_maps['Move Left']    = '<S-C-h>'
+let g:VM_maps['Add Cursor Up']   = '<C-k>'
+let g:VM_maps['Add Cursor Down'] = '<C-j>'
+let g:VM_maps['Move Right']      = '<C-l>'
+let g:VM_maps['Move Left']       = '<C-h>'

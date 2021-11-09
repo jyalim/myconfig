@@ -15,7 +15,7 @@ highlight clear
 if exists("syntax_on")
  syntax reset
 endif
-let g:colors_name = "mymoss"
+let g:colors_name = "lichen"
 
 if has("gui_running")
   " Highlighting groups for various occasions
@@ -120,8 +120,8 @@ elseif &t_Co == 88 || &t_Co == 256
   hi NonText      ctermfg=150
   hi Directory    cterm=bold    ctermfg=149
   hi ErrorMsg     ctermfg=228   ctermbg=124
-  hi IncSearch    cterm=bold    ctermfg=202 ctermbg=NONE
-  hi Search       cterm=bold    ctermfg=203 ctermbg=NONE
+  hi IncSearch    cterm=bold    ctermfg=220 ctermbg=NONE
+  hi Search       cterm=bold    ctermfg=220 ctermbg=NONE
   hi MoreMsg      ctermfg=30
   hi ModeMsg      ctermfg=192
   hi LineNr       ctermfg=059
@@ -130,7 +130,7 @@ elseif &t_Co == 88 || &t_Co == 256
   hi StatusLineNC cterm=none ctermfg=243 ctermbg=234
   hi VertSplit    ctermfg=234 ctermbg=239
   hi Title        ctermfg=68
-  hi Visual       ctermfg=016 ctermbg=116
+  hi Visual       ctermfg=016 ctermbg=123
   hi VisualNOS    cterm=bold,underline    ctermfg=60
   hi WarningMsg   ctermfg=220
   hi WildMenu     cterm=bold  ctermfg=16  ctermbg=76
@@ -162,8 +162,8 @@ elseif &t_Co == 88 || &t_Co == 256
 
   " TODO -- Implement ColorColumn w/ version 7.3+
 
-  hi Cursor       ctermfg=16 ctermbg=77
-  hi CursorIM     ctermfg=16 ctermbg=202
+  hi Cursor       ctermfg=191 ctermbg=77
+  hi CursorIM     ctermfg=191 ctermbg=202
 
   " Syntax highlighting groups
   " ------------------------------------------------------------------
@@ -211,10 +211,10 @@ elseif &t_Co == 88 || &t_Co == 256
   hi Error       ctermfg=186 ctermbg=89
   hi Todo        cterm=NONE ctermfg=245 ctermbg=NONE
 
-  hi SpellBad    ctermfg=186 ctermbg=89 
-  hi SpellCap    ctermfg=232 ctermbg=89 
-  hi SpellRare   ctermfg=89  ctermbg=186
-  hi SpellLocal  ctermfg=89  ctermbg=249
+  hi SpellBad    cterm=BOLD,UNDERLINE ctermfg=196 ctermbg=NONE
+  hi SpellCap    cterm=BOLD,UNDERLINE ctermfg=197 ctermbg=NONE
+  hi SpellRare   cterm=BOLD,UNDERLINE ctermfg=220 ctermbg=NONE
+  hi SpellLocal  cterm=BOLD,UNDERLINE ctermfg=202 ctermbg=NONE
 
   hi def link mailSubject Title
   hi def link mailSignature Comment
