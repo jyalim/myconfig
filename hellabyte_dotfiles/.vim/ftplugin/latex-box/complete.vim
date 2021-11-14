@@ -284,9 +284,9 @@ function! LatexBox_BibSearch(regexp)
 			endif
 		endfor
 
-		call delete(auxfile)
-		call delete(bblfile)
-		call delete(blgfile)
+    	call delete(auxfile)
+    	call delete(bblfile)
+    	call delete(blgfile)
 	endif
 
 	" Find data from 'thebibliography' environments

@@ -130,7 +130,7 @@ elseif &t_Co == 88 || &t_Co == 256
   hi StatusLineNC cterm=none ctermfg=243 ctermbg=234
   hi VertSplit    ctermfg=234 ctermbg=239
   hi Title        ctermfg=68
-  hi Visual       ctermfg=016 ctermbg=123
+  hi Visual       ctermfg=232 ctermbg=220
   hi VisualNOS    cterm=bold,underline    ctermfg=60
   hi WarningMsg   ctermfg=220
   hi WildMenu     cterm=bold  ctermfg=16  ctermbg=76
@@ -156,7 +156,7 @@ elseif &t_Co == 88 || &t_Co == 256
     hi PmenuSel     ctermfg=223 ctermbg=60
     hi PmenuSbar    ctermfg=180 ctermbg=245
     hi PmenuThumb   ctermfg=167 ctermbg=245
-    hi MatchParen   ctermfg=123 ctermbg=234
+    hi MatchParen   ctermfg=154 ctermbg=235
     hi ColorColumn  ctermbg=233
   endif
 
@@ -201,7 +201,7 @@ elseif &t_Co == 88 || &t_Co == 256
   hi Typedef      ctermfg=037
 
   hi Special     ctermfg=075
-  hi Specialchar ctermfg=062
+  hi Specialchar ctermfg=062 cterm=bold
   hi Tag         ctermfg=062
   hi Delimiter   ctermfg=037
   hi Debug       ctermfg=062
