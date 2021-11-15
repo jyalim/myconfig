@@ -469,7 +469,6 @@ set noacd
 " Omni completion: http://vim.wikia.com/wiki/Omni_completion
 set omnifunc=syntaxcomplete#Complete
 
-
 " visual-multi (VM cursors)
 let g:VM_theme                   = 'iceblue'
 let g:VM_leader                  = 'vm'
@@ -478,3 +477,28 @@ let g:VM_maps['Add Cursor Up']   = '<C-k>'
 let g:VM_maps['Add Cursor Down'] = '<C-j>'
 let g:VM_maps['Move Right']      = '<C-l>'
 let g:VM_maps['Move Left']       = '<C-h>'
+
+let g:longlines = 0
+
+function! Softline()
+  let g:longlines = 1
+  set formatoptions=
+  set wrap linebreak
+  let &showbreak="\u21aa "
+endfunction 
+
+function! Hardline()
+  let g:longlines = 0
+  set formatoptions=c,q,r,t
+  let &showbreak=""
+endfunction 
+
+function! Invline()
+  if g:longlines 
+    :call Hardline()
+  else
+    :call Softline()
+  endif
+endfunction
+
+nmap <leader>F :call Invline()<C-j>
