@@ -185,6 +185,8 @@ EXEC                  38;05;35  # for files with executible bit
 *.tbz2       38;05;146
 *.txz        38;05;146
 *.tlz4       38;05;146
+*.tzst       38;05;146
+*.tzstd      38;05;146
 *.arj        38;05;146
 *.taz        38;05;146
 *.lzh        38;05;146
@@ -197,6 +199,8 @@ EXEC                  38;05;35  # for files with executible bit
 *.lz4        38;05;146
 *.jar        38;05;146
 *.7z         38;05;146
+*.zst        38;05;146
+*.zstd       38;05;146
 
 # encrypted/private files
 *.gpg        38;05;209

@@ -12,7 +12,7 @@
 #"\eo": "> /dev/null"
 #"\el": "| less"
 #"\em": "man "
-"\es": "\C-e &> /dev/null &"
+#"\es": "\C-e &> /dev/null &"
 # Changes default history maneuvering with arrow keys.
 #   [A  up 
 #   [B  down 
