@@ -59,6 +59,3 @@ export SOURCED_PATHS=1
 # ======================================================================
 # Create Prompt
 set_prompt
-
-# ======================================================================
-# Possibly: http://alias.sh/filesystem-markers-jump

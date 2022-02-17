@@ -42,72 +42,49 @@ set_path() {
   #                         man paths ${man_paths[@]}
   #                         lib paths ${lib_paths[@]}
   #                         inc paths ${inc_paths[@]}
-  local H=$HOME
-  local A="anaconda/bin"
-  local L="${H}/.local"
-  local O="openmpi/bin"
-  local LO="${L}/opt"
   local exe_paths=(
-    "${LO}/${O}" 
-    "${L}/bin" 
-    "${LO}/${A}" 
-    "${L}/sbin" 
-    "${H}/bin" 
-    "${H}/sbin" 
-    "${H}/local/bin" 
-    "${H}/local/sbin" 
-    "${L}/usr/bin" 
-    "${L}/usr/sbin" 
-    "${L}/usr/local/bin"
-    "${L}/usr/local/sbin"
+    "${HOME}/.local/opt/conda/bin"
+    "${HOME}/.local/bin" 
+    "${HOME}/.local/sbin" 
+    "${HOME}/.local/usr/bin" 
+    "${HOME}/.local/usr/sbin" 
     "/opt/homebrew/bin" 
-    "/usr/local/bin" "/usr/local/sbin" "/usr/bin" "/usr/sbin" "/bin" 
-    "/sbin" "/usr/texbin" "/opt/X11/bin" "/usr/bin/X11" "/usr/games" 
-    "/usr/local/cuda/bin" "/opt/ganglia/bin"
-    "/usr/local/matlab/bin" 
-    "/usr/local/maple/bin" 
-    "/usr/local/sage" 
-    "/usr/local/mathematica/Executables" 
+    "/usr/local/bin"
+    "/usr/local/sbin"
+    "/usr/bin"
+    "/usr/sbin"
+    "/bin"
+    "/sbin"
+    "/usr/texbin"
+    "/opt/X11/bin"
+    "/usr/bin/X11"
+    "/usr/games"
   )
-  local mps="local/share/man"
-  local lps="local/lib"
-  local ips="local/include"
   local man_paths=( 
-    "${H}/.${mps}" "${H}/${mps}" "${H}/share/man" "${L}/.local/man" 
-    "${H}/local/man" "${H}/.local/usr/share/man" 
-    "${H}/local/usr/share/man" "${H}/.local/usr/local/share/man" 
-    "${H}/local/usr/local/share/man" "${LO}/anaconda/share/man" 
-    "${H}/local/anaconda/share/man" 
-    "/usr/local/cuda/doc/man"
-    "${H}/.local/opt/openmpi/share/man"
+    "${HOME}/.local/share/man" 
+    "${HOME}/.local/man" 
+    "${HOME}/.local/opt/conda/share/man" 
+    "${HOME}/.local/opt/conda/man" 
   )
   local lib_paths=( 
-    "${H}/.${lps}" "${H}/${lps}" "${H}/lib" "${H}/.local/usr/lib" 
-    "${H}/.local/opt/openmpi/lib"
-    "${H}/.local/usr/local/lib" "${H}/local/usr/lib" 
-    "${H}/local/usr/local/lib" 
-    "/usr/local/cuda/lib"
+    "${HOME}/.local/lib" 
   )
   local inc_paths=( 
-    "${H}/.${ips}" "${H}/${ips}" "${H}/include" 
-    "${H}/.local/opt/openmpi/inc"
-    "${H}/.local/usr/include" "${H}/.local/usr/local/include" 
-    "${H}/local/usr/include" "${H}/local/usr/local/include" 
-    "/usr/local/cuda/include"
+    "${HOME}/.local/include" 
   )
 
-  OLDXPATH=$PATH             # Archive Old Paths
-  OLDMPATH=$MANPATH          #
-  OLDLDPATH=$LD_LIBRARY_PATH #
-  OLDLPATH=$LIBRARY_PATH     #
-  OLDIPATH=$INCLUDE          #
-  OLDCPATH=$CPATH            #
+  OLD_XPATH=$PATH             # Archive Old Paths
+  OLD_MPATH=$MANPATH          #
+  OLD_LDPATH=$LD_LIBRARY_PATH #
+  OLD_LPATH=$LIBRARY_PATH     #
+  OLD_IPATH=$INCLUDE          #
+  OLD_CPATH=$CPATH            #
 
   # General helper function for generating path strings
   path_check() {
-    local dir_list=(${@})
+    local dir_list=("${@}")
     local collect=''
-    for dir in ${dir_list[@]}; do
+    for dir in "${dir_list[@]}"; do
       [[ -d $dir ]] && collect="${collect}:${dir}" || :
     done
     echo $collect
@@ -120,33 +97,6 @@ set_path() {
   local ipath="$(path_check ${inc_paths[@]})"
   local cpath=$ipath
 
-  # Source system profiles and then intel profiles
-  local SYS_PROF='/etc/profile.d'
-  if [[ -d SYS_PROF ]]; then
-    for f in "${SYS_PROF}/*.sh"; do
-      builtin source $f
-    done
-  fi
-
-  # TODO Determine how intel64 linking affects MIC linking
-  local INTEL_PROF='/opt/intel/bin/compilervars.sh'
-  local INTEL_ARCH='intel64'
-  local INTEL_VAR=(
-    "/opt/intel/advisor_xe/advixe-vars.sh"
-    "/opt/intel/inspector_xe/inspxe-vars.sh"
-    "/opt/intel/vtune_amplifier_xe/amplxe-vars.sh"
-  )
-  if [[ -f $INTEL_PROF ]]; then 
-    builtin source $INTEL_PROF $INTEL_ARCH 
-    local INTEL_MIKE='/opt/intel/mkl/bin/mklvars.sh'
-    local INTEL_MARC='mic'
-    command -v micnativeloadex &>/dev/null && \
-      builtin source $INTEL_MIKE $INTEL_MARC || :
-    for file in ${INTEL_VAR[@]}; do
-      [[ -f "${file}" ]] && builtin source ${file} 'quiet' || :
-    done
-  fi
-
   # Append old path to new path, remove redundancies, preserve order
   export PATH=$(awk_magic "$xpath:$PATH")
   export CPATH=$(awk_magic "$cpath:$CPATH")
@@ -154,30 +104,6 @@ set_path() {
   export MANPATH=$(awk_magic "$mpath:$MANPATH")
   export LIBRARY_PATH=$(awk_magic "$lbpth:$LIBRARY_PATH")
   export LD_LIBRARY_PATH=$(awk_magic "$ldpth:$LD_LIBRARY_PATH")
-  unset xpath mpath ldpth lbpth ipath cpath
-}
-
-# Variables for Directory Names
-common_dir_init() {
-  if [[ "$(uname -s)" == "Darwin" ]]; then
-    USER_HOME="/Users/${USER}"
-#   ROOT_HOME="/private/var/root"
-  else
-    USER_HOME="/home/${USER}"
-#   ROOT_HOME="/etc/root"
-  fi
-  DSTACK=( $USER_HOME ) #$ROOT_HOME )
-  # Various directories and files 
-  DOCDIR="${HOME}/.local/etc/docs"
-  INETDIR="${DOCDIR}/inet"
-  NOTEFILE="${DOCDIR}/notes.txt"
-  TASKFILE="${DOCDIR}/tasks.txt"
-  INETGEOFILE="${INETDIR}/geo.xml"
-  ! [[ -d $DOCDIR      ]] && mkdir -m 700 $DOCDIR || :
-  ! [[ -d $INETDIR     ]] && mkdir -p $INETDIR    || :
-  ! [[ -f $NOTEFILE    ]] && touch $NOTEFILE      || :
-  ! [[ -f $TASKFILE    ]] && touch $TASKFILE      || :
-  ! [[ -f $INETGEOFILE ]] && touch $INETGEOFILE   || :
 }
 
 # Setting PS1 style 
@@ -309,43 +235,6 @@ easy-ip() {
   fi
 }
 
-easy_ip_geo() {
-  # TODO - Create unique XML for every new location.
-  # TODO - Parse XML into data type that is better.
-  # TODO - Turn into seperate program.
-  # TODO - Find ethical use for the data.
-  ping -c 1 google.com &> /dev/null
-  if [[ $? -eq 0 ]]; then
-    [[ -z $IP_ADDR_PUB ]] && easy-ip &> /dev/null
-    [[ -d "${INETDIR}" ]] || mkdir "${GEO_DATA_DIR}" &> /dev/null
-    local WEBADDR="http://services.ipaddresslabs.com/iplocation/locateip?key=demo&ip="
-    local IP_GEO_STR="${WEBADDR}${IPADDR_PUB}"
-    echo "Creating xml of ip geo data at ${INETGEOFILE}"
-    curl -s "${IP_GEO_STR}" -o "${INETGEOFILE}" &> /dev/null
-  else
-    echo "No network connection."
-  fi
-}
-
-geo_ip_info() {
-  # Takes ip from command line options and returns xml data generated by ipaddresslabs
-  # ping -c 1 google.com &> /dev/null
-  # [[ $? -ne 0 ]] && echo "No network connection."; return 1
-  local IP_TARGET=${1}
-  echo $IP_TARGET
-  if [[ -n $IP_TARGET ]]; then
-    local WEBADDR="http://services.ipaddresslabs.com/iplocation/locateip?key=demo&ip="
-    local IP_GEO_STR="${WEBADDR}${IP_TARGET}"
-    curl -s "${IP_GEO_STR}"
-  else
-    echo "No target provided."
-  fi
-}
-
-duh() {
-  du --si $1 | tail -1
-}
-
 now() {
   echo $(date +"%FT%T%z")
 }
@@ -407,28 +296,10 @@ h2unicode() {
   echo ''
 }
 
-task_checker() {
-  local taskcount=$(wc -w $TASKFILE | cut -d ' ' -f 1)
-  [[ $taskcount -ne 0 ]] && echo -e \
-    "\033[38;05;168mThere are tasks that need to be completed.\
-    \nPlease check $TASKFILE for more info.\033[m"
-}
-
-task() {
-  # TODO -- Count number of lines in task file, and automatically enumerate.
-  local TASKS_APPEND="${@}"
-  echo -e $TASKS_APPEND >> $TASKFILE
-}
-
-note() { 
-  local NOTE_APPEND="${@}"
-  echo -e $NOTE_APPEND >> $NOTEFILE
-}
-
 # ======================================================================
 # World Clock
 wdate() {
-  zones=(
+  local zones=(
     "Pacific/Midway"
     "Pacific/Honolulu"
     "America/Anchorage"
@@ -444,8 +315,12 @@ wdate() {
     "Australia/Melbourne"
   )
   for zone in ${zones[@]}; do
-    dstr="$(TZ=$zone gdate '+%Y %m %d T %H:%M:%S:%::z' )"
-    zstr="${zone#*/}"
+    local dcmd=date
+    if [[ $(uname -s) == "Darwin" ]]; then
+      local dcmd=gdate
+    fi
+    local dstr="$(TZ=$zone $dcmd '+%Y %m %d T %H:%M:%S:%::z' )"
+    local zstr="${zone#*/}"
     printf '%20s :: %20s\n' "${zstr//_/ }" "${dstr}"
   done
 }
@@ -513,7 +388,6 @@ calc() {
 }
 
 ### INITIALIZATION -----------------------------------------------------
-common_dir_init
 set_path
 ### --------------------------------------------------------------------
 

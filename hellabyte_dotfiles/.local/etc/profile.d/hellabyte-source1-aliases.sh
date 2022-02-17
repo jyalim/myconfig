@@ -85,7 +85,7 @@ case "$(uname -s)" in
     alias "acroread"='open -a "/Applications/Adobe Acrobat Reader DC.app/"'
     ;;
   "Linux")
-    alias "ls"='ls --color'
+    alias "ls"='ls --color=auto'
     linux_distributions=(ubuntu centos arch)
     for f in ${linux_distributions[@]}; do
       cat /etc/*-release | grep -i "${f}" &> /dev/null &&
@@ -94,11 +94,11 @@ case "$(uname -s)" in
             :
             ;;
           "ubuntu")
-            alias "upup"="sudo apt-get update && sudo apt-get upgrade"
-            alias "open"="xdg-open"
+#           alias "upup"="sudo apt-get update && sudo apt-get upgrade"
+#           alias "open"="xdg-open"
             ;;
           "arch")
-            alias "pm"="sudo pacman"
+#           alias "pm"="sudo pacman"
             ;;
           : | * )
             :
@@ -111,45 +111,20 @@ case "$(uname -s)" in
       ;;
 esac
 
-
 ## Allow sudo to accept aliases
-alias sudo='sudo '
+#alias sudo='sudo '
 
 # General Aliases
 
-alias "bls"="/bin/ls"
-alias "lsa"="ls -aF"
-alias "lsl"="ls -lF"
-alias "lsf"="ls -F"
-alias "lltr"="ls -altr"
 alias "lsd"="ls -lFd ${ls_style}"
 alias "la"="ls -aF ${ls_style}"
-alias "lA"="ls -AF ${ls_style}"
 alias "ll"="ls -alF ${ls_style}"
-alias "lL"="ls -alFi ${ls_style}"
-alias "lf"="ls -F ${ls_style}"
-alias "lg"="ls -gF ${ls_style}"
-alias "lS"="ls -lSF ${ls_style}"
-alias "llt"="ll -tr ${ls_style}"
 alias "grep"="grep --color=auto -i"
-alias "fgrep"="fgrep --color=auto -i"
 alias '.....'='cd ../../../..'
 alias '....'='cd ../../..'
 alias '...'='cd ../..'
 alias '..'='cd ..'
 alias '.-'='cd -'
-alias '.d'='cd ~/Desktop'
-alias '.r'='cd /'
-command -v vim &> /dev/null && alias "vi"='vim'; \
-  alias "svi"='sudo vim'; \
-  alias "svim"='svi' || :
-alias "jobs"='jobs -l'
-alias "pt"='ping -c 3'
-alias "ptg"='pt 8.8.8.8'
-alias "py"='python'
-alias "pyc"="python -c"
-alias "git-branch-actual"="git rev-parse --abbrev-ref HEAD"
-alias "sshy"='ssh -Y'
 
 swhich ipython && { 
   alias "ipy"="ipython" 

@@ -72,8 +72,8 @@ if [[ $TERM != "dumb" ]] && [[ -e ~/.dircolors ]]; then
 fi
 
 
-# CRAPPY SOFTWARE HACKING MY ENVIRONMENT
-if [[ "$(uname -s)" == "Darwin" ]]; then
-  builtin source $HOME/.local/etc/confs/conda/osx
+## CRAPPY SOFTWARE HACKING MY ENVIRONMENT
+#if [[ "$(uname -s)" == "Darwin" ]]; then
+# builtin source $HOME/.local/etc/confs/conda/osx
 # builtin source $HOME/.local/etc/confs/nvm/osx
-fi
+#fi

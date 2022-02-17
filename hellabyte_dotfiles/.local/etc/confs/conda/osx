@@ -2,14 +2,14 @@
 
 # >>> CRAPPY CONDA INITIALIZE >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/pafnuty/.local/opt/anaconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+__conda_setup="$("$HOME/.local/opt/anaconda/bin/conda" 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
   eval "$__conda_setup"
 else
-  if [ -f "/Users/pafnuty/.local/opt/anaconda/etc/profile.d/conda.sh" ]; then
-    . "/Users/pafnuty/.local/opt/anaconda/etc/profile.d/conda.sh"  
+  if [ -f "${HOME}/.local/opt/anaconda/etc/profile.d/conda.sh" ]; then
+    . "${HOME}/.local/opt/anaconda/etc/profile.d/conda.sh"  
   else
-    export PATH=$(awk_magic ":/Users/pafnuty/.local/opt/anaconda/bin:$PATH")
+    export PATH=$(awk_magic ":${HOME}/.local/opt/anaconda/bin:$PATH")
   fi
 fi
 unset __conda_setup
