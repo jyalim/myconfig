@@ -9,7 +9,7 @@
 force_opt=${1:-''}
 prefix=${2:-"$HOME"}
 srcdir="hellabyte_dotfiles"
-upkdir="${srcdir}/"
+upkdir="${srcdir}"
 tardir="${prefix}"
 bakdir="${tardir}/.local/var/configuration-backups"
 now=$(date +"%Y.%m.%d-%H.%M")
@@ -24,7 +24,7 @@ if ! [[ -d "$spcdir" ]]; then
   echo "------"
 fi
 
-for d in $(find "$upkdir" -type d -print); do
+for d in "$(find $upkdir -type d -print)"; do
   relative_dname="${d#*/}"
   target_dname="${tardir}/${relative_dname}"
   if ! [[ -d "$target_dname" ]]; then
@@ -32,15 +32,15 @@ for d in $(find "$upkdir" -type d -print); do
   fi
 done #| xargs -P $procs -I {} echo {}
 
-for f in $(find "$upkdir" -type f -print); do 
+for f in "$(find $upkdir -type f -print)"; do 
   relative_fname="${f#*/}"
   target_fname="${tardir}/${relative_fname}"
   if ! [[ -e "$target_fname" ]]; then
     echo "$target_fname not found, freshly installing"
     cp -v "$f" "$target_fname"
   else
-    diff_res=$(diff -q $f $target_fname)
-    if ! [[ -z $diff_res ]]; then
+    diff_res="$(diff -q $f $target_fname)"
+    if ! [[ -z "$diff_res" ]]; then
       echo "$target_fname found, backing up then installing"
       relative_dname="${relative_fname%/*}"
       bakspcdir="${spcdir}/${relative_dname}"
