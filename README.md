@@ -10,14 +10,15 @@ Heavily tested with kernels Darwin and Linux (flavors Ubuntu, Arch, and
 CentOS).
 
 Note that your old configuration files will be backed up to
-`$HOME/.local/var` under the relevant date.  Further, the `.bashrc`
-should be used to source custom functions and files that you may have,
-and will always source all the `.sh` files in
-`$HOME/.local/etc/profile.d/`.  
+`$HOME/.local/var` under the relevant date.
+Further, the `.bashrc` should be used to source custom functions and
+files that you may have, and will always source all the `.sh` files in
+`$HOME/.local/etc/profile.d/`.
 Thus, if you had functions in your old configuration that you liked,
-place them in `$HOME/.local/etc/profile.d/` with extension `.sh`e, and
-your new `.bashrc` will properly source them (e.g.
-`$HOME/.local/etc/profile.d/login.sh` for local configuration settings).
+place them in `$HOME/.local/etc/profile.d/` with extension `.sh`, and
+your new `.bashrc` will properly source them.
+For instance, use `$HOME/.local/etc/profile.d/login.sh` for setting
+local configuration changes.
 
 Installing 
 ==========
