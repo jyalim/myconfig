@@ -24,7 +24,9 @@ if ! [[ -d "$spcdir" ]]; then
   echo "------"
 fi
 
-for d in "$(find $upkdir -type d -print)"; do
+mapfile -t directories < <(find "$upkdir" -type d)
+
+for d in "${directories[@]}"; do
   relative_dname="${d#*/}"
   target_dname="${tardir}/${relative_dname}"
   if ! [[ -d "$target_dname" ]]; then
@@ -32,7 +34,9 @@ for d in "$(find $upkdir -type d -print)"; do
   fi
 done #| xargs -P $procs -I {} echo {}
 
-for f in "$(find $upkdir -type f -print)"; do 
+mapfile -t files < <(find "$upkdir" -type f)
+
+for f in "${files[@]}"; do 
   relative_fname="${f#*/}"
   target_fname="${tardir}/${relative_fname}"
   if ! [[ -e "$target_fname" ]]; then
