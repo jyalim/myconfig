@@ -299,6 +299,7 @@ inoremap <C-x><C-g> :Tabularize /
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
 
+
 " EMACS keybindings for insert mode
 inoremap §     <C-[>
 inoremap <C-f> <Right>
@@ -470,13 +471,13 @@ set noacd
 set omnifunc=syntaxcomplete#Complete
 
 " visual-multi (VM cursors)
-let g:VM_theme                   = 'iceblue'
-let g:VM_leader                  = 'vm'
-let g:VM_maps                    = {}
-let g:VM_maps['Add Cursor Up']   = '<C-k>'
-let g:VM_maps['Add Cursor Down'] = '<C-j>'
-let g:VM_maps['Move Right']      = '<C-l>'
-let g:VM_maps['Move Left']       = '<C-h>'
+let g:VM_theme              = 'iceblue'
+let g:VM_leader             = 'vm'
+let g:VM_maps               = {}
+let g:VM_maps['Move Up']    = '<C-k>'
+let g:VM_maps['Move Down']  = '<C-j>'
+let g:VM_maps['Move Right'] = '<C-l>'
+let g:VM_maps['Move Left']  = '<C-h>'
 
 let g:longlines = 0
 
