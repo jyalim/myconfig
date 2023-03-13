@@ -1,0 +1,4 @@
+## battery drain in sleep due to network access
+# re-enable w/ 1
+sudo pmset -a powernap 0
+sudo pmset -a tcpkeepalive 0

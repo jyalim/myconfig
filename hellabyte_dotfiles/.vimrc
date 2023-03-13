@@ -227,33 +227,6 @@ set complete+=k
 
 let asyncfile = &backupdir . '/scratch'
 
-" From http://vim.wikia.com/wiki/Capture_ex_command_output
-function! TabMess(cmd)
-  redir => message
-  silent execute a:cmd
-  redir END
-  tabnew
-  setlocal buftype=nowrite bufhidden=unload noswapfile
-  silent put=message
-  set nomodified
-endfunction
-command! -nargs=+ -complete=command TabMess call TabMess(<q-args>)
-
-command! -nargs=1 -complete=shellcmd TabMessage tabnew 
-      \ | setlocal buftype=nowrite bufhidden=unload noswapfile 
-      \ | execute ':read !'.<q-args>
-
-command! -nargs=1 -complete=shellcmd Async
-      \ | execute ':!' . <q-args> . ' > ' . asyncfile . ' & '
-
-command! AsyncTab tabnew
-      \ | setlocal buftype=nowrite bufhidden=unload noswapfile 
-      \ | execute ':read ' . asyncfile
-
-command! -nargs=1 -complete=shellcmd S 
-      \ | execute ':silent !'.<q-args>
-      \ | execute ':redraw!'
-
 "" Group Closing
 inoremap (<cr>  ()<Left><CR><CR><C-D><Up><tab>
 inoremap {<cr>  {}<Left><CR><CR><C-D><Up><tab>
@@ -287,14 +260,6 @@ nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
-nnoremap <C-x><C-t> :Tabularize /=<C-j>
-vnoremap <C-x><C-t> :Tabularize /=<C-j>
-inoremap <C-x><C-t> :Tabularize /=<C-j>
-
-nnoremap <C-x><C-g> :Tabularize /
-vnoremap <C-x><C-g> :Tabularize /
-inoremap <C-x><C-g> :Tabularize /
-
 " Speed up paging
 nnoremap <C-e> 5<C-e>
 nnoremap <C-y> 5<C-y>
@@ -314,11 +279,15 @@ inoremap <C-u> <C-o>d0
 inoremap <C-y> <C-r>
 inoremap <C-r> <C-o>F
 inoremap <C-d> <delete>
-"inoremap <C-l> <C-o><C-r> 
-"inoremap <C-z> <C-o>u
-
-inoremap <C-t> <C-o>x<C-o>p
+inoremap <C-]> <C-o>f
 inoremap <C-s> <C-o>f
+inoremap <C-t> <C-o>x<C-o>p
+" meta/alt/option keystrokes
+"inoremap <Esc><C-]> <C-o>F
+"inoremap <Esc>b     <C-o>B
+"inoremap <Esc>f     <C-o>E<Right>
+"inoremap <Esc>c     <C-o>~
+"inoremap <Esc>d     <C-o>dW
 "inoremap <Return> <C-j>
 inoremap <C-x><C-a> <C-a> 
 inoremap <C-x><C-b> <C-d> 
@@ -347,8 +316,6 @@ nmap <leader>; :
 nmap <leader>c :!
 nmap <leader>t :r!date '+\%H:\%M:\%S '<C-j>
 nmap <leader>T :r!date '+\%Y-\%m-\%dT\%H:\%M:\%S '<C-j>
-nmap <leader>m :TabMessage 
-nmap <leader>M :!AsyncTab
 nmap <leader>n :set invrnu<C-j>
 nmap <leader>A :!Async
 nmap <leader>S :!S
@@ -431,21 +398,6 @@ autocmd Syntax * call HighlightKeywords()
 " Allows for system clipboard pasted text to not be butchered by
 " builtin autoindent.
 set pastetoggle=<F2>
-
-""command! -nargs=* -complete=shellcmd S new | 
-""      \ setlocal buftype=nofile bufhidden=hide noswapfile |
-""      \ r !<args>
-
-"" 
-" http://vim.wikia.com/wiki/Diff_current_buffer_and_the_original_file
-function! s:DiffWithSaved()
-  let filetype=&ft
-  diffthis
-  vnew | r # | normal! 1Gdd
-  diffthis
-  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-endfunction
-com! DiffSaved call s:DiffWithSaved()
 
 let g:markdown_fenced_languages = [
     \ 'css', 'erb=eruby', 'javascript', 'js=javascript', 

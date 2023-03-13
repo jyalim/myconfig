@@ -15,8 +15,8 @@
 # without breaking ls_style for all systems.
 newline='
 '
-fmt1='%Y-%m-%d %H:%M'
-fmt2='%Y-%m-%d %H:%M'
+fmt1='%Y-%m-%dT%H:%M'
+fmt2='%Y-%m-%dT%H:%M'
 ls_style="--si --sort=version --time-style=+'${fmt1}${newline}${fmt2}'"
 
 case "$(uname -s)" in
