@@ -29,7 +29,7 @@ case "$(uname -s)" in
       swhich $cmd && alias ${cmd[@]:1}="$cmd $opt" || :
     }
     gnu_tools_general=(
-      gcal gcat gchgrp gchmod gchown gcp gcut gdate gdircolors gdf
+      gcat gchgrp gchmod gchown gcp gcut gdate gdircolors gdf
       gdu gecho gfind ggetopt ghead gkill gln glocate gmkdir gmv gnl
       gpwd grm gsed gsplit gsort gstat gsync gtac gtail gnutar greadlink
       grealpath grsync gtar gtee gtest gtouch gtty guniq gunits gunlink
@@ -82,7 +82,6 @@ case "$(uname -s)" in
     } || :
     alias "vlc"='/Applications/VLC.app/Contents/MacOS/VLC' || :
     alias "ptop"='top -stats pid,command,cpu,th,mem,pstate,time,power'
-    alias "acroread"='open -a "/Applications/Adobe Acrobat Reader DC.app/"'
     ;;
   "Linux")
     alias "ls"='ls --color=auto'

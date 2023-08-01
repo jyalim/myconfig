@@ -6,7 +6,7 @@
 
 # QT is pretty, but slow
 #set term x11 enhanced font 'times,25' size '1000,450'
-set term qt enhanced font 'SFPro,25' size 1000,450
+set term qt enhanced font '/Library/Fonts/SF-Pro-Display-Regular.otf,25' size 1000,450
 
 # Enable Macros
 set macros

@@ -2,3 +2,4 @@
 # re-enable w/ 1
 sudo pmset -a powernap 0
 sudo pmset -a tcpkeepalive 0
+# view settings with pmset -g

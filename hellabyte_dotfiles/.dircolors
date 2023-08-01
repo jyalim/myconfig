@@ -79,6 +79,8 @@ EXEC                  38;05;040 # for files with executible bit
 # image formats
 *.eps        38;05;37
 *.jpg        38;05;37
+*.jpeg       38;05;37
+*.JPEG       38;05;37
 *.png        38;05;37
 *.gif        38;05;37
 *.bmp        38;05;37
