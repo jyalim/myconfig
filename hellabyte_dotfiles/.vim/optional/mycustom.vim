@@ -12,10 +12,6 @@ set shiftwidth=2          " Size of indent
 set expandtab             " Spaces instead of tabs
 set softtabstop=2         " combination of previous two
 
-nmap <leader>p :!python %<C-j>
-
-autocmd BufEnter *.py set ai sw=2 ts=2 sta et fo=croql
-
 set timeoutlen=500
 
 set textwidth=72

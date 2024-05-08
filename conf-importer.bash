@@ -83,10 +83,12 @@ special_a="${loc_ship}/.vim/.netrwhist"
 special_b="${loc_ship}/.vim/.undo"
 special_c="${loc_ship}/.vim/.state"
 special_d="${loc_ship}/.vim/.tmp"
+special_e="${loc_ship}/.vim/python/__pycache__"
 [[ -f $special_a ]] && : > $special_a || :
 [[ -d $special_b ]] && rm -rf $special_b || :
 [[ -d $special_c ]] && rm -rf $special_c || :
 [[ -d $special_d ]] && rm -rf $special_d || :
+[[ -d $special_e ]] && rm -rf $special_e || :
 
 #cd $loc_ship
 #tar czf $loc_tarb ./

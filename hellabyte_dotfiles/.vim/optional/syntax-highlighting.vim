@@ -23,6 +23,7 @@ if has("autocmd")
   au Filetype pov set syntax=fortran
   au Filetype gplot,gp set syntax=gnuplot
   au Filetype applescript,osa set syntax=applescript
+  autocmd BufEnter *.py set ai sw=2 ts=2 sta et fo=croql
 endif
 
 set iskeyword+=_

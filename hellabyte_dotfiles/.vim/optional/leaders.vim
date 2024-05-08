@@ -17,7 +17,7 @@ nmap <leader>f :!open .<C-j>
 nmap <leader>w :w<C-j>
 nmap <leader>q :q
 nmap <leader>x :x
-nmap <leader>r :!%
+nmap <leader>X :!%
 " change directory to path of current file (useful after using buffer)
 nmap <leader>C :cd %:p:h
 nmap <leader>k :<C-p>
