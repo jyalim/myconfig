@@ -43,12 +43,15 @@ set_path() {
   #                         lib paths ${lib_paths[@]}
   #                         inc paths ${inc_paths[@]}
   local exe_paths=(
+    "${HOME}/.local/opt/mamba/bin"
     "${HOME}/.local/opt/conda/bin"
     "${HOME}/.local/bin" 
     "${HOME}/.local/sbin" 
     "${HOME}/.local/usr/bin" 
     "${HOME}/.local/usr/sbin" 
     "/opt/homebrew/bin" 
+    "/opt/homebrew/opt/util-linux/bin" 
+    "/opt/homebrew/opt/util-linux/sbin" 
     "/usr/local/bin"
     "/usr/local/sbin"
     "/usr/bin"
@@ -63,8 +66,11 @@ set_path() {
   local man_paths=( 
     "${HOME}/.local/share/man" 
     "${HOME}/.local/man" 
+    "${HOME}/.local/opt/mamba/share/man" 
+    "${HOME}/.local/opt/mamba/man" 
     "${HOME}/.local/opt/conda/share/man" 
     "${HOME}/.local/opt/conda/man" 
+    "/opt/homebrew/opt/util-linux/share/man" 
   )
   local lib_paths=( 
     "${HOME}/.local/lib" 

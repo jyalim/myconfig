@@ -67,6 +67,7 @@ Bf24='binary format="%24double" skip=512'
 Bf43='binary format="%43double" skip=512'
 Bf='binary format="%43double" skip=512'
 
+BF20='binary format="%20double" skip=512'
 BF21='binary format="%21double" skip=512'
 BF22='binary format="%22double" skip=512'
 BF='binary format="%25double" skip=512'
