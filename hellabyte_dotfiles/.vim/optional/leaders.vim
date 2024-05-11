@@ -7,11 +7,13 @@ nmap <leader>t :r!date '+\%H:\%M:\%S '<C-j>
 nmap <leader>T :r!date '+\%Y-\%m-\%dT\%H:\%M:\%S '<C-j>
 nmap <leader>n :set invrnu<C-j>
 nmap <leader>A :!Async
-nmap <leader>S :!S
+" useful for TeX files 
+nmap <leader>S :syntax spell toplevel<C-j> 
+nmap <leader>s :set invspell<C-j>
 nmap <leader>e :set invspell<C-j>
 nmap <leader>l :!lualatex %<C-j>
 nmap <leader>z :!pdflatex %<C-j>
-nmap <leader>p :!python %<C-j>
+nmap <leader>p :!/usr/bin/env python %<C-j>
 nmap <leader>o :!open
 nmap <leader>f :!open .<C-j>
 nmap <leader>w :w<C-j>
