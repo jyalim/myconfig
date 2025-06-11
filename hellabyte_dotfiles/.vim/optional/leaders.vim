@@ -1,4 +1,4 @@
-nmap <silent> <leader>s :set nolist!<CR>
+nmap <silent> <leader>e :set nolist!<CR>
 " Perform macro for common python calculation
 nmap <silent> <leader>q :r!python -c 'print <C-r><C-w> 
 nmap <leader>; :
@@ -10,7 +10,6 @@ nmap <leader>A :!Async
 " useful for TeX files 
 nmap <leader>S :syntax spell toplevel<C-j> 
 nmap <leader>s :set invspell<C-j>
-nmap <leader>e :set invspell<C-j>
 nmap <leader>l :!lualatex %<C-j>
 nmap <leader>z :!pdflatex %<C-j>
 nmap <leader>p :!/usr/bin/env python %<C-j>

@@ -34,10 +34,23 @@ local_confsdir="${loc_ship}/${confsdir}"
 local_fontsdir="${loc_ship}/${fontsdir}"
 owner=hellabyte
 names=( 
-        ".bashrc" ".bash_profile" ".tmux.conf" ".inputrc" ".htoprc" 
-        ".gvimrc" ".gnuplot" ".dircolors" ".vim" ".vimrc" ".toprc" 
-        ".project" ".plan" ".pythonrc" ".manpath" ".pentadactylrc"
-        ".juliarc.jl"
+  ".bashrc" 
+  ".bash_profile" 
+  ".tmux.conf" 
+  ".inputrc" 
+  ".htoprc" 
+  ".gvimrc" 
+  ".gnuplot" 
+  ".dircolors" 
+  ".vim" 
+  ".vimrc"
+  ".toprc"
+  ".project"
+  ".plan"
+  ".pythonrc"
+  ".manpath"
+  ".pentadactylrc"
+  ".juliarc.jl"
 )
 
 # Checks to see if tarball_contents file already exists. 
@@ -63,8 +76,15 @@ for f in ${profiles}/*; do
 done
 cp -r $proftemp ${local_proftemp%/*}
 cp -r $testsshp ${local_testsdir%/*}
-cp -r $confspwd ${local_confsdir%/*}
 cp -r $fontspwd ${local_fontsdir%/*}
+
+#cp -r $confspwd ${local_confsdir%/*}
+for p in ${confspwd}/*; do
+  bp=$(basename $p)
+  if ! [[ $bp =~ ^cloud ]]; then
+    cp -rv $p $local_confsdir
+  fi
+done
  
 for f in ${names[@]}; do
     # Make sure file exists, and force copy to ship directory

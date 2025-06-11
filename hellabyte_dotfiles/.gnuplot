@@ -72,6 +72,8 @@ BF21='binary format="%21double" skip=512'
 BF22='binary format="%22double" skip=512'
 BF='binary format="%25double" skip=512'
 BF24='binary format="%24double" skip=512'
+BF41='binary format="%41double" skip=512'
+BF4='binary format="%4double" skip=512'
 
 bind "ctrl-l" "set logscale y; set format y '%.2le%L'; replot"
 bind "ctrl-r" "reset; replot"

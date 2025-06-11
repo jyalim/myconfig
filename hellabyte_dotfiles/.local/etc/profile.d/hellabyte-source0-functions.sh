@@ -15,8 +15,7 @@
 # preserving order
 awk_magic() {
   local input=${1:-''}
-  local temp=$(awk 'BEGIN{ORS=RS=":"} !a[$0]++' <<< "${input}:")
-  echo ${temp%:*}
+  echo $(awk -v RS=":" '!a[$0]++' <<< "${input}" | tr -s '\n' ':')
 }
 
 # General which command (runs on Darwin {bsd} and Linux). Replicates the

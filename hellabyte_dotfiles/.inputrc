@@ -44,6 +44,10 @@ set bell-style visible
 # No case for li3f
 set completion-ignore-case on
 
+"\C-x\C-s": start-kbd-macro
+"\C-x\C-d": end-kbd-macro
+"\C-x\C-p": print-last-kbd-macro
+
 ## My Favorites:
 # These can all be listed with $ bind -p
 # \C-x\C-e: edit-and-execute-command
@@ -58,3 +62,4 @@ set completion-ignore-case on
 # \C-x$:    possible-variable-completions
 # \C-x\C-r: re-read-init-file
 # \C-x\C-u: undo (also \C-_)
+# \C-x e: run last kbd macro

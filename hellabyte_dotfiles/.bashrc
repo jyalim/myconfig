@@ -23,7 +23,7 @@ sourcing() {
     "Darwin" ) 
       if [[ -n $(type -t brew) ]]; then
         local BREW_PREFIX=$( brew --prefix ); 
-        local BREW_BASHCOMP_PATH="${BREW_PREFIX}/etc/bash_completion"; 
+        local BREW_BASHCOMP_PATH="${BREW_PREFIX}/etc/bash_completion.d"; 
         source_paths+=( $BREW_BASHCOMP_PATH ) 
      fi
     ;;
