@@ -13,10 +13,12 @@
 
 # Use awk magic (associative arrays) to remove duplicate paths while
 # preserving order
-awk_magic() {
-  local input=${1:-''}
-  echo $(awk -v RS=":" '!a[$0]++' <<< "${input}" | tr -s '\n' ':')
-}
+awk_magic() (
+  : << __FUNCTION_COMMENT
+  Unique filter on colon-delimited path strings, preserving order.
+__FUNCTION_COMMENT
+  awk -v RS=":" '!a[$0]++' <<< "$@" | tr -s '\n' ':'
+)
 
 # General which command (runs on Darwin {bsd} and Linux). Replicates the
 # -s flag from bsd which, runs silent, returns 0 or 1 if program found

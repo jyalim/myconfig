@@ -82,7 +82,7 @@ cp -r $fontspwd ${local_fontsdir%/*}
 for p in ${confspwd}/*; do
   bp=$(basename $p)
   if ! [[ $bp =~ ^cloud ]]; then
-    cp -rv $p $local_confsdir
+    cp -r $p $local_confsdir
   fi
 done
  
